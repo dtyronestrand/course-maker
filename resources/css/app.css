@@ -186,8 +186,9 @@
 @layer base {
     * {
         @apply border-border outline-ring/50;
-    } 
-    html, body {
+    }
+    html,
+    body {
         @apply items-center justify-center;
         background: linear-gradient(
             135deg,

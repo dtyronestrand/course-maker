@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
+    use AuthorizesRequests;
     public function index()
     {
         $this->authorize('viewAny', User::class);
@@ -17,9 +19,10 @@ class UserController extends Controller
         if (!auth()->user()->hasRole('admin')) {
             $query->where('current_team_id', auth()->user()->current_team_id);
         }
-
-        return Inertia::render('Users/Index', [
-            'users' => $query->get()
+        $users = $query->get();
+        $users->each(fn($user) => $user->role = $user->getRoleNames()->first());
+        return Inertia::render('users/Index', [
+            'users' => $users
         ]);
     }
 
@@ -27,7 +30,7 @@ class UserController extends Controller
     {
         $this->authorize('view', $user);
 
-        return Inertia::render('Users/Show', [
+        return Inertia::render('users/Show', [
             'user' => $user->load('currentTeam')
         ]);
     }
@@ -36,7 +39,7 @@ class UserController extends Controller
     {
         $this->authorize('update', $user);
 
-        return Inertia::render('Users/Edit', [
+        return Inertia::render('users/Edit', [
             'user' => $user
         ]);
     }
