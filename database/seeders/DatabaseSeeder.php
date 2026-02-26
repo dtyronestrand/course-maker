@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         
-        
-        User::factory(10)->create()->each(fn($user) => $user->assignRole(['lead', 'id', 'sme'][rand(0, 2)]));
+        User::factory(3)->create()->each(fn($user) => $user->assignRole('lead'));
+        User::factory(20)->create()->each(fn($user) => $user->assignRole(['id', 'sme'][rand(0, 1)]));
 
        
     }
