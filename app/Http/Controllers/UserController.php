@@ -17,9 +17,11 @@ class UserController extends Controller
         $query = User::query()->with('currentTeam');
 
         if (!auth()->user()->hasRole('admin')) {
-            $query->where('current_team_id', auth()->user()->current_team_id);
+         $users = $query->where('current_team_id', auth()->user()->current_team_id)->get();
+        } else {
+              $users = $query->get();
         }
-        $users = $query->get();
+      
         $users->each(fn($user) => $user->role = $user->getRoleNames()->first());
         return Inertia::render('users/Index', [
             'users' => $users

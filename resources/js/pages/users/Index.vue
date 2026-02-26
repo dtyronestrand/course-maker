@@ -6,9 +6,7 @@
             <h1 v-else>Users</h1>
         </div>
         <div>
-        <div v-for="user in page.props.users">
-            {{ user.name }} {{ user.role }}
-        </div>
+      <UserTable :users="page.props.users as User[]" />
         </div>
     </AppLayout>
 </template>
@@ -18,10 +16,12 @@ import { usePage, Head, App } from '@inertiajs/vue3';
 import type { BreadcrumbItem } from '@/types';
 import { computed } from 'vue';
 import { dashboard } from '@/routes';
-
+import type { User } from '@/types/auth';
+import UserTable from '@/components/UserTable.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index } from '@/routes/users';
 const page = usePage();
+
 const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     return [
         {

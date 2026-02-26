@@ -31,9 +31,7 @@ const showAvatar = computed(
     </Avatar>
 
     <div class="grid flex-1 text-left text-sm leading-tight">
-        <span class="truncate font-medium"
-            >{{ user.name }}: {{ user_role }}</span
-        >
+        <span class="truncate text-white font-medium">{{ user.name }}: </span> <span class="text-[#B0BEC5]">{{ user_role }}</span>
         <span v-if="showEmail" class="truncate text-xs text-muted-foreground">{{
             user.email
         }}</span>
