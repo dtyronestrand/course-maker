@@ -31,3 +31,9 @@ declare module 'vue' {
         $headManager: ReturnType<typeof createHeadManager>;
     }
 }
+
+export type Team = {
+    id: number;
+    name: string;
+    users: User[];
+}

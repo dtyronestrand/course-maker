@@ -12,7 +12,7 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from '@/components/ui/sidebar';
-import UserInfo from '@/components/UserInfo.vue';
+import UserInfo from '@/components/userinfo/UserInfo.vue';
 import UserMenuContent from './UserMenuContent.vue';
 
 const page = usePage();
