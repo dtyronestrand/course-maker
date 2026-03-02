@@ -29,6 +29,7 @@
                     :key="row.id"
                     class="group border-b hover:bg-slate-300 hover:text-slate-900"
                 >
+               
                     <td
                         v-for="cell in row.getVisibleCells()"
                         :key="cell.id"
@@ -39,6 +40,7 @@
                             :props="cell.getContext()"
                         />
                     </td>
+                
                 </tr>
             </tbody>
         </table>
@@ -48,6 +50,7 @@
 <script setup lang="ts">
 import type { User } from '@/types/auth';
 import { ref } from 'vue';
+import {Pencil} from 'lucide-vue-next';
 import {
     useVueTable,
     FlexRender,

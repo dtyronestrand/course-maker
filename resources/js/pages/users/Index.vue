@@ -8,7 +8,7 @@
                 <Button @click="showModal = true" class="glass">+ User</Button>
             </div>
         </div>
-        <div>
+        <div class="rounded">
             <UserTable :users="page.props.users as User[]" />
         </div>
         <Modal
@@ -24,17 +24,20 @@
                     <label for="name" class="mb-2 block">Name</label>
                     <input
                         type="text"
+                        v-model="form.name"
                         class="mb-4 w-full rounded border border-gray-300 p-2"
                         required
                     />
                     <label for="email" class="mb-2 block">Email</label>
                     <input
                         type="email"
+                        v-model="form.email"
                         class="mb-4 w-full rounded border border-gray-300 p-2"
                         required
                     />
                     <label for="role" class="mb-2 block">Role</label>
                     <select
+                        v-model="form.role"
                         class="mb-4 w-full rounded border border-gray-300 p-2"
                         required
                     >
@@ -66,6 +69,7 @@ const form = useForm({
     name: '',
     email: '',
     password: '',
+    role: 'id',
 });
 const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     return [
@@ -80,7 +84,14 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
         },
     ];
 });
-const addUser = () => {};
+const addUser = () => {
+    form.post('/users', {
+        onSuccess: () => {
+            showModal.value = false;
+            form.reset();
+        },
+    });
+};
 </script>
 
 <style scoped></style>

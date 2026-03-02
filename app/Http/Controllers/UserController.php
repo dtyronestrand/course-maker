@@ -95,4 +95,27 @@ class UserController extends Controller
 
         return redirect()->route('users.show', $user);
     }
+
+    public function add(Request $request)
+    {
+        $this->authorize('create', User::class);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'role' => 'required|string|in:id,lead,admin',
+        ]);
+
+        $password = str()->random(12);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated[$password]),
+        ]);
+
+        $user->assignRole($validated['role']);
+
+        return redirect()->route('users.index');
+    }
 }
