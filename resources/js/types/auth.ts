@@ -1,3 +1,5 @@
+import { Team } from './global';
+
 export type User = {
     id: number;
     name: string;
@@ -7,6 +9,7 @@ export type User = {
     created_at: string;
     updated_at: string;
     role?: string;
+    current_team?: Team;
     [key: string]: unknown;
 };
 

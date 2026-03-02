@@ -18,7 +18,6 @@ import AppLogo from './AppLogo.vue';
 import { dashboard } from '@/routes';
 import { index, teams } from '@/routes/users';
 
-
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
@@ -31,10 +30,10 @@ const mainNavItems: NavItem[] = [
         icon: User,
     },
     {
-        title: "Teams",
+        title: 'Teams',
         href: teams(),
         icon: Users,
-    }
+    },
 ];
 
 const footerNavItems: NavItem[] = [

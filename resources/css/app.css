@@ -190,7 +190,11 @@
     html,
     body {
         @apply items-center justify-center;
-   background: radial-gradient(ellipse farthest-corner at 50% 50%, #000428 0%, #004e92 100%);
+        background: radial-gradient(
+            ellipse farthest-corner at 50% 50%,
+            #000428 0%,
+            #004e92 100%
+        );
         background-attachment: fixed;
         color: var(--foreground);
         height: 100%;
