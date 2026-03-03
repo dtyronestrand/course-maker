@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="rounded">
-            <UserTable :users="page.props.users as User[]" />
+            <UserTable :teams="page.props.teams as Team[]" :users="page.props.users as User[]" />
         </div>
         <Modal
             :visible="showModal"
@@ -59,6 +59,7 @@ import type { BreadcrumbItem } from '@/types';
 import { computed, ref } from 'vue';
 import { dashboard } from '@/routes';
 import type { User } from '@/types/auth';
+import type { Team } from '@/types/global';
 import UserTable from '@/components/UserTable.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index } from '@/routes/users';

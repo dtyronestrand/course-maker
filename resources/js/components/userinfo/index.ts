@@ -29,7 +29,7 @@ export const fallbackVariants = cva('rounded-lg text-black dark:text-white', {
     },
 });
 
-export const roleVariants = cva('text-center text-lg text-white', {
+export const roleVariants = cva('text-center', {
     variants: {
         role: {
             default: '',

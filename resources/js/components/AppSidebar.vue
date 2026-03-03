@@ -11,12 +11,16 @@ import {
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
+    SidebarMenuSub,
+    SidebarRail,
+    SidebarGroup,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import AppLogo from './AppLogo.vue';
 import { dashboard } from '@/routes';
 import { index, teams } from '@/routes/users';
+
 
 const mainNavItems: NavItem[] = [
     {
@@ -25,29 +29,24 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Users',
+        title: 'People',
         href: index(),
         icon: User,
-    },
+        items: [{
+            title: 'Teams',
+            href: teams(),
+            icon: Users,
+        },
     {
-        title: 'Teams',
-        href: teams(),
-        icon: Users,
+          title: 'Users',
+        href: index(),
+        icon: User,
+    }]
     },
+   
 ];
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
-];
+
 </script>
 
 <template>
@@ -65,13 +64,17 @@ const footerNavItems: NavItem[] = [
         </SidebarHeader>
 
         <SidebarContent>
+        <SidebarGroup>
+        
             <NavMain :items="mainNavItems" />
+        </SidebarGroup>
         </SidebarContent>
 
         <SidebarFooter>
-            <NavFooter :items="footerNavItems" />
+           
             <NavUser />
         </SidebarFooter>
+        <SidebarRail/>
     </Sidebar>
     <slot />
 </template>

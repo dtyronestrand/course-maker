@@ -15,7 +15,7 @@ class UserController extends Controller
         $this->authorize('viewAny', User::class);
 
         $query = User::query()->with('currentTeam');
-       
+        $teams = \App\Models\Team::all()->map(fn($team) => ['id' => $team->id, 'name' => $team->name])->values();
         /** @var User $currentUser */
         $currentUser = auth()->user();
 
@@ -29,7 +29,7 @@ class UserController extends Controller
         $users->each(fn($user) => $user->role = $user->getRoleNames()->first());
         return Inertia::render('users/Index', [
             'users' => $users,
-           
+            'teams' => $teams
         ]);
     }
 
@@ -117,5 +117,14 @@ class UserController extends Controller
         $user->assignRole($validated['role']);
 
         return redirect()->route('users.index');
+    }
+
+    public function delete(User $user)
+    {
+        $this->authorize('delete', $user);
+
+        $user->destroy($user->id);
+
+        return redirect()->back()->with('success', 'User deleted successfully.');
     }
 }

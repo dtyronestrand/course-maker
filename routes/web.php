@@ -23,4 +23,6 @@ Route::put('/teams/{id}', [TeamController::class, 'update'])->name('teams.update
 Route::get('users/teams', [UserController::class, 'teams'])->name('users.teams');
 Route::post('teams', [TeamController::class, 'store'])->name('teams.store');
 Route::put('/users', [UserController::class, 'add'])->name('users.add');
+Route::delete('/users/{user}', [UserController::class, 'delete'])->name('users.delete');
+
 require __DIR__.'/settings.php';

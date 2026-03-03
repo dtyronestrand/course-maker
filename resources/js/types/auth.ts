@@ -9,7 +9,7 @@ export type User = {
     created_at: string;
     updated_at: string;
     role?: string;
-    current_team?: Team;
+    current_team?: Team | null;
     [key: string]: unknown;
 };
 

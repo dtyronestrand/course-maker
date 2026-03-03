@@ -28,8 +28,8 @@ const showAvatar = computed(
 </script>
 
 <template>
-    <div class="flex-wrapitems-center flex flex-col gap-4">
-        <div class="flex justify-center">
+    <div class="flex flex-row flex-wrap items-center gap-4">
+        <div class="flex">
             <Avatar :class="cn(avatarVariants({ avatar }))">
                 <AvatarImage
                     v-if="showAvatar"
@@ -43,11 +43,9 @@ const showAvatar = computed(
         </div>
 
         <div
-            class="flex flex-1 flex-col flex-wrap justify-between text-left text-sm leading-tight"
+            class="flex flex-1 flex-col flex-wrap text-left text-sm leading-tight"
         >
-            <span class="pt-2 text-center text-lg text-white"
-                >{{ user.name }}
-            </span>
+            <span class="text-center text-lg">{{ user.name }} </span>
             <span :class="cn(roleVariants({ role }))">{{ user_role }}</span>
             <span v-if="showEmail" class="text-xs text-muted-foreground">{{
                 user.email
