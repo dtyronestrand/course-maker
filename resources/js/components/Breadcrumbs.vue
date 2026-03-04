@@ -19,7 +19,7 @@ defineProps<Props>();
 
 <template>
     <Breadcrumb>
-        <BreadcrumbList>
+        <BreadcrumbList >
             <template v-for="(item, index) in breadcrumbs" :key="index">
                 <BreadcrumbItem>
                     <template v-if="index === breadcrumbs.length - 1">
