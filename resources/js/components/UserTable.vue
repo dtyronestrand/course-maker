@@ -1,19 +1,35 @@
 <template>
     <div class="overflow-x-auto">
-        <table class="text-md mb-4 w-full rounded shadow-md border-collapse">
+        <table class="text-md mb-4 w-full border-collapse rounded shadow-md">
             <thead>
-                <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id" class="border-b ">
+                <tr
+                    v-for="headerGroup in table.getHeaderGroups()"
+                    :key="headerGroup.id"
+                    class="border-b"
+                >
                     <th
                         v-for="header in headerGroup.headers"
                         :key="header.id"
                         scope="col"
-                        class="p-3 px-5 text-left uppercase text-sm font-semibold cursor-pointer select-none"
-                        @click="header.column.getToggleSortingHandler()?.($event)"
+                        class="cursor-pointer p-3 px-5 text-left text-sm font-semibold uppercase select-none"
+                        @click="
+                            header.column.getToggleSortingHandler()?.($event)
+                        "
                     >
                         <div class="flex items-center gap-2">
-                            <FlexRender :render="header.column.columnDef.header" :props="header.getContext()" />
-                            <span v-if="header.column.getIsSorted() === 'asc'">🔼</span>
-                            <span v-else-if="header.column.getIsSorted() === 'desc'">🔽</span>
+                            <FlexRender
+                                :render="header.column.columnDef.header"
+                                :props="header.getContext()"
+                            />
+                            <span v-if="header.column.getIsSorted() === 'asc'"
+                                >🔼</span
+                            >
+                            <span
+                                v-else-if="
+                                    header.column.getIsSorted() === 'desc'
+                                "
+                                >🔽</span
+                            >
                         </div>
                     </th>
                 </tr>
@@ -24,8 +40,15 @@
                     :key="row.id"
                     class="group border-b transition-colors hover:bg-slate-300 hover:text-slate-900"
                 >
-                    <td v-for="cell in row.getVisibleCells()" :key="cell.id" class="px-5 py-3 whitespace-nowrap">
-                        <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+                    <td
+                        v-for="cell in row.getVisibleCells()"
+                        :key="cell.id"
+                        class="px-5 py-3 whitespace-nowrap"
+                    >
+                        <FlexRender
+                            :render="cell.column.columnDef.cell"
+                            :props="cell.getContext()"
+                        />
                     </td>
                 </tr>
             </tbody>
@@ -36,7 +59,7 @@
 <script setup lang="ts">
 import type { User } from '@/types/auth';
 import { ref, h, computed, watch } from 'vue';
-import {router} from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 import { Pencil, Trash2 } from 'lucide-vue-next';
 import {
     useVueTable,
@@ -58,29 +81,33 @@ const data = ref([...props.users]); // Local copy of users for reactivity
 const sorting = ref<SortingState>([]);
 
 // Sync local data when prop changes (e.g., after delete)
-watch(() => props.users, () => {
-    data.value = [...props.users];
-}, { deep: true });
+watch(
+    () => props.users,
+    () => {
+        data.value = [...props.users];
+    },
+    { deep: true },
+);
 const isEditing = ref(false);
 const selectedUserId = ref<number | null>(null);
 
 // This holds the temporary values while the user is changing selects
 const editBuffer = ref({
-    role: '' ,
-    team_id: null as number | null
+    role: '',
+    team_id: null as number | null,
 });
 
 // Mock Team Data (Replace with your API fetch)
 const teams = computed(() => props.teams);
 
-const roles = ["lead", "id", "sme"];
+const roles = ['lead', 'id', 'sme'];
 
 // --- ACTIONS ---
 const startEdit = (user: User) => {
     selectedUserId.value = user.id;
     editBuffer.value = {
-        role: user.role as string || '',
-        team_id: user.current_team?.id || null
+        role: (user.role as string) || '',
+        team_id: user.current_team?.id || null,
     };
     isEditing.value = true;
 };
@@ -93,13 +120,15 @@ const cancelEdit = () => {
 const saveEdit = async (userId: number) => {
     // 1. Perform Backend API Call here (e.g., axios.put)
     // 2. Update local state on success:
-    const index = data.value.findIndex(u => u.id === userId);
+    const index = data.value.findIndex((u) => u.id === userId);
     if (index !== -1) {
-        const updatedTeam = teams.value.find(t => t.id === editBuffer.value.team_id);
+        const updatedTeam = teams.value.find(
+            (t) => t.id === editBuffer.value.team_id,
+        );
         data.value[index] = {
             ...data.value[index],
             role: editBuffer.value.role,
-            current_team: updatedTeam || null
+            current_team: updatedTeam || null,
         };
     }
     cancelEdit();
@@ -107,9 +136,9 @@ const saveEdit = async (userId: number) => {
 
 const deleteUser = (userId: number) => {
     if (confirm('Are you sure you want to delete this user?')) {
-       router.delete(`/users/${userId}`, {
-           onSuccess: () => router.reload({only:['users']})
-       });
+        router.delete(`/users/${userId}`, {
+            onSuccess: () => router.reload({ only: ['users'] }),
+        });
     }
 };
 
@@ -130,11 +159,16 @@ const columnsUsers = [
         header: 'Role',
         cell: ({ row }: any) => {
             if (isEditing.value && selectedUserId.value === row.original.id) {
-                return h('select', {
-                    value: editBuffer.value.role,
-                    onChange: (e: any) => editBuffer.value.role = e.target.value,
-                    class: 'w-full rounded border border-amber-500 p-1 text-sm bg-slate-300 text-slate-900',
-                }, roles.map(role => h('option', { value: role }, role)));
+                return h(
+                    'select',
+                    {
+                        value: editBuffer.value.role,
+                        onChange: (e: any) =>
+                            (editBuffer.value.role = e.target.value),
+                        class: 'w-full rounded border border-amber-500 p-1 text-sm bg-slate-300 text-slate-900',
+                    },
+                    roles.map((role) => h('option', { value: role }, role)),
+                );
             }
             return row.original.role;
         },
@@ -145,14 +179,21 @@ const columnsUsers = [
         sortingFn: sortTeamsFn,
         cell: ({ row }: any) => {
             if (isEditing.value && selectedUserId.value === row.original.id) {
-                return h('select', {
-                    value: editBuffer.value.team_id || '',
-                    onChange: (e: any) => editBuffer.value.team_id = Number(e.target.value),
-                    class: 'w-full rounded border border-gray-300 p-1 text-sm bg-white text-slate-900',
-                }, [
-                    h('option', { value: '' }, 'N/A'),
-                    ...teams.value.map(team => h('option', { value: team.id }, team.name))
-                ]);
+                return h(
+                    'select',
+                    {
+                        value: editBuffer.value.team_id || '',
+                        onChange: (e: any) =>
+                            (editBuffer.value.team_id = Number(e.target.value)),
+                        class: 'w-full rounded border border-gray-300 p-1 text-sm bg-white text-slate-900',
+                    },
+                    [
+                        h('option', { value: '' }, 'N/A'),
+                        ...teams.value.map((team) =>
+                            h('option', { value: team.id }, team.name),
+                        ),
+                    ],
+                );
             }
             return row.original.current_team?.name || 'N/A';
         },
@@ -162,31 +203,40 @@ const columnsUsers = [
         header: '',
         cell: ({ row }: any) => {
             const user = row.original as User;
-            const isThisRowEditing = isEditing.value && selectedUserId.value === user.id;
+            const isThisRowEditing =
+                isEditing.value && selectedUserId.value === user.id;
 
             if (isThisRowEditing) {
                 return h('div', { class: 'flex gap-2 items-center' }, [
-                    h('button', {
-                        class: 'rounded bg-green-500 px-3 py-1 text-xs text-white hover:bg-green-600',
-                        onClick: (e: Event) => {
-                            e.stopPropagation();
-                            saveEdit(user.id);
+                    h(
+                        'button',
+                        {
+                            class: 'rounded bg-green-500 px-3 py-1 text-xs text-white hover:bg-green-600',
+                            onClick: (e: Event) => {
+                                e.stopPropagation();
+                                saveEdit(user.id);
+                            },
                         },
-                    }, 'Save'),
-                    h('button', {
-                        class: 'rounded bg-red-500 px-3 py-1 text-xs text-white hover:bg-red-600',
-                        onClick: (e: Event) => {
-                            e.stopPropagation();
-                            cancelEdit();
+                        'Save',
+                    ),
+                    h(
+                        'button',
+                        {
+                            class: 'rounded bg-red-500 px-3 py-1 text-xs text-white hover:bg-red-600',
+                            onClick: (e: Event) => {
+                                e.stopPropagation();
+                                cancelEdit();
+                            },
                         },
-                    }, 'Cancel'),
+                        'Cancel',
+                    ),
                     h(Trash2, {
                         class: 'w-4 h-4 text-red-500 cursor-pointer hover:text-red-700 ml-1',
                         onClick: (e: Event) => {
                             e.stopPropagation();
                             deleteUser(user.id);
                         },
-                    })
+                    }),
                 ]);
             }
 
@@ -204,15 +254,18 @@ const columnsUsers = [
 ];
 
 const table = useVueTable({
-    data: data.value , // Crucial for reactivity
+    data: data.value, // Crucial for reactivity
     columns: columnsUsers,
     state: {
-        get sorting() { return sorting.value },
+        get sorting() {
+            return sorting.value;
+        },
     },
     onSortingChange: (updaterOrValue) => {
-        sorting.value = typeof updaterOrValue === 'function' 
-            ? updaterOrValue(sorting.value) 
-            : updaterOrValue;
+        sorting.value =
+            typeof updaterOrValue === 'function'
+                ? updaterOrValue(sorting.value)
+                : updaterOrValue;
     },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),

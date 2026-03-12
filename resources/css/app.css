@@ -96,7 +96,7 @@
         box-shadow: var(--glass-shadow);
         border-radius: 16px;
     }
-        input {
+    input {
         background: var(--color-slate-300);
     }
 }
@@ -111,8 +111,8 @@
     --card-foreground: hsl(0 0% 3.9%);
     --popover: var(--background);
     --popover-foreground: var(--color-slate-200);
-    --primary: hsl(0 0% 9%);
-    --primary-foreground: hsl(0 0% 98%);
+    --primary: var(--color-amber-500);
+    --primary-foreground: var(--color-amber-950);
     --secondary: hsl(0 0% 92.1%);
     --secondary-foreground: hsl(0 0% 9%);
     --muted: var(--color-amber-50);
@@ -206,5 +206,8 @@
         gap: 20px;
         scroll-behavior: smooth;
         overscroll-behavior: none;
+    }
+    h1, h2, h3 {
+        color: var(--color-amber-500);
     }
 }

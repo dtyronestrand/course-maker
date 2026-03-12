@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, User, Users, Folder, LayoutGrid } from 'lucide-vue-next';
+import {
+    BookOpen,
+    User,
+    Users,
+    Folder,
+    Cog,
+    LayoutGrid,
+} from 'lucide-vue-next';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
@@ -19,8 +26,8 @@ import {
 import { type NavItem } from '@/types';
 import AppLogo from './AppLogo.vue';
 import { dashboard } from '@/routes';
+import adminsettings from '@/routes/adminsettings';
 import { index, teams } from '@/routes/users';
-
 
 const mainNavItems: NavItem[] = [
     {
@@ -32,21 +39,30 @@ const mainNavItems: NavItem[] = [
         title: 'People',
         href: index(),
         icon: User,
-        items: [{
-            title: 'Teams',
-            href: teams(),
-            icon: Users,
-        },
-    {
-          title: 'Users',
-        href: index(),
-        icon: User,
-    }]
+        items: [
+            {
+                title: 'Teams',
+                href: teams(),
+                icon: Users,
+            },
+            {
+                title: 'Users',
+                href: index(),
+                icon: User,
+            },
+        ],
     },
-   
+    {
+        title: 'Courses',
+        href: '#',
+        icon: BookOpen,
+    },
+    {
+        title: 'Settings',
+        href: adminsettings.index(),
+        icon: Cog,
+    },
 ];
-
-
 </script>
 
 <template>
@@ -64,17 +80,15 @@ const mainNavItems: NavItem[] = [
         </SidebarHeader>
 
         <SidebarContent>
-        <SidebarGroup>
-        
-            <NavMain :items="mainNavItems" />
-        </SidebarGroup>
+            <SidebarGroup>
+                <NavMain :items="mainNavItems" />
+            </SidebarGroup>
         </SidebarContent>
 
         <SidebarFooter>
-           
             <NavUser />
         </SidebarFooter>
-        <SidebarRail/>
+        <SidebarRail />
     </Sidebar>
     <slot />
 </template>

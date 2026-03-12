@@ -181,8 +181,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import UserInfo from '@/components/userinfo/UserInfo.vue';
 import { Pencil } from 'lucide-vue-next';
 const page = usePage<{
-    teams:Team[] | null;
-      
+    teams: Team[] | null;
 }>();
 const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     return [

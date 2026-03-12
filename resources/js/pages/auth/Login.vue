@@ -43,7 +43,7 @@ defineProps<{
                 <div class="grid gap-2 text-amber-400">
                     <Label for="email">Email address</Label>
                     <Input
-                    class="text-slate-700"
+                        class="text-slate-700"
                         id="email"
                         type="email"
                         name="email"
@@ -57,7 +57,9 @@ defineProps<{
                 </div>
 
                 <div class="grid gap-2">
-                    <div class="flex items-center justify-between text-amber-400">
+                    <div
+                        class="flex items-center justify-between text-amber-400"
+                    >
                         <Label for="password">Password</Label>
                         <TextLink
                             v-if="canResetPassword"
@@ -81,7 +83,7 @@ defineProps<{
                     <InputError :message="errors.password" />
                 </div>
 
-                <div class="flex items-center text-amber-400 justify-between">
+                <div class="flex items-center justify-between text-amber-400">
                     <Label for="remember" class="flex items-center space-x-3">
                         <Checkbox id="remember" name="remember" :tabindex="3" />
                         <span>Remember me</span>
@@ -90,7 +92,7 @@ defineProps<{
 
                 <Button
                     type="submit"
-                    class="mt-4 bg-amber-500 w-full"
+                    class="mt-4 w-full bg-amber-500"
                     :tabindex="4"
                     :disabled="processing"
                     data-test="login-button"
@@ -100,10 +102,7 @@ defineProps<{
                 </Button>
             </div>
 
-            <div
-                class="text-center text-sm text-amber-400"
-                v-if="canRegister"
-            >
+            <div class="text-center text-sm text-amber-400" v-if="canRegister">
                 Don't have an account?
                 <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
             </div>

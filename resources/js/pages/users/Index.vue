@@ -9,7 +9,10 @@
             </div>
         </div>
         <div class="rounded">
-            <UserTable :teams="page.props.teams as Team[]" :users="page.props.users as User[]" />
+            <UserTable
+                :teams="page.props.teams as Team[]"
+                :users="page.props.users as User[]"
+            />
         </div>
         <Modal
             :visible="showModal"
