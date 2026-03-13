@@ -28,6 +28,7 @@ import AppLogo from './AppLogo.vue';
 import { dashboard } from '@/routes';
 import adminsettings from '@/routes/adminsettings';
 import { index, teams } from '@/routes/users';
+import courses from '@/routes/courses';
 
 const mainNavItems: NavItem[] = [
     {
@@ -54,7 +55,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Courses',
-        href: '#',
+        href:  courses.index(),
         icon: BookOpen,
     },
     {

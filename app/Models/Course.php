@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Deliverable;
+use Carbon\Carbon;
 class Course extends Model
 {
     protected $fillable = [
@@ -15,7 +16,23 @@ class Course extends Model
 
 
     ];
+    public function attachAllDeliverables(Course $course) {
+        $deliverables = Deliverable::all();
+        $course->load('developmentCycle');
 
+        $pivotData = [];
+
+        foreach ($deliverables as $deliverable) {
+            $pivotData[$deliverable->id] = [
+                'due_date' => Carbon::parse($course->developmentCycle->start_date->addDays($deliverable->offset_days)),
+                'is_done' => false,
+                'missed_due_date' => 0,
+            ];
+
+            $course->deliverables()->sync($pivotData);
+        }
+
+    }
     public function users()
     {
         return $this->belongsToMany(User::class);
@@ -29,5 +46,9 @@ class Course extends Model
     public function developmentCycle()
     {
         return $this->belongsTo(DevelopmentCycle::class);
+    }
+
+    public function deliverables() {
+        return $this->hasMany(Deliverable::class);
     }
 }

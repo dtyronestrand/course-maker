@@ -38,6 +38,34 @@
         </div>
         <div class="p-8">
         <h2 class="text-lg mb-4">Deliverables</h2>
+        <table class="min-w-full divide-y divide-amber-500">
+        <thead >
+        <tr>
+        <th scope="col" class="px-6 py-3 text-start text-sm text-amber-500 uppercase">Deliverable</th>
+        <th scope="col" class="px-6 py-3 text-start text-sm text-amber-500 uppercase">Offset Days</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="deliverable in page.props.deliverables" :key="deliverable.id">
+        <td class="py-4 px-6 whitespace-nowrap text-sm ">{{ deliverable.name }}</td>
+        <td class="py-4 px-6 whitespace-norap text-sm">{{ deliverable.offset_days }}</td>
+        </tr>
+        
+        </tbody>
+        </table>
+        <Button @click="addDeliverable = true">Add Deliverable</Button>
+        <form v-if="addDeliverable" @submit.prevent class="mt-4 flex gap-4 flex-col">
+        <div>
+            <label for="deliverableName">Deliverable Name</label>
+            <input type="text" v-model="newDeliverable.name" name="deliverableName" placeholder="Deliverable Name" class="text-black px-4 mb-2 w-full max-w-xs" />
+        </div>
+        <div>
+            <label for="offsetDays">Offset Days</label>
+            <input type="number" v-model="newDeliverable.offset_days" name="offsetDays" placeholder="Offset Days" class="text-black px-4 mb-2 w-full max-w-xs" />
+        </div>
+            <Button @click="saveDeliverable" class="btn btn-primary">Save Deliverable</Button>
+            <Button @click="addDeliverable = false" class="btn btn-secondary mr-2">Cancel</Button>
+        </form>
         </div>
         </div>
          
@@ -53,13 +81,14 @@ import { type BreadcrumbItem } from '@/types';
 import {usePage, router} from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { dashboard } from '@/routes';
-import type { AdminSetting, DevelopmentCycle } from '@/types';
+import type { AdminSetting, DevelopmentCycle, Deliverable } from '@/types';
 import type { PageProps as InertiaPageProps } from '@inertiajs/core';
 
 interface PageProps extends InertiaPageProps {
     settings: AdminSetting[];
     developmentCycles: DevelopmentCycle[];
     [key: string]: any;
+    deliverables: Deliverable[];
 }
 
 const page = usePage<PageProps>();
@@ -67,6 +96,10 @@ const cycle = ref({
     name: '',
     start_date: null,
     end_date: null,
+});
+const newDeliverable = ref({
+    name: '',
+    offset_days: 0,
 });
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -117,6 +150,25 @@ const saveCycle = () => {
         }
     })
 }
+const saveDeliverable = () => {
+    router.post('/deliverables', {
+        name: newDeliverable.value.name,
+        offset_days: newDeliverable.value.offset_days,
+    }, {
+        onSuccess: () => {
+            console.log('Deliverable saved successfully');
+            addDeliverable.value = false;
+            newDeliverable.value = { name: '', offset_days: 0 };
+        },
+        onError: (errors) => {
+            console.error('Validation errors:', errors);
+        },
+        onFinish: () => {
+            console.log('Request finished');
+        }
+    })
+}
+const addDeliverable = ref(false);
 </script>
 
 <style scoped></style>

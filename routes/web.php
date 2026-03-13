@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\DevelopmentCycleController;
+use App\Http\Controllers\CourseController;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canRegister' => Features::enabled(Features::registration()),
@@ -28,4 +29,7 @@ Route::delete('/users/{user}', [UserController::class, 'delete'])->name('users.d
 Route::get('/admin_settings', [\App\Http\Controllers\AdminSettingController::class, 'index'])->name('adminsettings.index');
 Route::post('/admin_settings', [\App\Http\Controllers\AdminSettingController::class, 'store'])->name('adminsettings.store');
 Route::post('/development_cycles', [DevelopmentCycleController::class, 'store'])->name('developmentcycles.store');
+Route::post('/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('deliverables.store');
+
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 require __DIR__.'/settings.php';

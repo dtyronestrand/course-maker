@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\DevelopmentCycle;
+use App\Models\Deliverable;
 use App\Models\AdminSetting;
 use Illuminate\Http\Request;
 
@@ -12,16 +13,16 @@ class AdminSettingController extends Controller
  {
         $settings = AdminSetting::all()->pluck('value', 'key');
         $developmentCycles = DevelopmentCycle::all();
+        $deliverables = Deliverable::all();
         return Inertia::render('AdminSettings', [
             'settings' => $settings,
             'developmentCycles' => $developmentCycles,
+            'deliverables' => $deliverables,
         ]);
  }
 
  public function store(Request $request){
-    \Log::info('AdminSetting store method called', [
-        'request_data' => $request->all()
-    ]);
+
 
     $request->validate([
         'key' => 'required|string|max:255',
@@ -33,9 +34,7 @@ class AdminSettingController extends Controller
         ['value' => $request->value]
     );
     
-    \Log::info('AdminSetting saved', [
-        'setting' => $setting->toArray()
-    ]);
+
     
     return redirect()->back()->with('success', 'Setting saved successfully.');
  }

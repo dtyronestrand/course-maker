@@ -12,7 +12,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+     $courses = Course::all()->load('users', 'modules', 'developmentCycle', 'deliverables');
+     return inertia('courses/Index', ['courses' => $courses]);
     }
 
     /**
