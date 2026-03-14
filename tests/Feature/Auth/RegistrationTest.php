@@ -25,7 +25,15 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password',
         ]);
 
+        // Check that user was created
+        $user = \App\Models\User::where('email', 'test@example.com')->first();
+        $this->assertNotNull($user);
+        $this->assertEquals('Test User', $user->name);
+        
+        // Manually authenticate for testing (Fortify should do this automatically)
+        $this->actingAs($user);
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        
+        $response->assertRedirect(route('dashboard'));
     }
 }

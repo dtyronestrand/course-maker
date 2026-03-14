@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\DevelopmentCycleController;
+use App\Models\DevelopmentCycle;
+use App\Models\User;
 use App\Http\Controllers\CourseController;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -32,4 +34,23 @@ Route::post('/development_cycles', [DevelopmentCycleController::class, 'store'])
 Route::post('/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('deliverables.store');
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+Route::get('/courses/create', function () {
+    $user = User::select('id', 'name')->get();
+    $cycles = DevelopmentCycle::select('id', 'name')->get();
+
+    if (request()->wantsJson()) {
+        return response()->json([
+            'users' => $user,
+            'cycles' => $cycles,
+        ]);
+    }
+        return inertia('courses/Index', [
+            'users' => $user,
+            'cycles' => $cycles,
+        ]);
+})->name('courses.create');
+
+Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
+
+
 require __DIR__.'/settings.php';

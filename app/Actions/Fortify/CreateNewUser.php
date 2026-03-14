@@ -31,10 +31,19 @@ class CreateNewUser implements CreatesNewUsers
             'password' => bcrypt($input['password']),
         ]);
 
+        // Only assign roles if they exist
         if($user->id === 1) {
-            $user->assignRole('admin');
+            try {
+                $user->assignRole('admin');
+            } catch (\Spatie\Permission\Exceptions\RoleDoesNotExist $e) {
+                // Role doesn't exist, skip assignment
+            }
         } else if(isset($input['role']) && in_array($input['role'], ['admin', 'lead', 'id', 'sme'])) {
-            $user->assignRole($input['role']);
+            try {
+                $user->assignRole($input['role']);
+            } catch (\Spatie\Permission\Exceptions\RoleDoesNotExist $e) {
+                // Role doesn't exist, skip assignment
+            }
         }
 
         Notification::route('mail', $user->email)->notify(new \App\Notifications\UserAdded($user));

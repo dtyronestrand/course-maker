@@ -6,17 +6,20 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Models\User;
 
 class UserAdded extends Notification
 {
     use Queueable;
 
+    protected $user;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -34,11 +37,13 @@ class UserAdded extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $role = $this->user->roles->first()?->name ?? 'user';
+        
         return (new MailMessage)
             ->subject('Welcome to Course Maker')
             ->greeting('Hello!')
-            ->line('You have been added to Course Maeker with the role of ' . $notifiable->role . '.')
-            ->action('Notification Action', url('/'))
+            ->line('You have been added to Course Maker with the role of ' . $role . '.')
+            ->action('Login', url('/login'))
             ->line('Thank you for using our application!');
     }
 
