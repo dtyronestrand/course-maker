@@ -55,7 +55,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Courses',
-        href:  courses.index(),
+        href: courses.index(),
         icon: BookOpen,
     },
     {

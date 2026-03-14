@@ -207,7 +207,9 @@
         scroll-behavior: smooth;
         overscroll-behavior: none;
     }
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
         color: var(--color-amber-500);
     }
 }

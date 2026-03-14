@@ -1,13 +1,13 @@
 <template>
     <div
-        class=" pointer-events-none fixed inset-0 z-50 flex bg-slate-600/70 items-center justify-center "
+        class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-slate-600/70"
         @click.self="$emit('close')"
     >
         <div
-            class="pointer-events-auto glass mx-4 w-full max-w-md rounded-lg border-2 border-amber-500 p-6 shadow-lg shadow-primary"
+            class="glass pointer-events-auto mx-4 w-full max-w-md rounded-lg border-2 border-amber-500 p-6 shadow-lg shadow-primary"
         >
             <div class="mb-4 flex items-center justify-between">
-                <h2 class="text-xl font-semibold text-base-content">
+                <h2 class="text-base-content text-xl font-semibold">
                     Create Course
                 </h2>
                 <button
@@ -33,55 +33,55 @@
                 <div class="mb-4">
                     <label
                         for="prefix"
-                        class="block text-sm font-medium text-base-content"
+                        class="text-base-content block text-sm font-medium"
                         >Course Prefix</label
                     >
                     <input
                         v-model="courseData.prefix"
                         type="text"
                         id="prefix"
-                        class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
+                        class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
                         required
                     />
                 </div>
                 <div class="mb-4">
                     <label
                         for="number"
-                        class="block text-sm font-medium text-base-content"
+                        class="text-base-content block text-sm font-medium"
                         >Course Number</label
                     >
                     <input
                         v-model="courseData.number"
                         type="text"
                         id="number"
-                        class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
+                        class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
                         required
                     />
                 </div>
                 <div class="mb-4">
                     <label
                         for="title"
-                        class="block text-sm font-medium text-base-content"
+                        class="text-base-content block text-sm font-medium"
                         >Course Title</label
                     >
                     <input
                         v-model="courseData.title"
                         type="text"
                         id="title"
-                        class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
+                        class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
                         required
                     />
                 </div>
                 <div class="mb-4">
                     <label
                         for="cycle"
-                        class="block text-sm font-medium text-base-content"
+                        class="text-base-content block text-sm font-medium"
                         >Development Cycle</label
                     >
                     <select
                         v-model="courseData.development_cycle"
                         id="cycle"
-                        class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
+                        class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
                     >
                         <option :value="null">Select a cycle</option>
                         <option
@@ -96,7 +96,7 @@
                 <div class="mb-4">
                     <label
                         for="objectives"
-                        class="mb-4 block text-sm font-medium text-base-content"
+                        class="text-base-content mb-4 block text-sm font-medium"
                         >Course Objectives</label
                     >
                     <div
@@ -109,12 +109,12 @@
                             v-model="objective.objective"
                             type="text"
                             :id="'objective-' + index"
-                            class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
+                            class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
                         />
                         <button
                             type="button"
                             @click="courseData.objectives.splice(index, 1)"
-                            class="frosted-backdrop min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border border-error bg-error/10 px-[1.5em] py-[0.25em] text-center font-bold text-error duration-300 will-change-transform outline-none hover:bg-secondary hover:text-secondary-content active:translate-y-0 active:shadow-none disabled:pointer-events-none"
+                            class="frosted-backdrop min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] border-error bg-error/10 text-error hover:text-secondary-content m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border px-[1.5em] py-[0.25em] text-center font-bold duration-300 will-change-transform outline-none hover:bg-secondary active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                         >
                             <svg
                                 class="h-6 w-6"
@@ -134,7 +134,7 @@
                     <button
                         type="button"
                         @click="createObjective"
-                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-primary px-[1.5em] py-[0.25em] text-center font-bold text-primary-content duration-300 will-change-transform outline-none hover:bg-primary/30 active:translate-y-0 active:bg-primary/50 active:shadow-none disabled:pointer-events-none"
+                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] text-primary-content m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-primary px-[1.5em] py-[0.25em] text-center font-bold duration-300 will-change-transform outline-none hover:bg-primary/30 active:translate-y-0 active:bg-primary/50 active:shadow-none disabled:pointer-events-none"
                     >
                         Add Objective
                     </button>
@@ -143,7 +143,7 @@
                 <div class="mb-4">
                     <label
                         for="users"
-                        class="mb-4 block text-sm font-medium text-base-content"
+                        class="text-base-content mb-4 block text-sm font-medium"
                     >
                         Users</label
                     >
@@ -152,10 +152,10 @@
                         :key="user.id"
                         class="text-base-content"
                     >
-                        {{ user.name }} 
+                        {{ user.name }}
                         <select
                             v-model="user.role"
-                            class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
+                            class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
                         >
                             <option value="Designer">Designer</option>
                             <option value="SME">Subject Matter Expert</option>
@@ -169,7 +169,7 @@
                         @change="updateUsers"
                         v-model="selectedUserId"
                         id="users"
-                        class="mt-1 block w-full border border-primary bg-base-200 p-2 text-base-content"
+                        class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
                     >
                         <option
                             class="text-base-content"
@@ -177,13 +177,13 @@
                             :key="user.id"
                             :value="user.id"
                         >
-                            {{ user.name }} 
+                            {{ user.name }}
                         </option>
                     </select>
                     <button
                         type="button"
                         @click="addUser"
-                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-primary px-[1.5em] py-[0.25em] text-center font-bold text-primary-content duration-300 will-change-transform outline-none hover:bg-primary/30 active:translate-y-0 active:bg-primary/50 active:shadow-none disabled:pointer-events-none"
+                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] text-primary-content m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-primary px-[1.5em] py-[0.25em] text-center font-bold duration-300 will-change-transform outline-none hover:bg-primary/30 active:translate-y-0 active:bg-primary/50 active:shadow-none disabled:pointer-events-none"
                     >
                         Add User
                     </button>
@@ -191,14 +191,14 @@
                 <div class="flex gap-2">
                     <button
                         @click="handleCreateCourse"
-                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-success px-[1.5em] py-[0.25em] text-center font-bold text-success-content duration-300 will-change-transform outline-none hover:bg-success/30 active:translate-y-0 active:bg-success/50 active:shadow-none disabled:pointer-events-none"
+                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] bg-success text-success-content hover:bg-success/30 active:bg-success/50 m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg px-[1.5em] py-[0.25em] text-center font-bold duration-300 will-change-transform outline-none active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                     >
                         Create Course
                     </button>
                     <button
                         type="button"
                         @click="$emit('close')"
-                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-error px-[1.5em] py-[0.25em] text-center font-bold text-error-content duration-300 will-change-transform outline-none hover:bg-error/30 active:translate-y-0 active:bg-error/50 active:shadow-none disabled:pointer-events-none"
+                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] bg-error text-error-content hover:bg-error/30 active:bg-error/50 m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg px-[1.5em] py-[0.25em] text-center font-bold duration-300 will-change-transform outline-none active:translate-y-0 active:shadow-none disabled:pointer-events-none"
                     >
                         Cancel
                     </button>
@@ -215,7 +215,7 @@ const emit = defineEmits(['create-course', 'close']);
 
 interface User {
     id: number;
-   name: string;
+    name: string;
     role?: string;
 }
 
