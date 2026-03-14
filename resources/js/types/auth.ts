@@ -1,4 +1,4 @@
-import { Team } from './global';
+import type { Team } from './global';
 
 export type User = {
     id: number;
