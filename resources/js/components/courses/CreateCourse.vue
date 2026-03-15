@@ -4,7 +4,7 @@
         @click.self="$emit('close')"
     >
         <div
-            class="glass pointer-events-auto mx-4 w-full max-w-md rounded-lg border-2 border-amber-500 p-6 shadow-lg shadow-primary"
+            class="glass pointer-events-auto mx-4 w-full max-w-xl overflow-y-auto rounded-lg border-2 border-amber-500 p-6 shadow-lg shadow-primary"
         >
             <div class="mb-4 flex items-center justify-between">
                 <h2 class="text-base-content text-xl font-semibold">
@@ -40,7 +40,7 @@
                         v-model="courseData.prefix"
                         type="text"
                         id="prefix"
-                        class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
+                        class=" mt-1 block w-full border border-primary p-2"
                         required
                     />
                 </div>
@@ -54,7 +54,7 @@
                         v-model="courseData.number"
                         type="text"
                         id="number"
-                        class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
+                        class="bg-base-200  mt-1 block w-full border border-primary p-2"
                         required
                     />
                 </div>
@@ -68,7 +68,7 @@
                         v-model="courseData.title"
                         type="text"
                         id="title"
-                        class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
+                        class="bg-base-200 mt-1 block w-full border border-primary p-2"
                         required
                     />
                 </div>
@@ -109,7 +109,7 @@
                             v-model="objective.objective"
                             type="text"
                             :id="'objective-' + index"
-                            class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
+                            class="bg-base-200 mt-1 block w-full border border-primary p-2"
                         />
                         <button
                             type="button"
@@ -363,5 +363,8 @@ onMounted(async () => {
 }
 .pointer-events-auto {
     pointer-events: auto;
+}
+input{
+    color: var(--slate-900);
 }
 </style>

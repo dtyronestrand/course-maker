@@ -49,6 +49,10 @@ class Course extends Model
     }
 
     public function deliverables() {
-        return $this->hasMany(Deliverable::class);
+        return $this->belongsToMany(Deliverable::class)->withPivot('due_date', 'is_done', 'date_completed', 'missed_due_date_count')->withTimestamps();
+    }
+
+    public function course_objectives() {
+        return $this->hasMany(CourseObjective::class);
     }
 }
