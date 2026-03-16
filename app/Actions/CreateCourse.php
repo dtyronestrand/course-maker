@@ -37,8 +37,10 @@ class CreateCourse {
                     Log::info('CreateCourse: Objectives attached');
                 }
                 if(isset($data['users'])) {
-                    foreach ($data['users'] as $role => $userId) {
-                        $course->users()->attach($userId, ['role' => $role]);
+                    Log::info('CreateCourse: Processing users', ['users_data' => $data['users']]);
+                    foreach ($data['users'] as $user) {
+                        Log::info('CreateCourse: Attaching user', ['user' => $user]);
+                        $course->users()->attach($user['id'], ['role' => $user['role']]);
                     }
                     Log::info('CreateCourse: Users attached');
                 }

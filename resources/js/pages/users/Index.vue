@@ -5,7 +5,7 @@
             <h1 v-if="(page.props.user_role as string) === 'lead'">Team</h1>
             <h1 v-else>Users</h1>
             <div v-if="(page.props.user_role as string) === 'admin'">
-                <Button @click="showModal = true" class="glass">+ User</Button>
+                <Button @click="showModal = true" >+ User</Button>
             </div>
         </div>
         <div class="rounded">
@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePage, Head, App, useForm } from '@inertiajs/vue3';
+import { usePage, Head, useForm } from '@inertiajs/vue3';
 import Button from '@/components/ui/button/Button.vue';
 import type { BreadcrumbItem } from '@/types';
 import { computed, ref } from 'vue';

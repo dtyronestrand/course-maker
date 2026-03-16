@@ -1,27 +1,96 @@
 <template>
-    <div></div>
+
+    <table
+        class="w-full border-collapse overflow-y-auto rounded-lg border border-primary mt-8 glass p-8 shadow-lg shadow-primary"
+    >
+        <thead>
+            <tr
+                v-for="headerGroup in table.getHeaderGroups()"
+                :key="headerGroup.id"
+            >
+                <th
+                    v-for="header in headerGroup.headers"
+                    :key="header.id"
+                    :colSpan="header.colSpan"
+                    :class="
+                        header.column.getCanSort()
+                            ? 'cursor-pointer select-none'
+                            : ''
+                    "
+                    @click="header.column.getToggleSortingHandler()?.($event)"
+                    scope="col"
+                >
+                    <template v-if="!header.isPlaceholder">
+                        <FlexRender
+                            :render="header.column.columnDef.header"
+                            :props="header.getContext()"
+                        />
+
+                        {{
+                            { asc: ' 🔼', desc: ' 🔽' }[
+                                header.column.getIsSorted() as string
+                            ]
+                        }}
+                    </template>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                v-for="row in table.getRowModel().rows"
+                :key="row.id"
+                class="cursor-pointer hover:bg-primary/25"
+                @click="() => {
+                    selectedCourse = row.original;
+                    showCourseDetailsModal = true;
+                }"
+            >
+                <td class="pl-8" v-for="cell in row.getVisibleCells()" :key="cell.id">
+                   
+                  
+                        <FlexRender
+                            :render="cell.column.columnDef.cell"
+                            :props="cell.getContext()"
+                        />
+                
+                   
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<CourseDetals
+        v-if="showCourseDetailsModal && selectedCourse"
+        :isOpen="showCourseDetailsModal"
+        :course="selectedCourse"
+        :developmentCycles="developmentCycles"
+        @modal-close="showCourseDetailsModal = false"
+    />
 </template>
 
 <script setup lang="ts">
-import { ref, h, computed, watch } from 'vue';
-import { router } from '@inertiajs/vue3';
-import { Pencil, Trash2 } from 'lucide-vue-next';
+import { ref, h, computed } from 'vue';
 import type { Course } from '@/types';
+import CourseDetals from '@/components/courses/CourseDetails.vue';
 import {
     useVueTable,
     FlexRender,
     getCoreRowModel,
     getSortedRowModel,
+    getGroupedRowModel,
+    getExpandedRowModel,
     type SortingState,
-    type SortingFn,
-    createColumn,
+    type ExpandedState,
+    type GroupingState,
     createColumnHelper,
 } from '@tanstack/vue-table';
+
 
 const props = defineProps<{
     courses: Course[];
     developmentCycles: Array<any>;
 }>();
+const showCourseDetailsModal = ref(false);
+const selectedCourse = ref<Course | null>(null);
 
 const data = computed(() =>
     props.courses.map((course) => {
@@ -29,7 +98,7 @@ const data = computed(() =>
         course.users.forEach((user) => {
             if (user.pivot?.role) {
                 const role = user.pivot.role;
-                const name = user.name;
+                const name = `${user.name}`;
                 transformed[role] = transformed[role]
                     ? `${transformed[role]} , ${name}`
                     : name;
@@ -38,39 +107,126 @@ const data = computed(() =>
         return transformed;
     }),
 );
+const grouping = ref<GroupingState>([]);
+const expanded = ref<ExpandedState>({});
 const sorting = ref<SortingState>([]);
-const columnHelper = createColumnHelper<Course & Record<string, any>>();
+const columnHelper = createColumnHelper<any>();
 const allRoles = computed(() => {
     const rolesSet = new Set<string>();
     props.courses.forEach((course) => {
-        course.users.forEach((user) => rolesSet.add(user.pivot.role));
+        course.users.forEach((user) => {
+            if (user.pivot?.role) {
+                rolesSet.add(user.pivot.role);
+            }
+        });
     });
     return Array.from(rolesSet);
 });
 
 const columnsCourses = computed(() => [
-    {
-        accessorKey: 'prefix',
-        header: 'Prefix',
-    },
-    {
-        accessorKey: 'number',
-        header: 'Number',
-    },
-    {
-        accessorKey: 'name',
-        header: 'Name',
-    },
+    columnHelper.group({
+        header: ' Course',
+        footer: (props) => props.column.id,
+        columns: [
+            columnHelper.accessor('prefix', {
+                header: () => h('span', 'Prefix'),
+                cell: (info) => info.getValue(),
+                footer: (props) => props.column.id,
+            }),
+            columnHelper.accessor((row) => row.number, {
+                id: 'number',
+                cell: (info) => info.getValue(),
+                header: () => h('span', 'Number'),
+                enableSorting: false,
+                footer: (props) => props.column.id,
+            }),
+            columnHelper.accessor((row) => row.title, {
+                id: 'title',
+                cell: (info) => info.getValue(),
+                header: () => h('span', 'Title'),
+                enableSorting: false,
+                footer: (props) => props.column.id,
+            }),
+        ],
+    }),
     columnHelper.group({
         header: 'Team',
         columns: allRoles.value.map((role) =>
             columnHelper.accessor(role, {
                 cell: (info) => info.getValue() || '-',
                 header: () => h('span', role),
+                footer: (props) => props.column.id,
             }),
         ),
     }),
+  
 ]);
+
+const table = useVueTable({
+    data: data.value,
+    columns: columnsCourses.value,
+     state: {
+        get sorting() {
+            return sorting.value;
+        },
+        get grouping() {
+            return grouping.value;
+        },
+        get expanded() {
+            return expanded.value;
+        },
+        },
+        onSortingChange: (updaterOrValue) => {
+        sorting.value =
+            typeof updaterOrValue === 'function'
+                ? updaterOrValue(sorting.value)
+                : updaterOrValue;
+    },
+        onGroupingChange: (updaterOrValue) => {
+            grouping.value =
+                typeof updaterOrValue === 'function'
+                    ? updaterOrValue(grouping.value)
+                    : updaterOrValue;
+        },
+        onExpandedChange: (updaterOrValue) => {
+            expanded.value =
+                typeof updaterOrValue === 'function'
+                    ? updaterOrValue(expanded.value)
+                    : updaterOrValue;
+        },
+
+    getSortedRowModel: getSortedRowModel(),
+    getCoreRowModel: getCoreRowModel(),
+    getGroupedRowModel: getGroupedRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
+})
+
+
 </script>
 
-<style scoped></style>
+<style scoped>
+table {
+    border-collapse: collapse;
+}
+tbody {
+    border-bottom: 1px solid rgba(from var(--color-primary) R G B / 0.2);
+}
+
+th,
+td {
+    border-bottom: 1px solid rgba(from var(--color-primary) R G B / 0.2);
+    border-right: 1px solid rgba(from var(--color-primary) R G B / 0.2);
+    padding: 4px 8px;
+}
+th:last-child,
+td:last-child {
+    border-right: none;
+}
+tr:last-child td {
+    border-bottom: 1px solid rgba(from var(--color-primary) R G B / 0.5);
+}
+
+th {
+    padding: 8px;
+}
+</style>

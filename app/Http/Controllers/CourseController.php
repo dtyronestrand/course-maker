@@ -6,6 +6,7 @@ use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Actions\CreateCourse;
+use App\Actions\UpdateCourse;
 class CourseController extends Controller
 {
     /**
@@ -42,16 +43,10 @@ class CourseController extends Controller
             'objectives.*.objective' => 'required_with:objectives|string|max:255',
             'users' => 'nullable|array',
             'users.*.id' => 'required_with:users|exists:users,id',
+            'users.*.role' => 'required_with:users|string|max:50',
         ]);
         
         Log::info('CourseController: validation passed', ['validated_data' => $data]);
-        
-        // Transform data for CreateCourse action
-        if (isset($data['users'])) {
-            $data['users'] = collect($data['users'])->pluck('id', 'role')->toArray();
-        }
-        
-        Log::info('CourseController: data transformed', ['transformed_data' => $data]);
         
         $createCourse = new CreateCourse();
         $createCourse->handle($data);
@@ -77,12 +72,41 @@ class CourseController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Course $course)
     {
-        //
+        Log::info('CourseController: update method called', [
+            'course_id' => $course->id,
+            'request_data' => $request->all(),
+            'request_method' => $request->method(),
+            'request_url' => $request->url()
+        ]);
+        
+        $data = $request->validate([
+            'prefix' => 'required|string|max:10',
+            'number' => 'required|integer',
+            'title' => 'required|string|max:255',
+            'development_cycle' => 'nullable|array',
+            'development_cycle.id' => 'required_with:development_cycle|integer',
+            'objectives' => 'nullable|array',
+            'objectives.*.number' => 'required_with:objectives|string|max:10',
+            'objectives.*.objective' => 'required_with:objectives|string|max:255',
+            'users' => 'nullable|array',
+            'users.*.id' => 'required_with:users|exists:users,id',
+            'users.*.role' => 'required_with:users|string|max:50',
+        ]);
+        
+        Log::info('CourseController: validation passed', [
+            'validated_data' => $data,
+            'has_users' => isset($data['users']),
+            'users_count' => isset($data['users']) ? count($data['users']) : 0
+        ]);
+
+        $updateCourse = new UpdateCourse();
+        $updateCourse->handle($course, $data);
+        
+        Log::info('CourseController: course update completed');
+
+        return redirect()->route('courses.index')->with('success', 'Course updated successfully!');
     }
 
     /**

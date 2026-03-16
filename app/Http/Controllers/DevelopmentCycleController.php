@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class DevelopmentCycleController extends Controller
 {
+    public function index()
+    {
+        $developmentCycles = \App\Models\DevelopmentCycle::all();
+        return response()->json($developmentCycles);
+    }
+    
    public function store(Request $request)
     {
         $validated = $request->validate([

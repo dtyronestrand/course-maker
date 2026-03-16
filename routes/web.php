@@ -51,6 +51,6 @@ Route::get('/courses/create', function () {
 })->name('courses.create');
 
 Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
-
+Route::put('/courses/{course}', [CourseController::class, 'update'])->name('courses.update');
 
 require __DIR__.'/settings.php';
