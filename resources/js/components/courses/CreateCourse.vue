@@ -119,11 +119,7 @@
                                 type="text"
                                 :id="'objective-' + index"
                                 class="bg-base-200 mt-1 block w-full border border-primary p-2"
-                                @input="
-                                    clientErrors.objectives &&
-                                        (clientErrors.objectives[index] =
-                                            undefined)
-                                "
+                             
                             />
                             <button
                                 type="button"
@@ -176,10 +172,7 @@
                             <select
                                 v-model="user.role"
                                 class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
-                                @change="
-                                    clientErrors.users &&
-                                        (clientErrors.users[index] = undefined)
-                                "
+                            
                             >
                                 <option value="Designer">Designer</option>
                                 <option value="SME">Subject Matter Expert</option>
@@ -238,9 +231,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed, nextTick } from 'vue';
-import InputError from '@/components/InputError.vue'; // Will need to be added to the template
-import { useToast } from '@/components/ui/toast/use-toast'; // Potentially for future use with a global notification system
+import { onMounted, ref } from 'vue';
+import type { DevelopmentCycle } from '@/types';
 
 const emit = defineEmits(['create-course', 'close']);
 
@@ -289,106 +281,9 @@ const selectedUserId = ref<number | null>(null);
 
 const clientErrors = ref<ClientErrors>({});
 
-const validate = (): boolean => {
-    clientErrors.value = {}; // Clear previous errors
-    let isValid = true;
-
-    // Validate prefix
-    if (!courseData.value.prefix) {
-        clientErrors.value.prefix = 'The course prefix is required.';
-        isValid = false;
-    } else if (courseData.value.prefix.length > 10) {
-        clientErrors.value.prefix = 'The course prefix must not be greater than 10 characters.';
-        isValid = false;
-    }
-
-    // Validate number
-    if (!courseData.value.number) {
-        clientErrors.value.number = 'The course number is required.';
-        isValid = false;
-    } else if (isNaN(Number(courseData.value.number))) {
-        clientErrors.value.number = 'The course number must be an integer.';
-        isValid = false;
-    }
-
-    // Validate title
-    if (!courseData.value.title) {
-        clientErrors.value.title = 'The course title is required.';
-        isValid = false;
-    } else if (courseData.value.title.length > 255) {
-        clientErrors.value.title = 'The course title must not be greater than 255 characters.';
-        isValid = false;
-    }
-
-    // Validate development_cycle (nullable, integer)
-    if (courseData.value.development_cycle !== null && isNaN(Number(courseData.value.development_cycle))) {
-        clientErrors.value.development_cycle = 'The development cycle must be an integer or null.';
-        isValid = false;
-    }
-
-    // Validate objectives (nullable|array, then nested rules)
-    if (courseData.value.objectives && courseData.value.objectives.length > 0) {
-        clientErrors.value.objectives = [];
-        courseData.value.objectives.forEach((obj, index) => {
-            if (!obj.number) {
-                clientErrors.value.objectives[index] = `Objective ${index + 1} number is required.`;
-                isValid = false;
-            } else if (obj.number.length > 10) {
-                clientErrors.value.objectives[index] = `Objective ${index + 1} number must not be greater than 10 characters.`;
-                isValid = false;
-            }
-            if (!obj.objective) {
-                if (!clientErrors.value.objectives[index]) {
-                    clientErrors.value.objectives[index] = `Objective ${index + 1} description is required.`;
-                }
-                isValid = false;
-            } else if (obj.objective.length > 255) {
-                if (!clientErrors.value.objectives[index]) {
-                    clientErrors.value.objectives[index] = `Objective ${index + 1} description must not be greater than 255 characters.`;
-                }
-                isValid = false;
-            }
-        });
-    }
-
-    // Validate users (nullable|array, then nested rules)
-    if (courseData.value.users && courseData.value.users.length > 0) {
-        clientErrors.value.users = [];
-        courseData.value.users.forEach((user, index) => {
-            if (!user.id) {
-                clientErrors.value.users[index] = `User ${index + 1} ID is required.`;
-                isValid = false;
-            }
-            // Note: 'exists' validation is server-side only.
-            if (!user.role) {
-                if (!clientErrors.value.users[index]) {
-                    clientErrors.value.users[index] = `User ${index + 1} role is required.`;
-                }
-                isValid = false;
-            } else if (user.role.length > 50) {
-                if (!clientErrors.value.users[index]) {
-                    clientErrors.value.users[index] = `User ${index + 1} role must not be greater than 50 characters.`;
-                }
-                isValid = false;
-            }
-        });
-    }
-
-    return isValid;
-};
 
 const handleCreateCourse = () => {
-    if (!validate()) {
-        nextTick(() => {
-            const firstErrorElement = document.querySelector('.input-error:not(:empty)');
-            if (firstErrorElement) {
-                firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        });
-        return; // Stop submission if client-side validation fails
-    }
-
-    // Emit the create-course event with the course data
+    
     const filteredObjectives = courseData.value.objectives.filter(
         (obj) => obj.objective.trim() !== '',
     );
@@ -406,7 +301,7 @@ const handleCreateCourse = () => {
         users: [],
         development_cycle: null,
     };
-    clientErrors.value = {}; // Clear errors after successful submission
+    
 };
 
 const toRoman = (num: number): string => {
