@@ -201,9 +201,7 @@
         );
         background-attachment: fixed;
         color: var(--foreground);
-        height: 100%;
-        padding: 20px;
-        gap: 20px;
+        height: 100dvh;
         scroll-behavior: smooth;
         overscroll-behavior: none;
     }

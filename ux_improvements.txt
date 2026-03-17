@@ -1,0 +1,17 @@
+UX Improvement Suggestions for course-maker application:
+
+1.  **Refine Global Layout Styling for Responsiveness:**
+    *   **Observation:** The `resources/css/app.css` applies `padding: 20px; gap: 20px;` and `items-center justify-center` globally to `html, body`.
+    *   **Suggestion:** While Tailwind provides excellent responsive utilities, rigid global styling can sometimes limit adaptive layout flexibility. Consider if these global styles are universally beneficial or if layout components (e.g., `AppShell`, `AppLayout`) should manage their own spacing and alignment using responsive Tailwind classes (`p-x`, `gap-y`, `md:justify-start`, etc.). This could lead to better utilization of screen real estate on very large displays and prevent excessive crowding or awkward centering on smaller devices, ensuring content adapts more gracefully.
+
+2.  **Implement Client-Side (Real-time) Form Validation:**
+    *   **Observation:** Form validation primarily relies on server-side checks via Laravel Form Requests, with errors then displayed on the frontend after submission using `InputError.vue`.
+    *   **Suggestion:** Enhance user experience by introducing client-side, real-time validation for critical form fields. This allows users to see validation feedback (e.g., "Invalid email format," "Password too short") *as they type*, before submitting the form. This reduces friction, prevents unnecessary server round-trips for invalid data, and provides immediate guidance, making forms feel more responsive and user-friendly.
+
+3.  **Introduce a Global Notification/Toast System:**
+    *   **Observation:** Success and informational messages are currently handled ad-hoc (e.g., explicit `v-if="status === 'some-message'"` checks in components like `Profile.vue`) or for specific error components (`AlertError.vue`). There isn't a unified system for displaying transient feedback.
+    *   **Suggestion:** Implement a global notification system (often called "toasts" or "flash messages") that can display success, error, warning, or informational messages across the application. This would:
+        *   Provide consistent visual feedback for various user actions (e.g., "Course created successfully," "Settings updated," "Failed to delete item").
+        *   Reduce boilerplate code by centralizing message display logic.
+        *   Improve clarity and discoverability of messages, as they would appear in a predictable location and often fade out automatically.
+        *   Unify how messages are handled, moving away from fragmented `status` prop checks.

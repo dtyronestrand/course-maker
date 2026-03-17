@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -11,12 +11,60 @@ import AuthBase from '@/layouts/AuthLayout.vue';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
+import { computed, ref } from 'vue';
 
 defineProps<{
     status?: string;
     canResetPassword: boolean;
     canRegister: boolean;
 }>();
+
+const form = useForm({
+    email: '',
+    password: '',
+    remember: false,
+});
+
+// Client-side validation errors
+const clientErrors = ref<{ email?: string; password?: string }>({});
+
+const validate = () => {
+    clientErrors.value = {}; // Clear previous errors
+    let isValid = true;
+
+    if (!form.email) {
+        clientErrors.value.email = 'The email field is required.';
+        isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+        clientErrors.value.email = 'The email must be a valid email address.';
+        isValid = false;
+    }
+
+    if (!form.password) {
+        clientErrors.value.password = 'The password field is required.';
+        isValid = false;
+    } else if (form.password.length < 8) {
+        // Assuming a minimum password length of 8 as a common practice
+        clientErrors.value.password = 'The password must be at least 8 characters.';
+        isValid = false;
+    }
+
+    return isValid;
+};
+
+const submit = () => {
+    if (!validate()) {
+        return; // Stop submission if client-side validation fails
+    }
+
+    form.post(route('login.store'), {
+        onFinish: () => form.reset('password'),
+    });
+};
+
+const hasErrors = computed(() => {
+    return Object.keys(clientErrors.value).length > 0 || Object.keys(form.errors).length > 0;
+});
 </script>
 
 <template>
@@ -33,12 +81,7 @@ defineProps<{
             {{ status }}
         </div>
 
-        <Form
-            v-bind="store.form()"
-            :reset-on-success="['password']"
-            v-slot="{ errors, processing }"
-            class="flex flex-col gap-6"
-        >
+        <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
                 <div class="grid gap-2 text-amber-400">
                     <Label for="email">Email address</Label>
@@ -46,14 +89,15 @@ defineProps<{
                         class="text-slate-700"
                         id="email"
                         type="email"
-                        name="email"
+                        v-model="form.email"
                         required
                         autofocus
                         :tabindex="1"
                         autocomplete="email"
                         placeholder="email@example.com"
+                        @input="clientErrors.email = undefined"
                     />
-                    <InputError :message="errors.email" />
+                    <InputError :message="clientErrors.email || form.errors.email" />
                 </div>
 
                 <div class="grid gap-2">
@@ -74,18 +118,19 @@ defineProps<{
                         class="text-slate-700"
                         id="password"
                         type="password"
-                        name="password"
+                        v-model="form.password"
                         required
                         :tabindex="2"
                         autocomplete="current-password"
                         placeholder="Password"
+                        @input="clientErrors.password = undefined"
                     />
-                    <InputError :message="errors.password" />
+                    <InputError :message="clientErrors.password || form.errors.password" />
                 </div>
 
                 <div class="flex items-center justify-between text-amber-400">
                     <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox id="remember" name="remember" :tabindex="3" />
+                        <Checkbox id="remember" name="remember" v-model:checked="form.remember" :tabindex="3" />
                         <span>Remember me</span>
                     </Label>
                 </div>
@@ -94,10 +139,10 @@ defineProps<{
                     type="submit"
                     class="mt-4 w-full bg-amber-500"
                     :tabindex="4"
-                    :disabled="processing"
+                    :disabled="form.processing"
                     data-test="login-button"
                 >
-                    <Spinner v-if="processing" />
+                    <Spinner v-if="form.processing" />
                     Log in
                 </Button>
             </div>
@@ -106,6 +151,7 @@ defineProps<{
                 Don't have an account?
                 <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
             </div>
-        </Form>
+        </form>
+
     </AuthBase>
 </template>
