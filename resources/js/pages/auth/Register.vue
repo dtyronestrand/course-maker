@@ -35,7 +35,8 @@ const validate = () => {
         clientErrors.value.name = 'The name field is required.';
         isValid = false;
     } else if (form.name.length > 255) {
-        clientErrors.value.name = 'The name must not be greater than 255 characters.';
+        clientErrors.value.name =
+            'The name must not be greater than 255 characters.';
         isValid = false;
     }
 
@@ -47,7 +48,8 @@ const validate = () => {
         clientErrors.value.email = 'The email must be a valid email address.';
         isValid = false;
     } else if (form.email.length > 255) {
-        clientErrors.value.email = 'The email must not be greater than 255 characters.';
+        clientErrors.value.email =
+            'The email must not be greater than 255 characters.';
         isValid = false;
     }
     // Note: 'unique' email check is server-side only.
@@ -58,7 +60,8 @@ const validate = () => {
         isValid = false;
     } else if (form.password.length < 8) {
         // Minimum length based on Laravel's Password::default()
-        clientErrors.value.password = 'The password must be at least 8 characters.';
+        clientErrors.value.password =
+            'The password must be at least 8 characters.';
         isValid = false;
     }
     // Stronger password rules (mixed case, symbols, numbers) are harder to check client-side without a library.
@@ -66,10 +69,12 @@ const validate = () => {
 
     // Password confirmation validation
     if (!form.password_confirmation) {
-        clientErrors.value.password_confirmation = 'The password confirmation field is required.';
+        clientErrors.value.password_confirmation =
+            'The password confirmation field is required.';
         isValid = false;
     } else if (form.password !== form.password_confirmation) {
-        clientErrors.value.password_confirmation = 'The password confirmation does not match.';
+        clientErrors.value.password_confirmation =
+            'The password confirmation does not match.';
         isValid = false;
     }
 
@@ -87,7 +92,10 @@ const submit = () => {
 };
 
 const hasErrors = computed(() => {
-    return Object.keys(clientErrors.value).length > 0 || Object.keys(form.errors).length > 0;
+    return (
+        Object.keys(clientErrors.value).length > 0 ||
+        Object.keys(form.errors).length > 0
+    );
 });
 </script>
 
@@ -113,7 +121,9 @@ const hasErrors = computed(() => {
                         placeholder="Full name"
                         @input="clientErrors.name = undefined"
                     />
-                    <InputError :message="clientErrors.name || form.errors.name" />
+                    <InputError
+                        :message="clientErrors.name || form.errors.name"
+                    />
                 </div>
 
                 <div class="grid gap-2">
@@ -128,7 +138,9 @@ const hasErrors = computed(() => {
                         placeholder="email@example.com"
                         @input="clientErrors.email = undefined"
                     />
-                    <InputError :message="clientErrors.email || form.errors.email" />
+                    <InputError
+                        :message="clientErrors.email || form.errors.email"
+                    />
                 </div>
 
                 <div class="grid gap-2">
@@ -143,7 +155,9 @@ const hasErrors = computed(() => {
                         placeholder="Password"
                         @input="clientErrors.password = undefined"
                     />
-                    <InputError :message="clientErrors.password || form.errors.password" />
+                    <InputError
+                        :message="clientErrors.password || form.errors.password"
+                    />
                 </div>
 
                 <div class="grid gap-2">
@@ -158,7 +172,12 @@ const hasErrors = computed(() => {
                         placeholder="Confirm password"
                         @input="clientErrors.password_confirmation = undefined"
                     />
-                    <InputError :message="clientErrors.password_confirmation || form.errors.password_confirmation" />
+                    <InputError
+                        :message="
+                            clientErrors.password_confirmation ||
+                            form.errors.password_confirmation
+                        "
+                    />
                 </div>
 
                 <Button

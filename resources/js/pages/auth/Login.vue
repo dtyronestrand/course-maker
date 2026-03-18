@@ -10,7 +10,6 @@ import AuthBase from '@/layouts/AuthLayout.vue';
 import { register } from '@/routes';
 import { request } from '@/routes/password';
 
-
 defineProps<{
     status?: string;
     canResetPassword: boolean;
@@ -23,19 +22,11 @@ const form = useForm({
     remember: false,
 });
 
-
-
-
-
 const submit = () => {
- 
-
     form.post('/login', {
         onFinish: () => form.reset(),
     });
 };
-
-
 </script>
 
 <template>
@@ -66,9 +57,7 @@ const submit = () => {
                         :tabindex="1"
                         autocomplete="email"
                         placeholder="email@example.com"
-                     
                     />
-                   
                 </div>
 
                 <div class="grid gap-2">
@@ -94,14 +83,17 @@ const submit = () => {
                         :tabindex="2"
                         autocomplete="current-password"
                         placeholder="Password"
-                       
                     />
-                    
                 </div>
 
                 <div class="flex items-center justify-between text-amber-400">
                     <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox id="remember" name="remember" v-model:checked="form.remember" :tabindex="3" />
+                        <Checkbox
+                            id="remember"
+                            name="remember"
+                            v-model:checked="form.remember"
+                            :tabindex="3"
+                        />
                         <span>Remember me</span>
                     </Label>
                 </div>
@@ -123,6 +115,5 @@ const submit = () => {
                 <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
             </div>
         </form>
-
     </AuthBase>
 </template>

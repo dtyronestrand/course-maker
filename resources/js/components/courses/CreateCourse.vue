@@ -40,11 +40,9 @@
                         v-model="courseData.prefix"
                         type="text"
                         id="prefix"
-                        class=" mt-1 block w-full border border-primary p-2"
+                        class="mt-1 block w-full border border-primary p-2"
                         required
-                   
                     />
-                  
                 </div>
                 <div class="mb-4">
                     <label
@@ -56,11 +54,9 @@
                         v-model="courseData.number"
                         type="text"
                         id="number"
-                        class="bg-base-200  mt-1 block w-full border border-primary p-2"
+                        class="bg-base-200 mt-1 block w-full border border-primary p-2"
                         required
-                       
                     />
-               
                 </div>
                 <div class="mb-4">
                     <label
@@ -74,9 +70,7 @@
                         id="title"
                         class="bg-base-200 mt-1 block w-full border border-primary p-2"
                         required
-                      
                     />
-                
                 </div>
                 <div class="mb-4">
                     <label
@@ -88,7 +82,6 @@
                         v-model="courseData.development_cycle"
                         id="cycle"
                         class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
-                      
                     >
                         <option :value="null">Select a cycle</option>
                         <option
@@ -99,7 +92,6 @@
                             {{ cycle.name }}
                         </option>
                     </select>
-                   
                 </div>
                 <div class="mb-4">
                     <label
@@ -119,7 +111,6 @@
                                 type="text"
                                 :id="'objective-' + index"
                                 class="bg-base-200 mt-1 block w-full border border-primary p-2"
-                             
                             />
                             <button
                                 type="button"
@@ -141,7 +132,6 @@
                                 </svg>
                             </button>
                         </div>
-                
                     </div>
                     <button
                         type="button"
@@ -153,17 +143,35 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="text-base-content mb-4 block text-sm font-medium">
+                    <label
+                        class="text-base-content mb-4 block text-sm font-medium"
+                    >
                         Team Roles
                     </label>
                     <div class="overflow-x-auto">
                         <table class="w-full border border-primary">
                             <thead>
                                 <tr class="bg-base-200">
-                                    <th class="border border-primary p-2 text-left">Designer</th>
-                                    <th class="border border-primary p-2 text-left">Lead</th>
-                                    <th class="border border-primary p-2 text-left">SME</th>
-                                    <th class="border border-primary p-2 text-left">Builder</th>
+                                    <th
+                                        class="border border-primary p-2 text-left"
+                                    >
+                                        Designer
+                                    </th>
+                                    <th
+                                        class="border border-primary p-2 text-left"
+                                    >
+                                        Lead
+                                    </th>
+                                    <th
+                                        class="border border-primary p-2 text-left"
+                                    >
+                                        SME
+                                    </th>
+                                    <th
+                                        class="border border-primary p-2 text-left"
+                                    >
+                                        Builder
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -174,7 +182,9 @@
                                             @change="updateCourseUsers"
                                             class="bg-base-200 text-base-content w-full border border-primary p-2"
                                         >
-                                            <option :value="null">Select Designer</option>
+                                            <option :value="null">
+                                                Select Designer
+                                            </option>
                                             <option
                                                 v-for="user in ids"
                                                 :key="user.id"
@@ -190,7 +200,9 @@
                                             @change="updateCourseUsers"
                                             class="bg-base-200 text-base-content w-full border border-primary p-2"
                                         >
-                                            <option :value="null">Select Lead</option>
+                                            <option :value="null">
+                                                Select Lead
+                                            </option>
                                             <option
                                                 v-for="user in leads"
                                                 :key="user.id"
@@ -206,7 +218,9 @@
                                             @change="updateCourseUsers"
                                             class="bg-base-200 text-base-content w-full border border-primary p-2"
                                         >
-                                            <option :value="null">Select SME</option>
+                                            <option :value="null">
+                                                Select SME
+                                            </option>
                                             <option
                                                 v-for="user in smes"
                                                 :key="user.id"
@@ -222,7 +236,9 @@
                                             @change="updateCourseUsers"
                                             class="bg-base-200 text-base-content w-full border border-primary p-2"
                                         >
-                                            <option :value="null">Select Builder</option>
+                                            <option :value="null">
+                                                Select Builder
+                                            </option>
                                             <option
                                                 v-for="user in ids"
                                                 :key="user.id"
@@ -261,7 +277,6 @@
 import { onMounted, ref } from 'vue';
 import type { DevelopmentCycle } from '@/types';
 
-
 const emit = defineEmits(['create-course', 'close']);
 
 interface User {
@@ -283,11 +298,6 @@ interface CourseData {
     users: User[];
     development_cycle: number | null;
 }
-
-
-
-
-
 
 const ids = ref<User[]>([]);
 const smes = ref<User[]>([]);
@@ -311,11 +321,7 @@ const selectedRoles = ref({
     builder: null as number | null,
 });
 
-
-
-
 const handleCreateCourse = () => {
-    
     const filteredObjectives = courseData.value.objectives.filter(
         (obj) => obj.objective.trim() !== '',
     );
@@ -339,7 +345,6 @@ const handleCreateCourse = () => {
         sme: null,
         builder: null,
     };
-    
 };
 
 const toRoman = (num: number): string => {
@@ -375,35 +380,39 @@ const toRoman = (num: number): string => {
 
 const updateCourseUsers = () => {
     const newUsers: User[] = [];
-    
+
     if (selectedRoles.value.designer) {
-        const designer = ids.value.find(u => u.id === selectedRoles.value.designer);
+        const designer = ids.value.find(
+            (u) => u.id === selectedRoles.value.designer,
+        );
         if (designer) {
             newUsers.push({ ...designer, role: 'Designer' });
         }
     }
-    
+
     if (selectedRoles.value.lead) {
-        const lead = leads.value.find(u => u.id === selectedRoles.value.lead);
+        const lead = leads.value.find((u) => u.id === selectedRoles.value.lead);
         if (lead) {
             newUsers.push({ ...lead, role: 'Lead' });
         }
     }
-    
+
     if (selectedRoles.value.sme) {
-        const sme = smes.value.find(u => u.id === selectedRoles.value.sme);
+        const sme = smes.value.find((u) => u.id === selectedRoles.value.sme);
         if (sme) {
             newUsers.push({ ...sme, role: 'SME' });
         }
     }
-    
+
     if (selectedRoles.value.builder) {
-        const builder = ids.value.find(u => u.id === selectedRoles.value.builder);
+        const builder = ids.value.find(
+            (u) => u.id === selectedRoles.value.builder,
+        );
         if (builder) {
             newUsers.push({ ...builder, role: 'Builder' });
         }
     }
-    
+
     courseData.value.users = newUsers;
 };
 const createObjective = () => {
@@ -411,7 +420,6 @@ const createObjective = () => {
         number: toRoman(courseData.value.objectives.length + 1),
         objective: '',
     });
-     
 };
 
 onMounted(async () => {
@@ -428,10 +436,10 @@ onMounted(async () => {
         leads.value = data.leads;
         users.value = [...data.ids, ...data.smes, ...data.leads];
         developmentCycles.value = data.cycles || [];
-        
+
         // If editing existing course, populate selected roles
         if (courseData.value.users.length > 0) {
-            courseData.value.users.forEach(user => {
+            courseData.value.users.forEach((user) => {
                 switch (user.role) {
                     case 'Designer':
                         selectedRoles.value.designer = user.id;
@@ -461,7 +469,7 @@ onMounted(async () => {
 .pointer-events-auto {
     pointer-events: auto;
 }
-input{
+input {
     color: var(--slate-900);
 }
 </style>

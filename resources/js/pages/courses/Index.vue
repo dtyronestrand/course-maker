@@ -4,11 +4,11 @@
             <h2 class="text-2xl font-semibold text-amber-500">Courses</h2>
             <Button @click="showCreateCourseModal = true">+ Course</Button>
         </div>
-        <div class="p-4 rounded-xl">
-        <CourseTable
-            :courses="page.props.courses"
-            :developmentCycles="page.props.developmentCycles"
-        />
+        <div class="rounded-xl p-4">
+            <CourseTable
+                :courses="page.props.courses"
+                :developmentCycles="page.props.developmentCycles"
+            />
         </div>
         <CreateCourse
             v-if="showCreateCourseModal"

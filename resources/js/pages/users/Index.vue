@@ -5,7 +5,7 @@
             <h1 v-if="(page.props.user_role as string) === 'lead'">Team</h1>
             <h1 v-else>Users</h1>
             <div v-if="(page.props.user_role as string) === 'admin'">
-                <Button @click="showModal = true" >+ User</Button>
+                <Button @click="showModal = true">+ User</Button>
             </div>
         </div>
         <div class="rounded">

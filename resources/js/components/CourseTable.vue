@@ -1,7 +1,6 @@
 <template>
-
     <table
-        class="w-full border-collapse overflow-y-auto rounded-xl border border-primary mt-8 glass p-8 shadow-lg shadow-primary"
+        class="glass mt-8 w-full border-collapse overflow-y-auto rounded-xl border border-primary p-8 shadow-lg shadow-primary"
     >
         <thead>
             <tr
@@ -40,25 +39,27 @@
                 v-for="row in table.getRowModel().rows"
                 :key="row.id"
                 class="cursor-pointer hover:bg-primary/25"
-                @click="() => {
-                    selectedCourse = row.original;
-                    showCourseDetailsModal = true;
-                }"
+                @click="
+                    () => {
+                        selectedCourse = row.original;
+                        showCourseDetailsModal = true;
+                    }
+                "
             >
-                <td class="pl-8" v-for="cell in row.getVisibleCells()" :key="cell.id">
-                   
-                  
-                        <FlexRender
-                            :render="cell.column.columnDef.cell"
-                            :props="cell.getContext()"
-                        />
-                
-                   
+                <td
+                    class="pl-8"
+                    v-for="cell in row.getVisibleCells()"
+                    :key="cell.id"
+                >
+                    <FlexRender
+                        :render="cell.column.columnDef.cell"
+                        :props="cell.getContext()"
+                    />
                 </td>
             </tr>
         </tbody>
     </table>
-<CourseDetals
+    <CourseDetals
         v-if="showCourseDetailsModal && selectedCourse"
         :isOpen="showCourseDetailsModal"
         :course="selectedCourse"
@@ -83,7 +84,6 @@ import {
     type GroupingState,
     createColumnHelper,
 } from '@tanstack/vue-table';
-
 
 const props = defineProps<{
     courses: Course[];
@@ -159,13 +159,12 @@ const columnsCourses = computed(() => [
             }),
         ),
     }),
-  
 ]);
 
 const table = useVueTable({
     data: data.value,
     columns: columnsCourses.value,
-     state: {
+    state: {
         get sorting() {
             return sorting.value;
         },
@@ -175,33 +174,31 @@ const table = useVueTable({
         get expanded() {
             return expanded.value;
         },
-        },
-        onSortingChange: (updaterOrValue) => {
+    },
+    onSortingChange: (updaterOrValue) => {
         sorting.value =
             typeof updaterOrValue === 'function'
                 ? updaterOrValue(sorting.value)
                 : updaterOrValue;
     },
-        onGroupingChange: (updaterOrValue) => {
-            grouping.value =
-                typeof updaterOrValue === 'function'
-                    ? updaterOrValue(grouping.value)
-                    : updaterOrValue;
-        },
-        onExpandedChange: (updaterOrValue) => {
-            expanded.value =
-                typeof updaterOrValue === 'function'
-                    ? updaterOrValue(expanded.value)
-                    : updaterOrValue;
-        },
+    onGroupingChange: (updaterOrValue) => {
+        grouping.value =
+            typeof updaterOrValue === 'function'
+                ? updaterOrValue(grouping.value)
+                : updaterOrValue;
+    },
+    onExpandedChange: (updaterOrValue) => {
+        expanded.value =
+            typeof updaterOrValue === 'function'
+                ? updaterOrValue(expanded.value)
+                : updaterOrValue;
+    },
 
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getGroupedRowModel: getGroupedRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
-})
-
-
+});
 </script>
 
 <style scoped>
