@@ -1,7 +1,7 @@
 <template>
 
     <table
-        class="w-full border-collapse overflow-y-auto rounded-lg border border-primary mt-8 glass p-8 shadow-lg shadow-primary"
+        class="w-full border-collapse overflow-y-auto rounded-xl border border-primary mt-8 glass p-8 shadow-lg shadow-primary"
     >
         <thead>
             <tr

@@ -74,88 +74,92 @@
                     </select>
                 </div>
 
-                <ul
-                    class="mt-4 flex flex-row flex-wrap gap-4"
-                >
-                    <li
-                        class="flex flex-col items-center justify-center gap-2"
-                        v-for="(user, index) in course.users"
-                        :key="user.id"
-                    >
-                        <div
-                            class=" flex h-8 w-8 items-center justify-center rounded-full border border-primary p-4 text-primary shadow shadow-primary"
-                        >
-                            {{ getInitials(user.name) }}
-                        </div>
-                        <select
-                            v-model="user.pivot!.role"
-                            class="my-4 border border-primary bg-base-200 px-4"
-                        >
-                            <option value="Designer">Designer</option>
-                            <option value="SME">Subject Matter Expert</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Builder">Builder</option>
-                        </select>
-                        <button
-                            type="button"
-                            @click="localCourse.users.splice(index, 1)"
-                            class="font-bold text-error"
-                        >
-                            X
-                        </button>
-                    </li>
-                </ul>
-                <ul>
-                    <li v-if="!showAddUser && localCourse.users.length < 4">
-                        <button
-                            type="button"
-                            class="btn text-primary-content btn-primary hover:bg-primary/30 active:bg-primary/50"
-                            @click="handleShowAddUser"
-                        >
-                            Add User
-                        </button>
-                    </li>
-                    <li v-if="showAddUser" class="flex flex-col gap-2">
-                        <select
-                            v-model="selectedUserId"
-                            class="my-4 border border-primary bg-base-200 px-4"
-                        >
-                            <option :value="null">Select User</option>
-                            <option
-                                v-for="user in availableUsers"
-                                :key="user.id"
-                                :value="user.id"
-                            >
-                                {{user.name}}
-                            </option>
-                        </select>
-                        <select
-                            v-model="selectedRole"
-                            class="my-4 border border-primary bg-base-200 px-4"
-                        >
-                            <option value="Designer">Designer</option>
-                            <option value="SME">Subject Matter Expert</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Builder">Builder</option>
-                        </select>
-                        <div class="flex gap-2">
-                            <button
-                                type="button"
-                                @click="() => { console.log('Add button clicked', { selectedUserId: selectedUserId, selectedRole: selectedRole }); addUser(); }"
-                                class="btn text-success-content btn-success"
-                            >
-                                Add
-                            </button>
-                            <button
-                                type="button"
-                                @click="cancelAddUser"
-                                class="btn text-error-content btn-error"
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    </li>
-                </ul>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-base-content mb-4">
+                        Team Roles
+                    </label>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border border-primary">
+                            <thead>
+                                <tr class="bg-base-200">
+                                    <th class="border border-primary p-2 text-left">Designer</th>
+                                    <th class="border border-primary p-2 text-left">Lead</th>
+                                    <th class="border border-primary p-2 text-left">SME</th>
+                                    <th class="border border-primary p-2 text-left">Builder</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-primary p-2">
+                                        <select
+                                            v-model="selectedRoles.designer"
+                                            @change="updateCourseUsers"
+                                            class="bg-base-200 text-base-content w-full border border-primary p-2"
+                                        >
+                                            <option :value="null">Select Designer</option>
+                                            <option
+                                                v-for="user in ids"
+                                                :key="user.id"
+                                                :value="user.id"
+                                            >
+                                                {{ user.name }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="border border-primary p-2">
+                                        <select
+                                            v-model="selectedRoles.lead"
+                                            @change="updateCourseUsers"
+                                            class="bg-base-200 text-base-content w-full border border-primary p-2"
+                                        >
+                                            <option :value="null">Select Lead</option>
+                                            <option
+                                                v-for="user in leads"
+                                                :key="user.id"
+                                                :value="user.id"
+                                            >
+                                                {{ user.name }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="border border-primary p-2">
+                                        <select
+                                            v-model="selectedRoles.sme"
+                                            @change="updateCourseUsers"
+                                            class="bg-base-200 text-base-content w-full border border-primary p-2"
+                                        >
+                                            <option :value="null">Select SME</option>
+                                            <option
+                                                v-for="user in smes"
+                                                :key="user.id"
+                                                :value="user.id"
+                                            >
+                                                {{ user.name }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="border border-primary p-2">
+                                        <select
+                                            v-model="selectedRoles.builder"
+                                            @change="updateCourseUsers"
+                                            class="bg-base-200 text-base-content w-full border border-primary p-2"
+                                        >
+                                            <option :value="null">Select Builder</option>
+                                            <option
+                                                v-for="user in ids"
+                                                :key="user.id"
+                                                :value="user.id"
+                                            >
+                                                {{ user.name }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div class="mt-4 flex flex-row gap-4">
                     <button
                         type="submit"
@@ -176,13 +180,15 @@
     </div>
 </template>
 <script setup lang="ts">
-import { useInitials } from '@/composables/useInitials';
-import type { Course } from '@/types';
+import type { Course, User } from '@/types';
 import { router } from '@inertiajs/vue3';
 import { onClickOutside } from '@vueuse/core';
 import axios from 'axios';
-import { onMounted, ref } from 'vue';
-const { getInitials } = useInitials();
+import { onMounted, ref, watch } from 'vue';
+
+
+
+
 const props = defineProps<{
     isOpen: boolean;
     course: Course;
@@ -191,59 +197,129 @@ const localCourse = ref<Course>(props.course);
 const emit = defineEmits(['modal-close']);
 
 const target = ref(null);
-const showAddUser = ref(false);
-const selectedUserId = ref<number | null>(null);
-const selectedRole = ref('Designer');
-const availableUsers = ref<any[]>([]);
+const ids = ref<User[]>([]);
+const smes = ref<User[]>([]);
+const leads = ref<User[]>([]);
 const developmentCycles = ref<any[]>([]);
 
-const addUser = () => {
-    if (!selectedUserId.value) return;
+const selectedRoles = ref({
+    designer: null as number | null,
+    lead: null as number | null,
+    sme: null as number | null,
+    builder: null as number | null,
+});
 
-    const user = availableUsers.value.find(
-        (u) => u.id === selectedUserId.value,
-    );
-    if (user) {
-        console.log('Adding user to localCourse:', user, 'with role:', selectedRole.value);
-        localCourse.value.users.push({
-            ...user,
-            pivot: { role: selectedRole.value },
-        });
-        console.log('Updated localCourse.users:', localCourse.value.users);
-        cancelAddUser();
+const updateCourseUsers = () => {
+    const newUsers: User[] = [];
+    
+    if (selectedRoles.value.designer) {
+        const designer = ids.value.find(u => u.id === selectedRoles.value.designer);
+        if (designer) {
+            newUsers.push({ ...designer, pivot: { role: 'Designer' } });
+        }
+    }
+    
+    if (selectedRoles.value.lead) {
+        const lead = leads.value.find(u => u.id === selectedRoles.value.lead);
+        if (lead) {
+            newUsers.push({ ...lead, pivot: { role: 'Lead' } });
+        }
+    }
+    
+    if (selectedRoles.value.sme) {
+        const sme = smes.value.find(u => u.id === selectedRoles.value.sme);
+        if (sme) {
+            newUsers.push({ ...sme, pivot: { role: 'SME' } });
+        }
+    }
+    
+    if (selectedRoles.value.builder) {
+        const builder = ids.value.find(u => u.id === selectedRoles.value.builder);
+        if (builder) {
+            newUsers.push({ ...builder, pivot: { role: 'Builder' } });
+        }
+    }
+    
+    localCourse.value.users = newUsers;
+};
+
+const loadUsersByRole = async () => {
+    try {
+        const response = await axios.get('/api/users');
+        const data = response.data;
+        ids.value = data.ids;
+        smes.value = data.smes;
+        leads.value = data.leads;
+        
+        // Populate selected roles from existing course users
+        if (localCourse.value.users && localCourse.value.users.length > 0) {
+            localCourse.value.users.forEach(user => {
+                switch (user.pivot?.role) {
+                    case 'Designer':
+                        selectedRoles.value.designer = user.id;
+                        break;
+                    case 'Lead':
+                        selectedRoles.value.lead = user.id;
+                        break;
+                    case 'SME':
+                        selectedRoles.value.sme = user.id;
+                        break;
+                    case 'Builder':
+                        selectedRoles.value.builder = user.id;
+                        break;
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Failed to fetch users:', error);
     }
 };
 
-const cancelAddUser = () => {
-    showAddUser.value = false;
-    selectedUserId.value = null;
-    selectedRole.value = 'Designer';
-};
-
-const loadAvailableUsers = async () => {
-    const response = await axios.get('/api/allUsers');
-    const existingUserIds = new Set(localCourse.value.users.map((u) => u.id));
-    availableUsers.value = response.data.filter(
-        (user: any) => !existingUserIds.has(user.id),
-    );
-};
-
 const loadDevelopmentCycles = async () => {
-    const response = await axios.get('/api/development-cycles');
-    developmentCycles.value = response.data;
+    try {
+        const response = await axios.get('/api/development-cycles');
+        developmentCycles.value = response.data;
+    } catch (error) {
+        console.error('Failed to fetch development cycles:', error);
+    }
 };
+
+// Watch for course prop changes to update local data
+watch(() => props.course, (newCourse) => {
+    localCourse.value = newCourse;
+    if (newCourse.users && newCourse.users.length > 0) {
+        // Reset and repopulate selected roles
+        selectedRoles.value = {
+            designer: null,
+            lead: null,
+            sme: null,
+            builder: null,
+        };
+        
+        newCourse.users.forEach(user => {
+            switch (user.pivot?.role) {
+                case 'Designer':
+                    selectedRoles.value.designer = user.id;
+                    break;
+                case 'Lead':
+                    selectedRoles.value.lead = user.id;
+                    break;
+                case 'SME':
+                    selectedRoles.value.sme = user.id;
+                    break;
+                case 'Builder':
+                    selectedRoles.value.builder = user.id;
+                    break;
+            }
+        });
+    }
+}, { deep: true });
 
 onMounted(() => {
     loadDevelopmentCycles();
-    
+    loadUsersByRole();
 });
-const handleShowAddUser = async () => {
-    console.log('handleShowAddUser called');
-    await loadAvailableUsers();
-    console.log('Available users loaded:', availableUsers.value);
-    showAddUser.value = true;
-    console.log('showAddUser set to true');
-};
+
 onClickOutside(target, () => {
     emit('modal-close');
 });
@@ -256,6 +332,7 @@ const updateCourse = () => {
         prefix: localCourse.value.prefix,
         number: localCourse.value.number,
         title: localCourse.value.title,
+        notes: localCourse.value.notes,
         development_cycle: localCourse.value.development_cycle,
         users: localCourse.value.users.map(user => ({
             id: user.id,

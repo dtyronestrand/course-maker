@@ -42,9 +42,9 @@
                         id="prefix"
                         class=" mt-1 block w-full border border-primary p-2"
                         required
-                        @input="clientErrors.prefix = undefined"
+                   
                     />
-                    <InputError class="input-error" :message="clientErrors.prefix" />
+                  
                 </div>
                 <div class="mb-4">
                     <label
@@ -58,9 +58,9 @@
                         id="number"
                         class="bg-base-200  mt-1 block w-full border border-primary p-2"
                         required
-                        @input="clientErrors.number = undefined"
+                       
                     />
-                    <InputError class="input-error" :message="clientErrors.number" />
+               
                 </div>
                 <div class="mb-4">
                     <label
@@ -74,9 +74,9 @@
                         id="title"
                         class="bg-base-200 mt-1 block w-full border border-primary p-2"
                         required
-                        @input="clientErrors.title = undefined"
+                      
                     />
-                    <InputError class="input-error" :message="clientErrors.title" />
+                
                 </div>
                 <div class="mb-4">
                     <label
@@ -88,7 +88,7 @@
                         v-model="courseData.development_cycle"
                         id="cycle"
                         class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
-                        @change="clientErrors.development_cycle = undefined"
+                      
                     >
                         <option :value="null">Select a cycle</option>
                         <option
@@ -99,7 +99,7 @@
                             {{ cycle.name }}
                         </option>
                     </select>
-                    <InputError class="input-error" :message="clientErrors.development_cycle" />
+                   
                 </div>
                 <div class="mb-4">
                     <label
@@ -141,10 +141,7 @@
                                 </svg>
                             </button>
                         </div>
-                        <InputError
-                            class="input-error"
-                            :message="clientErrors.objectives?.[index]"
-                        />
+                
                     </div>
                     <button
                         type="button"
@@ -156,59 +153,89 @@
                 </div>
 
                 <div class="mb-4">
-                    <label
-                        for="users"
-                        class="text-base-content mb-4 block text-sm font-medium"
-                    >
-                        Users</label
-                    >
-                    <div
-                        v-for="(user, index) in courseData.users"
-                        :key="user.id"
-                        class="text-base-content mb-2 flex flex-col gap-2"
-                    >
-                        <div class="flex items-center gap-2">
-                            {{ user.name }}
-                            <select
-                                v-model="user.role"
-                                class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
-                            
-                            >
-                                <option value="Designer">Designer</option>
-                                <option value="SME">Subject Matter Expert</option>
-                                <option value="Manager">Manager</option>
-                                <option value="Builder">Builder</option>
-                            </select>
-                        </div>
-                        <InputError
-                            class="input-error"
-                            :message="clientErrors.users?.[index]"
-                        />
+                    <label class="text-base-content mb-4 block text-sm font-medium">
+                        Team Roles
+                    </label>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border border-primary">
+                            <thead>
+                                <tr class="bg-base-200">
+                                    <th class="border border-primary p-2 text-left">Designer</th>
+                                    <th class="border border-primary p-2 text-left">Lead</th>
+                                    <th class="border border-primary p-2 text-left">SME</th>
+                                    <th class="border border-primary p-2 text-left">Builder</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-primary p-2">
+                                        <select
+                                            v-model="selectedRoles.designer"
+                                            @change="updateCourseUsers"
+                                            class="bg-base-200 text-base-content w-full border border-primary p-2"
+                                        >
+                                            <option :value="null">Select Designer</option>
+                                            <option
+                                                v-for="user in ids"
+                                                :key="user.id"
+                                                :value="user.id"
+                                            >
+                                                {{ user.name }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="border border-primary p-2">
+                                        <select
+                                            v-model="selectedRoles.lead"
+                                            @change="updateCourseUsers"
+                                            class="bg-base-200 text-base-content w-full border border-primary p-2"
+                                        >
+                                            <option :value="null">Select Lead</option>
+                                            <option
+                                                v-for="user in leads"
+                                                :key="user.id"
+                                                :value="user.id"
+                                            >
+                                                {{ user.name }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="border border-primary p-2">
+                                        <select
+                                            v-model="selectedRoles.sme"
+                                            @change="updateCourseUsers"
+                                            class="bg-base-200 text-base-content w-full border border-primary p-2"
+                                        >
+                                            <option :value="null">Select SME</option>
+                                            <option
+                                                v-for="user in smes"
+                                                :key="user.id"
+                                                :value="user.id"
+                                            >
+                                                {{ user.name }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="border border-primary p-2">
+                                        <select
+                                            v-model="selectedRoles.builder"
+                                            @change="updateCourseUsers"
+                                            class="bg-base-200 text-base-content w-full border border-primary p-2"
+                                        >
+                                            <option :value="null">Select Builder</option>
+                                            <option
+                                                v-for="user in ids"
+                                                :key="user.id"
+                                                :value="user.id"
+                                            >
+                                                {{ user.name }}
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-
-                    <select
-                        v-if="addingUser"
-                        @change="updateUsers"
-                        v-model="selectedUserId"
-                        id="users"
-                        class="bg-base-200 text-base-content mt-1 block w-full border border-primary p-2"
-                    >
-                        <option
-                            class="text-base-content"
-                            v-for="user in users"
-                            :key="user.id"
-                            :value="user.id"
-                        >
-                            {{ user.name }}
-                        </option>
-                    </select>
-                    <button
-                        type="button"
-                        @click="addUser"
-                        class="min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] text-primary-content m-0 mt-4 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-lg bg-primary px-[1.5em] py-[0.25em] text-center font-bold duration-300 will-change-transform outline-none hover:bg-primary/30 active:translate-y-0 active:bg-primary/50 active:shadow-none disabled:pointer-events-none"
-                    >
-                        Add User
-                    </button>
                 </div>
                 <div class="flex gap-2">
                     <button
@@ -234,6 +261,7 @@
 import { onMounted, ref } from 'vue';
 import type { DevelopmentCycle } from '@/types';
 
+
 const emit = defineEmits(['create-course', 'close']);
 
 interface User {
@@ -256,17 +284,16 @@ interface CourseData {
     development_cycle: number | null;
 }
 
-interface ClientErrors {
-    prefix?: string;
-    number?: string;
-    title?: string;
-    development_cycle?: string;
-    objectives?: string[]; // Array to hold messages for objectives, if any
-    users?: string[]; // Array to hold messages for users, if any
-    general?: string; // For any general form errors
-}
 
+
+
+
+
+const ids = ref<User[]>([]);
+const smes = ref<User[]>([]);
+const leads = ref<User[]>([]);
 const users = ref<User[]>([]);
+
 const developmentCycles = ref<DevelopmentCycle[]>([]);
 const courseData = ref<CourseData>({
     prefix: '',
@@ -276,10 +303,15 @@ const courseData = ref<CourseData>({
     users: [],
     development_cycle: null,
 });
-const addingUser = ref(false);
-const selectedUserId = ref<number | null>(null);
 
-const clientErrors = ref<ClientErrors>({});
+const selectedRoles = ref({
+    designer: null as number | null,
+    lead: null as number | null,
+    sme: null as number | null,
+    builder: null as number | null,
+});
+
+
 
 
 const handleCreateCourse = () => {
@@ -300,6 +332,12 @@ const handleCreateCourse = () => {
         objectives: [],
         users: [],
         development_cycle: null,
+    };
+    selectedRoles.value = {
+        designer: null,
+        lead: null,
+        sme: null,
+        builder: null,
     };
     
 };
@@ -335,49 +373,83 @@ const toRoman = (num: number): string => {
     return roman;
 };
 
-const addUser = () => {
-    addingUser.value = true;
-    clientErrors.value.users = undefined; // Clear user-related errors when adding
-};
-
-const updateUsers = () => {
-    if (selectedUserId.value) {
-        const selectedUser = users.value.find(
-            (user) => user.id === selectedUserId.value,
-        );
-        if (
-            selectedUser &&
-            !courseData.value.users.some(
-                (user) => user.id === selectedUserId.value,
-            )
-        ) {
-            courseData.value.users.push({ ...selectedUser, role: 'Designer' });
+const updateCourseUsers = () => {
+    const newUsers: User[] = [];
+    
+    if (selectedRoles.value.designer) {
+        const designer = ids.value.find(u => u.id === selectedRoles.value.designer);
+        if (designer) {
+            newUsers.push({ ...designer, role: 'Designer' });
         }
-        addingUser.value = false;
-        selectedUserId.value = null;
     }
+    
+    if (selectedRoles.value.lead) {
+        const lead = leads.value.find(u => u.id === selectedRoles.value.lead);
+        if (lead) {
+            newUsers.push({ ...lead, role: 'Lead' });
+        }
+    }
+    
+    if (selectedRoles.value.sme) {
+        const sme = smes.value.find(u => u.id === selectedRoles.value.sme);
+        if (sme) {
+            newUsers.push({ ...sme, role: 'SME' });
+        }
+    }
+    
+    if (selectedRoles.value.builder) {
+        const builder = ids.value.find(u => u.id === selectedRoles.value.builder);
+        if (builder) {
+            newUsers.push({ ...builder, role: 'Builder' });
+        }
+    }
+    
+    courseData.value.users = newUsers;
 };
 const createObjective = () => {
     courseData.value.objectives.push({
         number: toRoman(courseData.value.objectives.length + 1),
         objective: '',
     });
-    clientErrors.value.objectives = undefined; // Clear objective-related errors when adding
+     
 };
 
 onMounted(async () => {
     try {
-        const response = await fetch('/courses/create', {
+        const response = await fetch('/api/users', {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
         });
         const data = await response.json();
-        users.value = data.users;
+        ids.value = data.ids;
+        smes.value = data.smes;
+        leads.value = data.leads;
+        users.value = [...data.ids, ...data.smes, ...data.leads];
         developmentCycles.value = data.cycles || [];
+        
+        // If editing existing course, populate selected roles
+        if (courseData.value.users.length > 0) {
+            courseData.value.users.forEach(user => {
+                switch (user.role) {
+                    case 'Designer':
+                        selectedRoles.value.designer = user.id;
+                        break;
+                    case 'Lead':
+                        selectedRoles.value.lead = user.id;
+                        break;
+                    case 'SME':
+                        selectedRoles.value.sme = user.id;
+                        break;
+                    case 'Builder':
+                        selectedRoles.value.builder = user.id;
+                        break;
+                }
+            });
+        }
     } catch (error) {
-        console.error('Failed to fetch users:', error);
+        console.error('Failed to fetch data:', error);
     }
 });
 </script>

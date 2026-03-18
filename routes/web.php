@@ -35,7 +35,7 @@ Route::post('/deliverables', [\App\Http\Controllers\DeliverableController::class
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/create', function () {
-    $user = User::select('id', 'name')->get();
+    $user = User::select('id', 'name', 'role')->get();
     $cycles = DevelopmentCycle::select('id', 'name')->get();
 
     if (request()->wantsJson()) {

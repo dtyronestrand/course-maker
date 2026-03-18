@@ -8,7 +8,13 @@ export type User = {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
-    role?: string;
+    roles?: {
+        id: number;
+        name: string;
+    };
+    pivot?: {
+        role: string;
+    };
     current_team?: Team | null;
     [key: string]: unknown;
 };

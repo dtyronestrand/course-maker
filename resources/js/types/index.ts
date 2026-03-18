@@ -24,7 +24,7 @@ export interface Course {
     prefix: string;
     number: string;
     title: string;
-    users: (User & { pivot: { role: string; [key: string]: any } })[];
+    users: User[];
     development_cycle: DevelopmentCycle;
     deliverables: Deliverable[];
     notes?: string;

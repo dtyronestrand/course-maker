@@ -21,4 +21,4 @@ Route::post('/create-token', function (Request $request) {
 
 Route::middleware('auth:sanctum')->get('/development-cycles', [DevelopmentCycleController::class, 'index']);
 
-Route::middleware('auth:sanctum')->get('/allUsers', [\App\Http\Controllers\ApiController::class, 'allUsers']);
+Route::middleware('auth:sanctum')->get('/users', [\App\Http\Controllers\ApiController::class, 'allUsersByRole']);
