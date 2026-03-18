@@ -159,7 +159,7 @@
                         </table>
                     </div>
                 </div>
-
+                <div class="flex flex-row justify-between">
                 <div class="mt-4 flex flex-row gap-4">
                     <button
                         type="submit"
@@ -174,6 +174,16 @@
                     >
                         Cancel
                     </button>
+                </div>
+                <div class="mt-4">
+                    <button 
+                        type="button" 
+                        class="btn btn-error text-error-content hover:bg-error/30 active:bg-error/50"
+                        @click="deleteCourse"
+                    >
+                        Delete Course
+                    </button>
+                </div>
                 </div>
             </form>
         </div>
@@ -242,7 +252,19 @@ const updateCourseUsers = () => {
     
     localCourse.value.users = newUsers;
 };
-
+const deleteCourse = () => {
+    if (confirm('Are you sure you want to delete this course? This action cannot be undone.')) {
+        router.delete(`/courses/${localCourse.value.id}`, {
+            onSuccess: () => {
+                console.log('Course deletion successful');
+                emit('modal-close');
+            },
+            onError: (errors) => {
+                console.error('Course deletion failed:', errors);
+            }
+        });
+    }
+};
 const loadUsersByRole = async () => {
     try {
         const response = await axios.get('/api/users');

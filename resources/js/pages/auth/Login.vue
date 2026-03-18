@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
-import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -9,9 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { register } from '@/routes';
-import { store } from '@/routes/login';
 import { request } from '@/routes/password';
-import { computed, ref } from 'vue';
+
 
 defineProps<{
     status?: string;
@@ -25,46 +23,19 @@ const form = useForm({
     remember: false,
 });
 
-// Client-side validation errors
-const clientErrors = ref<{ email?: string; password?: string }>({});
 
-const validate = () => {
-    clientErrors.value = {}; // Clear previous errors
-    let isValid = true;
 
-    if (!form.email) {
-        clientErrors.value.email = 'The email field is required.';
-        isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
-        clientErrors.value.email = 'The email must be a valid email address.';
-        isValid = false;
-    }
 
-    if (!form.password) {
-        clientErrors.value.password = 'The password field is required.';
-        isValid = false;
-    } else if (form.password.length < 8) {
-        // Assuming a minimum password length of 8 as a common practice
-        clientErrors.value.password = 'The password must be at least 8 characters.';
-        isValid = false;
-    }
-
-    return isValid;
-};
 
 const submit = () => {
-    if (!validate()) {
-        return; // Stop submission if client-side validation fails
-    }
+ 
 
-    form.post(route('login.store'), {
-        onFinish: () => form.reset('password'),
+    form.post('/login', {
+        onFinish: () => form.reset(),
     });
 };
 
-const hasErrors = computed(() => {
-    return Object.keys(clientErrors.value).length > 0 || Object.keys(form.errors).length > 0;
-});
+
 </script>
 
 <template>
@@ -95,9 +66,9 @@ const hasErrors = computed(() => {
                         :tabindex="1"
                         autocomplete="email"
                         placeholder="email@example.com"
-                        @input="clientErrors.email = undefined"
+                     
                     />
-                    <InputError :message="clientErrors.email || form.errors.email" />
+                   
                 </div>
 
                 <div class="grid gap-2">
@@ -123,9 +94,9 @@ const hasErrors = computed(() => {
                         :tabindex="2"
                         autocomplete="current-password"
                         placeholder="Password"
-                        @input="clientErrors.password = undefined"
+                       
                     />
-                    <InputError :message="clientErrors.password || form.errors.password" />
+                    
                 </div>
 
                 <div class="flex items-center justify-between text-amber-400">
