@@ -248,18 +248,19 @@ const columnsUsers = [
                         },
                     }),
                 ]);
-            }
+            } else{
 
             return h('div', { class: 'flex gap-3 items-center' }, [
                 h(Pencil, {
-                    class: 'w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-blue-500 hover:text-blue-700',
+                   
+                    class: 'w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
                     onClick: (e: Event) => {
                         e.stopPropagation();
                         startEdit(user);
                     },
                 }),
             ]);
-        },
+         } },
     },
 ];
 
