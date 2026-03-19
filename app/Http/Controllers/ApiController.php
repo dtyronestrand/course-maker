@@ -9,24 +9,34 @@ class ApiController extends Controller
 {
   public function allUsersByRole()
   {
-      $ids = \App\Models\User::with('roles')->whereHas('roles', function($q){
-          $q->whereIn('name', ['id']);
+      $users = \App\Models\User::with('roles')->whereHas('roles', function($q){
+          $q->whereIn('name', ['id', 'sme', 'lead']);
       })->get();
-      
-      $smes = \App\Models\User::with('roles')->whereHas('roles', function($q){
-          $q->whereIn('name', ['sme']);
-      })->get();
-      
-      $leads = \App\Models\User::with('roles')->whereHas('roles', function($q){
-          $q->whereIn('name', ['lead']);
-      })->get();
+
+      $ids = [];
+      $smes = [];
+      $leads = [];
+
+      foreach ($users as $user) {
+          foreach ($user->roles as $role) {
+              if ($role->name === 'id') {
+                  $ids[] = $user;
+              }
+              if ($role->name === 'sme') {
+                  $smes[] = $user;
+              }
+              if ($role->name === 'lead') {
+                  $leads[] = $user;
+              }
+          }
+      }
 
       $cycles = DevelopmentCycle::select('id', 'name')->get();
 
       return response()->json([
-          'ids' => $ids,
-          'smes' => $smes,
-          'leads' => $leads,
+          'ids' => collect($ids),
+          'smes' => collect($smes),
+          'leads' => collect($leads),
           'cycles' => $cycles
       ]);
   }
