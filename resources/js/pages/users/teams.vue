@@ -236,7 +236,7 @@ const ids = computed(() => {
 const visible = ref(false);
 const props = defineProps<{
     users: User[];
-    teams: Record<
+    teamsProp: Record<
         number,
         {
             id: number;
@@ -248,7 +248,7 @@ const props = defineProps<{
 }>();
 
 const teamsArray = computed(() =>
-    props.teams ? Object.values(props.teams) : [],
+    props.teamsProp ? Object.values(props.teamsProp) : [],
 );
 const addTeam = () => {
     visible.value = true;
