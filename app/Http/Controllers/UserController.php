@@ -79,7 +79,7 @@ class UserController extends Controller
         $users->each(fn($user) => $user->role = $user->getRoleNames()->first());
         return Inertia::render('users/teams', [
             'users' => $users,
-            'teams' => $teams ?? null
+            'teamsProp' => $teams ?? null
         ]);
     }
 
