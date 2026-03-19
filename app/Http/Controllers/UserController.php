@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        $query = User::query()->with('currentTeam');
+        $query = User::query()->with('currentTeam', 'courses');
         $teams = \App\Models\Team::all()->map(fn($team) => ['id' => $team->id, 'name' => $team->name])->values();
         /** @var User $currentUser */
         $currentUser = auth()->user();
@@ -25,11 +25,12 @@ class UserController extends Controller
               $users = $query->get();
             
         }
-      
+       
         $users->each(fn($user) => $user->role = $user->getRoleNames()->first());
         return Inertia::render('users/Index', [
             'users' => $users,
-            'teams' => $teams
+            'teams' => $teams,
+        
         ]);
     }
 

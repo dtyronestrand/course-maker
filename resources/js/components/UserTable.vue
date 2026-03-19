@@ -70,7 +70,7 @@ import {
     type SortingFn,
 } from '@tanstack/vue-table';
 import type { Team } from '@/types/global';
-
+import type { Course } from '@/types';
 const props = defineProps<{
     users: User[];
     teams: Team[];
@@ -196,6 +196,16 @@ const columnsUsers = [
                 );
             }
             return row.original.current_team?.name || 'N/A';
+        },
+    },
+    {
+        accessorKey: 'courses',
+        header: 'Courses',
+        cell: ({ row }: any) => {
+            const courses = row.original.courses as Course[];
+            return courses.length > 0
+                ? courses.map((c) => c.prefix + " " + c.number).join(', ') 
+                : 'No courses';
         },
     },
     {
