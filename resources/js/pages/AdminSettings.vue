@@ -4,9 +4,9 @@
             <h1 class="mb-4 text-2xl font-bold">Admin Settings</h1>
         </div>
         <div
-            class="glass flex flex-col md:flex-row md:flex-wrap md:justify-evenly lg:flex-row"
+            class="glass mx-8 p-8 flex flex-col md:flex-row md:flex-wrap md:justify-evenly lg:flex-row"
         >
-            <div class="p-8">
+            <div >
                 <h2 class="mb-4 text-lg">Designer Capacity</h2>
                 <form @submit.prevent>
                     <input
@@ -21,7 +21,7 @@
                     >
                 </form>
             </div>
-            <div class="p-8">
+            <div >
                 <h2 class="mb-4 text-lg">Development Cycles</h2>
                 <div
                     v-for="cycle in page.props.developmentCycles"
@@ -90,7 +90,7 @@
                     >
                 </form>
             </div>
-            <div class="p-8">
+            <div >
                 <h2 class="mb-4 text-lg">Deliverables</h2>
                 <table class="min-w-full divide-y divide-amber-500">
                     <thead>
@@ -107,6 +107,10 @@
                             >
                                 Offset Days
                             </th>
+                            <th
+                                scope="col"
+                                class="px-6 py-3 text-start text-sm text-amber-500 uppercase"
+                            ></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -117,8 +121,15 @@
                             <td class="px-6 py-4 text-sm whitespace-nowrap">
                                 {{ deliverable.name }}
                             </td>
-                            <td class="whitespace-norap px-6 py-4 text-sm">
+                            <td class="whitespace-nowrap text-center px-6 py-4 text-sm">
                                 {{ deliverable.offset_days }}
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-sm">
+                                <Trash2
+                                    @click="router.delete(`/deliverables/${deliverable.id}`)"
+                                    class="text-red-500"
+                                    :size="20"
+                                />
                             </td>
                         </tr>
                     </tbody>

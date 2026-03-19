@@ -4,7 +4,6 @@ import {
     BookOpen,
     User,
     Users,
-    Folder,
     Cog,
     LayoutGrid,
 } from 'lucide-vue-next';

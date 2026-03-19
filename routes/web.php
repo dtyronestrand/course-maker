@@ -32,7 +32,7 @@ Route::get('/admin_settings', [\App\Http\Controllers\AdminSettingController::cla
 Route::post('/admin_settings', [\App\Http\Controllers\AdminSettingController::class, 'store'])->name('adminsettings.store');
 Route::post('/development_cycles', [DevelopmentCycleController::class, 'store'])->name('developmentcycles.store');
 Route::post('/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('deliverables.store');
-
+Route::delete('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'destroy'])->name('deliverables.destroy');
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/create', function () {
     $user = User::select('id', 'name', 'role')->get();

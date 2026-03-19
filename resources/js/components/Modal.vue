@@ -1,6 +1,6 @@
 <template>
     <div
-        v-if="visible"
+        v-if="props.visible"
         class="fixed top-0 left-0 z-[999] mx-auto h-full w-full overflow-hidden bg-background/50"
     >
         <div class="fixed top-0 left-0 z-[1000] h-full w-full bg-background/50">
@@ -10,7 +10,7 @@
             >
                 <div class="align-center mb-[20px] flex justify-between">
                     <slot name="header">
-                        <h3>{{ title }}</h3>
+                        <h3>{{ props.title }}</h3>
                     </slot>
                     <button
                         @click="closeModal"
@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+
 
 const props = withDefaults(
     defineProps<{

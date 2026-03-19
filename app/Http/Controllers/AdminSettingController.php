@@ -13,7 +13,7 @@ class AdminSettingController extends Controller
  {
         $settings = AdminSetting::all()->pluck('value', 'key');
         $developmentCycles = DevelopmentCycle::all();
-        $deliverables = Deliverable::all();
+        $deliverables = Deliverable::orderBy('offset_days')->get();
         return Inertia::render('AdminSettings', [
             'settings' => $settings,
             'developmentCycles' => $developmentCycles,
