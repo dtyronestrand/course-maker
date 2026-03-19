@@ -13,6 +13,7 @@
                 <button
                     @click="$emit('close')"
                     class="text-primary-content hover:text-error"
+                    aria-label="Close modal"
                 >
                     <svg
                         class="h-6 w-6"
@@ -116,6 +117,7 @@
                                 type="button"
                                 @click="courseData.objectives.splice(index, 1)"
                                 class="frosted-backdrop min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] border-error bg-error/10 text-error hover:text-secondary-content m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border px-[1.5em] py-[0.25em] text-center font-bold duration-300 will-change-transform outline-none hover:bg-secondary active:translate-y-0 active:shadow-none disabled:pointer-events-none"
+                                aria-label="Remove objective"
                             >
                                 <svg
                                     class="h-6 w-6"
