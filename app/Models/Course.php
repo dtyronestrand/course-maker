@@ -26,12 +26,11 @@ class Course extends Model
             $pivotData[$deliverable->id] = [
                 'due_date' => Carbon::parse($course->developmentCycle->start_date->addDays($deliverable->offset_days)),
                 'is_done' => false,
-                'missed_due_date' => 0,
+                'missed_due_date_count' => 0,
             ];
-
-            $course->deliverables()->sync($pivotData);
         }
 
+        $course->deliverables()->sync($pivotData);
     }
     public function users()
     {

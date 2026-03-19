@@ -34,7 +34,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody class="glass">
+            <tbody >
                 <tr
                     v-for="row in table.getRowModel().rows"
                     :key="row.id"
@@ -70,7 +70,7 @@ import {
     type SortingFn,
 } from '@tanstack/vue-table';
 import type { Team } from '@/types/global';
-
+import type { Course } from '@/types';
 const props = defineProps<{
     users: User[];
     teams: Team[];
@@ -170,7 +170,7 @@ const columnsUsers = [
                     roles.map((role) => h('option', { value: role }, role)),
                 );
             }
-            return row.original.role;
+            return row.original.role.toUpperCase();
         },
     },
     {
@@ -196,6 +196,16 @@ const columnsUsers = [
                 );
             }
             return row.original.current_team?.name || 'N/A';
+        },
+    },
+    {
+        accessorKey: 'courses',
+        header: 'Courses',
+        cell: ({ row }: any) => {
+            const courses = row.original.courses as Course[];
+            return courses.length > 0
+                ? courses.map((c) => c.prefix + " " + c.number).join(', ') 
+                : 'No courses';
         },
     },
     {
@@ -238,18 +248,19 @@ const columnsUsers = [
                         },
                     }),
                 ]);
-            }
+            } else{
 
             return h('div', { class: 'flex gap-3 items-center' }, [
                 h(Pencil, {
-                    class: 'w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-blue-500 hover:text-blue-700',
+                   
+                    class: 'w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
                     onClick: (e: Event) => {
                         e.stopPropagation();
                         startEdit(user);
                     },
                 }),
             ]);
-        },
+         } },
     },
 ];
 

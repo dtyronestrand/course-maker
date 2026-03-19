@@ -180,9 +180,7 @@ import { index, teams as teamsRoute } from '@/routes/users';
 import AppLayout from '@/layouts/AppLayout.vue';
 import UserInfo from '@/components/userinfo/UserInfo.vue';
 import { Pencil } from 'lucide-vue-next';
-const page = usePage<{
-    teamsData: Team[] | null;
-}>();
+const page = usePage();
 const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     return [
         {

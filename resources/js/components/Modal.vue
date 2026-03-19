@@ -15,6 +15,7 @@
                     <button
                         @click="closeModal"
                         class="cursor-pointer border-none bg-none text-[24px]"
+                        aria-label="Close modal"
                     >
                         &times;
                     </button>

@@ -8,7 +8,7 @@
                 <Button @click="showModal = true">+ User</Button>
             </div>
         </div>
-        <div class="rounded">
+        <div class="rounded mx-8 mt-4 glass">
             <UserTable
                 :teams="page.props.teams as Team[]"
                 :users="page.props.users as User[]"
