@@ -176,12 +176,12 @@ import Button from '@/components/ui/button/Button.vue';
 import { usePage, useForm } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 import { dashboard } from '@/routes';
-import { index, teams } from '@/routes/users';
+import { index, teams as teamsRoute } from '@/routes/users';
 import AppLayout from '@/layouts/AppLayout.vue';
 import UserInfo from '@/components/userinfo/UserInfo.vue';
 import { Pencil } from 'lucide-vue-next';
 const page = usePage<{
-    teams: Team[] | null;
+    teamsData: Team[] | null;
 }>();
 const breadcrumbs = computed<BreadcrumbItem[]>(() => {
     return [
@@ -196,7 +196,7 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
         },
         {
             title: 'Teams',
-            href: teams().url,
+            href: teamsRoute().url,
         },
     ];
 });
