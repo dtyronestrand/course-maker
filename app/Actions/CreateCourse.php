@@ -38,10 +38,11 @@ class CreateCourse {
                 }
                 if(isset($data['users'])) {
                     Log::info('CreateCourse: Processing users', ['users_data' => $data['users']]);
+                    $usersToAttach = [];
                     foreach ($data['users'] as $user) {
-                        Log::info('CreateCourse: Attaching user', ['user' => $user]);
-                        $course->users()->attach($user['id'], ['role' => $user['role']]);
+                        $usersToAttach[$user['id']] = ['role' => $user['role']];
                     }
+                    $course->users()->attach($usersToAttach);
                     Log::info('CreateCourse: Users attached');
                 }
 
