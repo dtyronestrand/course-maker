@@ -15,7 +15,7 @@ class UserController extends Controller
         $this->authorize('viewAny', User::class);
 
         $query = User::query()->with('currentTeam');
-        $teams = \App\Models\Team::all()->map(fn($team) => ['id' => $team->id, 'name' => $team->name])->values();
+        $teams = \App\Models\Team::select('id', 'name')->get();
         /** @var User $currentUser */
         $currentUser = auth()->user();
 
