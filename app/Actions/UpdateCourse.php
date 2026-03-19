@@ -56,30 +56,27 @@ class UpdateCourse {
                 $course->users()->detach();
                 Log::info('Detached existing users from course');
                 
+                $usersToAttach = [];
                 foreach ($data['users'] as $index => $user) {
-                    Log::info('Processing user attachment:', [
+                    Log::info('Preparing user for attachment:', [
                         'index' => $index,
                         'user_data' => $user,
                         'user_id_type' => gettype($user['id'] ?? 'missing'),
                         'role_type' => gettype($user['role'] ?? 'missing')
                     ]);
                     
-                    try {
-                        $result = $course->users()->attach($user['id'], ['role' => $user['role']]);
-                        Log::info('User attached successfully:', [
-                            'user_id' => $user['id'],
-                            'role' => $user['role'],
-                            'attach_result' => $result
-                        ]);
-                    } catch (\Exception $e) {
-                        Log::error('Failed to attach user:', [
-                            'user_id' => $user['id'] ?? 'missing',
-                            'role' => $user['role'] ?? 'missing',
-                            'error' => $e->getMessage(),
-                            'trace' => $e->getTraceAsString()
-                        ]);
-                        throw $e;
-                    }
+                    $usersToAttach[$user['id']] = ['role' => $user['role']];
+                }
+
+                try {
+                    $course->users()->attach($usersToAttach);
+                    Log::info('Users attached successfully', ['count' => count($usersToAttach)]);
+                } catch (\Exception $e) {
+                    Log::error('Failed to attach users:', [
+                        'error' => $e->getMessage(),
+                        'trace' => $e->getTraceAsString()
+                    ]);
+                    throw $e;
                 }
                 
                 // Verify users were attached
