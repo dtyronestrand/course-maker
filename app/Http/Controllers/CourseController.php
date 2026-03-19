@@ -31,7 +31,7 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info('CourseController: store method called', ['request_data' => $request->all()]);
+        Log::info('CourseController: store method called', ['request_data' => $request->except(['password', 'password_confirmation', 'token', 'secret_tokens'])]);
         
         $data = $request->validate([
             'prefix' => 'required|string|max:10',
@@ -76,7 +76,7 @@ class CourseController extends Controller
     {
         Log::info('CourseController: update method called', [
             'course_id' => $course->id,
-            'request_data' => $request->all(),
+            'request_data' => $request->except(['password', 'password_confirmation', 'token', 'secret_tokens']),
             'request_method' => $request->method(),
             'request_url' => $request->url()
         ]);
