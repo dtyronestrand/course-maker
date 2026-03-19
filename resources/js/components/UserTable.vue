@@ -34,7 +34,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody class="glass">
+            <tbody >
                 <tr
                     v-for="row in table.getRowModel().rows"
                     :key="row.id"
@@ -170,7 +170,7 @@ const columnsUsers = [
                     roles.map((role) => h('option', { value: role }, role)),
                 );
             }
-            return row.original.role;
+            return row.original.role.toUpperCase();
         },
     },
     {
