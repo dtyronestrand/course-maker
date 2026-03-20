@@ -22,7 +22,8 @@ export const buttonVariants = cva(
           "bg-slate-500/30 backdrop-blur-[12px] shadow-[var(--glass-shadow)] border border-slate-500 text-slate-50 hover:bg-slate-600 focus-visible:ring-slate-400/40",
         success:
           "bg-green-500 text-green-50 hover:bg-green-600 focus-visible:ring-green-400/40",
-        
+        error:
+          "bg-red-500 text-red-50 hover:bg-red-600 focus-visible:ring-red-400/40",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

@@ -8,17 +8,29 @@
         >
             <div >
                 <h2 class="mb-4 text-lg">Designer Capacity</h2>
-                <form @submit.prevent>
+                <form @submit.prevent="handleSettings" class="flex flex-col gap-4 ">
                     <input
                         type="number"
                         v-model="capacity"
                         class="max-w-xs px-4 text-black"
+                        @change="isDirty=true"
+                       
                     />
+                    <div v-if="isDirty">
                     <Button
+                        
                         @click="handleSettings"
-                        class="btn btn-primary mt-4 ml-4"
+                        variant="success"
+                        class="btn btn-primary "
                         >Save</Button
                     >
+                    <Button
+                        @click="capacity = (page.props.settings as Record<string, any>)['Designer Capacity'] || 0; isDirty=false"
+                        variant="error"
+                        class="ml-2"
+                        >Cancel</Button
+                    >
+                    </div>
                 </form>
             </div>
             <div >
@@ -82,7 +94,8 @@
                     </div>
                     <Button
                         @click="addCycle = false"
-                        class="btn btn-secondary mr-2"
+                        variant="destructive"
+                        class=" mr-2"
                         >Cancel</Button
                     >
                     <Button @click="saveCycle" class="btn btn-primary"
@@ -160,12 +173,13 @@
                             class="mb-2 w-full max-w-xs px-4 text-black"
                         />
                     </div>
-                    <Button @click="saveDeliverable" class="btn btn-primary"
+                    <Button variant="success" @click="saveDeliverable" class="btn btn-primary"
                         >Save Deliverable</Button
                     >
                     <Button
                         @click="addDeliverable = false"
-                        class="btn btn-secondary mr-2"
+                        variant="error"
+                        class=" mr-2"
                         >Cancel</Button
                     >
                 </form>
@@ -198,6 +212,8 @@ const cycle = ref<DevelopmentCycle>({
     start_date: null,
     end_date: null,
 } as DevelopmentCycle);
+
+const isDirty = ref(false);
 const newDeliverable = ref({
     name: '',
     offset_days: 0,
@@ -233,6 +249,7 @@ const handleSettings = () => {
         {
             onSuccess: () => {
                 console.log('Settings saved successfully');
+                isDirty.value = false;
             },
             onError: (errors) => {
                 console.error('Validation errors:', errors);
