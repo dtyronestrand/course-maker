@@ -28,8 +28,10 @@ Route::get('users/teams', [UserController::class, 'teams'])->name('users.teams')
 Route::post('teams', [TeamController::class, 'store'])->name('teams.store');
 Route::put('/users', [UserController::class, 'add'])->name('users.add');
 Route::delete('/users/{user}', [UserController::class, 'delete'])->name('users.delete');
+Route::group(['middleware'=>['role:admin']], function(){
 Route::get('/admin_settings', [\App\Http\Controllers\AdminSettingController::class, 'index'])->name('adminsettings.index');
 Route::post('/admin_settings', [\App\Http\Controllers\AdminSettingController::class, 'store'])->name('adminsettings.store');
+});
 Route::post('/development_cycles', [DevelopmentCycleController::class, 'store'])->name('developmentcycles.store');
 Route::post('/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('deliverables.store');
 Route::delete('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'destroy'])->name('deliverables.destroy');

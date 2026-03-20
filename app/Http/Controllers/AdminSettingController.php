@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\DevelopmentCycle;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Deliverable;
 use App\Models\AdminSetting;
 use Illuminate\Http\Request;
 
 class AdminSettingController extends Controller
 {
+    use AuthorizesRequests;
  public function index()
  {
         $settings = AdminSetting::all()->pluck('value', 'key');
