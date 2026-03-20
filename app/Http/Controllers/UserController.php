@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Inertia\Inertia;
 
@@ -17,7 +18,7 @@ class UserController extends Controller
         $query = User::query()->with('currentTeam', 'courses');
         $teams = \App\Models\Team::all()->map(fn($team) => ['id' => $team->id, 'name' => $team->name])->values();
         /** @var User $currentUser */
-        $currentUser = auth()->user();
+        $currentUser = auth()->user;
 
         if (!$currentUser->hasRole('admin')) {
          $users = $query->where('current_team_id', $currentUser->current_team_id)->get();
@@ -61,7 +62,7 @@ class UserController extends Controller
         $teams = null;
         
         /** @var User $currentUser */
-        $currentUser = auth()->user();
+        $currentUser = auth()->user;
 
         if (!$currentUser->hasRole('admin')) {
          $users = $query->where('current_team_id', $currentUser->current_team_id)->get();
