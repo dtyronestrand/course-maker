@@ -23,7 +23,7 @@ Route::get('dashboard', function () {
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
 Route::put('/teams/{id}', [TeamController::class, 'update'])->name('teams.update');
-
+Route::get('/users/team', [TeamController::class, 'index'])->name('users.team');
 Route::get('users/teams', [UserController::class, 'teams'])->name('users.teams');
 Route::post('teams', [TeamController::class, 'store'])->name('teams.store');
 Route::put('/users', [UserController::class, 'add'])->name('users.add');

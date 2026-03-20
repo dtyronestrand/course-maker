@@ -14,7 +14,17 @@ class CourseController extends Controller
      */
     public function index()
     {
-     $courses = Course::all()->load('users', 'developmentCycle', 'deliverables');
+       $query = Course::query()->with(['users', 'developmentCycle', 'deliverables']);
+        $currentUser = auth()->user();
+
+        if (!$currentUser->hasRole('admin')) {
+           $courses = $query->whereHas('users', function ($q) use ($currentUser) {
+                $q->where('id', $currentUser->id);
+            })->get();
+        } else {
+            $courses = $query->get();
+        }   
+     
      return inertia('courses/Index', ['courses' => $courses]);
     }
 
@@ -114,6 +124,7 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
+     
         $course->delete();
         return redirect()->route('courses.index')->with('success', 'Course deleted successfully!');
     }

@@ -12,7 +12,11 @@ export interface DevelopmentCycle {
     start_date: string | null;
     end_date: string | null;
 }
-
+export type Team = {
+    id: number;
+    name: string;
+    users: User[];
+}
 export interface Deliverable {
     id?: number;
     name: string;

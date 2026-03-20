@@ -24,7 +24,7 @@ import { type NavItem } from '@/types';
 import AppLogo from './AppLogo.vue';
 import { dashboard } from '@/routes';
 import adminsettings from '@/routes/adminsettings';
-import { index, teams } from '@/routes/users';
+import { index, teams, team } from '@/routes/users';
 import courses from '@/routes/courses';
 import { computed, ref } from 'vue';
 import { usePage } from '@inertiajs/vue3';
@@ -75,7 +75,7 @@ switch(user_role.value) {
     case 'lead':
         items.push({
             title: 'Team',
-            href: teams(),
+            href: team(),
             icon: Users,
         });
         break;

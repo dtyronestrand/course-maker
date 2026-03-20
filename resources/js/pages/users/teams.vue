@@ -169,7 +169,7 @@
 
 <script setup lang="ts">
 import type { User } from '@/types/auth';
-import type { Team } from '@/types/global';
+import type { Team } from '@/types';
 import Modal from '@/components/Modal.vue';
 import type { BreadcrumbItem } from '@/types';
 import Button from '@/components/ui/button/Button.vue';

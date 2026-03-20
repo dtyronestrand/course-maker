@@ -3,9 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuinate\Support\Facades\Auth;
 use App\Models\Team;
+use App\Models\User;
+use Inertia\Inertia;
 class TeamController extends Controller
 {
+    public function index(Request $request)
+    {
+        $user = auth()->user();
+        $members = User::where('current_team_id', $user->current_team_id)->with(['roles', 'courses'])->get();
+        $team = Team::find($user->current_team_id);
+        return Inertia::render('users/team', [
+            'members' => $members,
+            'team' => $team,
+        ]);
+    }
     public function store(Request $request)
     {
         $request->validate([

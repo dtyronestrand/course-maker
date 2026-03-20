@@ -62,7 +62,7 @@ import type { BreadcrumbItem } from '@/types';
 import { computed, ref } from 'vue';
 import { dashboard } from '@/routes';
 import type { User } from '@/types/auth';
-import type { Team } from '@/types/global';
+import type { Team } from '@/types';
 import UserTable from '@/components/UserTable.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index } from '@/routes/users';

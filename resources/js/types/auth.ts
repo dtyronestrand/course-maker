@@ -1,4 +1,4 @@
-import type { Team } from './global';
+import type { Course, Team } from './index';
 
 export type User = {
     id: number;
@@ -11,11 +11,12 @@ export type User = {
     roles?: {
         id: number;
         name: string;
-    };
+    }[];
     pivot?: {
         role: string;
     };
     current_team?: Team | null;
+    courses?: Course[];
     [key: string]: unknown;
 };
 
