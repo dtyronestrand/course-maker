@@ -26,41 +26,63 @@ import { dashboard } from '@/routes';
 import adminsettings from '@/routes/adminsettings';
 import { index, teams } from '@/routes/users';
 import courses from '@/routes/courses';
+import { computed, ref } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 
-const mainNavItems: NavItem[] = [
+
+const page = usePage();
+const user_role = ref(page.props.user_role);
+const mainNavItems = computed((): NavItem[] => {
+    const items: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
     },
-    {
-        title: 'People',
-        href: index(),
-        icon: User,
-        items: [
-            {
-                title: 'Teams',
-                href: teams(),
-                icon: Users,
-            },
-            {
-                title: 'Users',
-                href: index(),
-                icon: User,
-            },
-        ],
-    },
+    
     {
         title: 'Courses',
         href: courses.index(),
         icon: BookOpen,
     },
-    {
-        title: 'Settings',
-        href: adminsettings.index(),
-        icon: Cog,
-    },
+
 ];
+switch(user_role.value) {
+    case 'admin':
+        items.push({
+            title: 'Settings',
+            href: adminsettings.index(),
+            icon: Cog,
+        });
+        items.push({
+            title: 'People',
+            href: index(),
+            icon: User,
+            items: [
+                {
+                    title: 'Teams',
+                    href: teams(),
+                    icon: Users,
+                },
+                {
+                    title: 'Users',
+                    href: index(),
+                    icon: User,
+                },
+            ],
+        });
+        break;
+    case 'lead':
+        items.push({
+            title: 'Team',
+            href: teams(),
+            icon: Users,
+        });
+        break;
+}
+return items;
+});
+
 </script>
 
 <template>
