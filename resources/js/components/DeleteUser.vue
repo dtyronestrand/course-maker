@@ -4,6 +4,7 @@ import { useTemplateRef } from 'vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 import {
     Dialog,
     DialogClose,
@@ -103,6 +104,7 @@ const passwordInput = useTemplateRef('passwordInput');
                                 :disabled="processing"
                                 data-test="confirm-delete-user-button"
                             >
+                                <Spinner v-if="processing" />
                                 Delete account
                             </Button>
                         </DialogFooter>
