@@ -57,12 +57,18 @@
                 </div>
                 <div v-else>
                     <form @submit.prevent="updateTeam">
-                        <label for="name" class="mb-2 block">Team Name</label>
+                        <label for="name" class="mb-2 block"
+                            >Team Name
+                            <span class="text-error" aria-hidden="true"
+                                >*</span
+                            ></label
+                        >
                         <input
                             v-model="editForm.name"
                             type="text"
                             class="mb-4 w-min rounded border border-gray-300 p-2"
                             required
+                            aria-required="true"
                         />
                         <div class="mb-4 flex flex-col items-center">
                             <label for="lead" class="mb-2 block"
@@ -114,13 +120,19 @@
             </template>
             <template #body>
                 <form @submit.prevent="createTeam">
-                    <label for="name" class="mb-2 block">Team Name</label>
+                    <label for="name" class="mb-2 block"
+                        >Team Name
+                        <span class="text-error" aria-hidden="true"
+                            >*</span
+                        ></label
+                    >
                     <input
                         v-model="form.name"
                         type="text"
                         id="name"
                         class="mb-4 w-full rounded border border-gray-300 p-2"
                         required
+                        aria-required="true"
                     />
                     <h4 class="mb-2 block">Add Members</h4>
                     <label for="lead" class="mb-2 block">Select Lead</label>
