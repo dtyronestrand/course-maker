@@ -11,3 +11,5 @@ Route::get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/development-cycles', [DevelopmentCycleController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('/users', [\App\Http\Controllers\ApiController::class, 'allUsersByRole']);
+
+Route::middleware('auth:sanctum')->get('/admin-dashboard', [\App\Http\Controllers\ApiController::class, 'adminDashboard']);

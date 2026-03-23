@@ -19,19 +19,14 @@ Route::get('/', function () {
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
 Route::put('/teams/{id}', [TeamController::class, 'update'])->name('teams.update');
 Route::get('/users/team', [TeamController::class, 'index'])->name('users.team');
 Route::get('users/teams', [UserController::class, 'teams'])->name('users.teams');
 Route::post('teams', [TeamController::class, 'store'])->name('teams.store');
 Route::put('/users', [UserController::class, 'add'])->name('users.add');
 Route::delete('/users/{user}', [UserController::class, 'delete'])->name('users.delete');
-Route::group(['middleware'=>['role:admin']], function(){
-Route::get('/admin_settings', [\App\Http\Controllers\AdminSettingController::class, 'index'])->name('adminsettings.index');
-Route::post('/admin_settings', [\App\Http\Controllers\AdminSettingController::class, 'store'])->name('adminsettings.store');
-});
 Route::post('/development_cycles', [DevelopmentCycleController::class, 'store'])->name('developmentcycles.store');
 Route::post('/deliverables', [\App\Http\Controllers\DeliverableController::class, 'store'])->name('deliverables.store');
 Route::delete('/deliverables/{deliverable}', [\App\Http\Controllers\DeliverableController::class, 'destroy'])->name('deliverables.destroy');
@@ -55,4 +50,10 @@ Route::get('/courses/create', function () {
 Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
 Route::put('/courses/{course}', [CourseController::class, 'update'])->name('courses.update');
 Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
+});
+Route::group(['middleware'=>['role:admin']], function(){
+Route::get('/admin_settings', [\App\Http\Controllers\AdminSettingController::class, 'index'])->name('adminsettings.index');
+Route::post('/admin_settings', [\App\Http\Controllers\AdminSettingController::class, 'store'])->name('adminsettings.store');
+});
+
 require __DIR__.'/settings.php';
