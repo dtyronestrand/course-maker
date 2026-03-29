@@ -1,7 +1,5 @@
 <template>
-    <div>
-
-    </div>
+    <div></div>
 </template>
 
 <script setup lang="ts">
@@ -23,11 +21,6 @@ onMounted(() => {
     // Fetch data for the dashboard
     getAdminDashboardData();
 });
-          
-  
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
