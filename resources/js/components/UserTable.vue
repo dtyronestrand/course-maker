@@ -34,7 +34,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody>
                 <tr
                     v-for="row in table.getRowModel().rows"
                     :key="row.id"
@@ -204,7 +204,7 @@ const columnsUsers = [
         cell: ({ row }: any) => {
             const courses = row.original.courses as Course[];
             return courses.length > 0
-                ? courses.map((c) => c.prefix + " " + c.number).join(', ') 
+                ? courses.map((c) => c.prefix + ' ' + c.number).join(', ')
                 : 'No courses';
         },
     },
@@ -242,25 +242,44 @@ const columnsUsers = [
                     ),
                     h(Trash2, {
                         class: 'w-4 h-4 text-red-500 cursor-pointer hover:text-red-700 ml-1',
+                        role: 'button',
+                        tabindex: 0,
+                        'aria-label': 'Delete user',
                         onClick: (e: Event) => {
                             e.stopPropagation();
                             deleteUser(user.id);
                         },
+                        onKeydown: (e: KeyboardEvent) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                deleteUser(user.id);
+                            }
+                        },
                     }),
                 ]);
-            } else{
-
-            return h('div', { class: 'flex gap-3 items-center' }, [
-                h(Pencil, {
-                   
-                    class: 'w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
-                    onClick: (e: Event) => {
-                        e.stopPropagation();
-                        startEdit(user);
-                    },
-                }),
-            ]);
-         } },
+            } else {
+                return h('div', { class: 'flex gap-3 items-center' }, [
+                    h(Pencil, {
+                        class: 'w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
+                        role: 'button',
+                        tabindex: 0,
+                        'aria-label': 'Edit user',
+                        onClick: (e: Event) => {
+                            e.stopPropagation();
+                            startEdit(user);
+                        },
+                        onKeydown: (e: KeyboardEvent) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                startEdit(user);
+                            }
+                        },
+                    }),
+                ]);
+            }
+        },
     },
 ];
 

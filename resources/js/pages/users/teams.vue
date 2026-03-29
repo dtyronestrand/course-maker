@@ -19,7 +19,14 @@
                     <div
                         class="flex flex-row justify-end opacity-0 group-hover:opacity-100"
                     >
-                        <Pencil role="button" @click="startEdit(team)" />
+                        <Pencil
+                            role="button"
+                            tabindex="0"
+                            aria-label="Edit team"
+                            @click="startEdit(team)"
+                            @keydown.enter="startEdit(team)"
+                            @keydown.space.prevent="startEdit(team)"
+                        />
                     </div>
                     <h3 class="mb-2 text-xl font-semibold text-amber-500">
                         {{ team.name }}

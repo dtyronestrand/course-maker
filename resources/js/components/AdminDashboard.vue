@@ -1,24 +1,11 @@
 <template>
-    <div>
-
-    </div>
+    <div></div>
 </template>
 
 <script setup lang="ts">
-import type { Course } from '@/types';
-import type { PageProps } from '@inertiajs/core';
-import { usePage } from '@inertiajs/vue3';
-import {
-    ChartColumnBig,
-    SquareChartGantt,
-    TriangleAlert,
-    Users,
-} from 'lucide-vue-next';
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 
-const isModalOpened = ref(false);
-const selectedCourse = ref<any>(null);
 const dashboardData = ref<any>(null);
 
 const getAdminDashboardData = async () => {
@@ -34,11 +21,6 @@ onMounted(() => {
     // Fetch data for the dashboard
     getAdminDashboardData();
 });
-          
-  
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
