@@ -34,7 +34,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody>
                 <tr
                     v-for="row in table.getRowModel().rows"
                     :key="row.id"
@@ -204,7 +204,7 @@ const columnsUsers = [
         cell: ({ row }: any) => {
             const courses = row.original.courses as Course[];
             return courses.length > 0
-                ? courses.map((c) => c.prefix + " " + c.number).join(', ') 
+                ? courses.map((c) => c.prefix + ' ' + c.number).join(', ')
                 : 'No courses';
         },
     },
@@ -248,19 +248,18 @@ const columnsUsers = [
                         },
                     }),
                 ]);
-            } else{
-
-            return h('div', { class: 'flex gap-3 items-center' }, [
-                h(Pencil, {
-                   
-                    class: 'w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
-                    onClick: (e: Event) => {
-                        e.stopPropagation();
-                        startEdit(user);
-                    },
-                }),
-            ]);
-         } },
+            } else {
+                return h('div', { class: 'flex gap-3 items-center' }, [
+                    h(Pencil, {
+                        class: 'w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
+                        onClick: (e: Event) => {
+                            e.stopPropagation();
+                            startEdit(user);
+                        },
+                    }),
+                ]);
+            }
+        },
     },
 ];
 
