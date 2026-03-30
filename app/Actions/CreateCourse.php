@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Course;
 use App\Models\Deliverable;
+use App\Models\DevelopmentCycle;
 use Carbon\Carbon;
 class CreateCourse {
     public function __construct() {
@@ -19,6 +20,8 @@ class CreateCourse {
             Log::info('CreateCourse: Starting course creation', ['data' => $data]);
             
             DB::transaction(function() use ($data) {
+               
+
                 $course = Course::create([
                     'prefix' => $data['prefix'],
                     'number' => $data['number'],
@@ -47,6 +50,7 @@ class CreateCourse {
                 }
 
                 $this->attachDeliverables($course);
+                $this->setStatus($course);
             });
             
             Log::info('CreateCourse: Course creation completed successfully');
@@ -88,4 +92,14 @@ class CreateCourse {
             throw $e;
         }
     }
+
+    private function setStatus (Course $course) {
+        $course->load('developmentCycle');
+        if ($course->developmentCycle && $course->developmentCycle->start_date) {
+            $course->status = Carbon::parse($course->developmentCycle->start_date)->isFuture() ? 'pending' : 'design';
+        } else {
+            $course->status = 'pending';
+        }
+        $course->save();
+}
 }

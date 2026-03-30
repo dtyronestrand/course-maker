@@ -72,4 +72,15 @@ class ApiController extends Controller
           'cycles' => $cycles
       ]);
   }
+
+  public function usersWorkloads(){
+    $users = User::select('id', 'name')->with('courses')->withCount('courses')->get();
+    return response()->json(['users' => $users]);
+  }
+
+  public function capacity(){
+    $setting = AdminSetting::where('key', 'Designer Capacity')->first();
+    $capacity = $setting['value'];
+    return response()->json(['capacity' => $capacity]);
+  }
 }
