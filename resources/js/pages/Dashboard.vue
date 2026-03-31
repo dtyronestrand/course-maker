@@ -25,7 +25,7 @@ const userDashboard = defineAsyncComponent(() => import('@/components/UserDashbo
     <Head title="Dashboard" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <adminDashboard v-if="page.props.user_role === 'admin'" :courses="page.props.courses" />
+        <adminDashboard :courses="page.props.courses" v-if="page.props.user_role === 'admin'" />
         <userDashboard v-else />
     </AppLayout>
 </template>

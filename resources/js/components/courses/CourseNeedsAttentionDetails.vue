@@ -1,15 +1,27 @@
 <template>
     <div
-        class="fixed inset-0 z-50 flex h-full w-full items-center justify-center bg-base-300/50"
+        class="fixed inset-0 z-50 flex items-center w-full justify-center bg-slate-900/50 backdrop-blur-sm"
         @click.self="emit('modal-close')"
     >
         <div
             v-if="props.isOpen"
-            class="mx-auto max-w-3xl rounded-lg bg-base-100 p-4 shadow-md shadow-primary"
+            class="mx-auto max-w-3xl rounded-lg p-4 shadow-sm border border-primary bg-slate-800 shadow-primary"
         >
-            <h1 class="mb-4 text-2xl font-bold">
+            <h2 class="mb-4 text-2xl font-bold">
                 {{ props.course.prefix }} {{ props.course.number }}
-            </h1>
+            </h2>
+            <ul class="mb-4 ">
+            <li v-for="user in props.course.users" :key="user.id" class="text-lg">
+                {{ user.name }} - {{ user.pivot?.role }}
+            </li>
+            </ul>
+            <h3 class="mb-2 text-xl font-semibold">Past Due Deliverables</h3>
+             <ul class="list-inside list-disc">
+           <li v-for="deliverable in props.course.deliverables" :key="deliverable.id">
+           <span v-if="deliverable.pivot?.missed_due_date_count != 0">{{ deliverable.name }} ({{ daysLate(deliverable.pivot?.due_date) }} days late)</span>
+           </li>
+            
+            </ul>
         </div>
     </div>
 </template>
@@ -23,6 +35,13 @@ interface Props {
 }
 const props = defineProps<Props>();
 const emit = defineEmits(['modal-close']);
+
+const daysLate = (due_date: any) => {
+    const dueDate = new Date(due_date);
+    const today = new Date();
+    const timeDiff = today.getTime() - dueDate.getTime();
+    return Math.ceil(timeDiff / (1000 * 3600 * 24));
+}
 </script>
 
 <style scoped></style>

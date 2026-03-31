@@ -6,6 +6,7 @@ use Laravel\Fortify\Features;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\AdminSettingController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DevelopmentCycleController;
 use App\Http\Controllers\DashboardController;
 use App\Models\DevelopmentCycle;
@@ -17,7 +18,10 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/dashboard',[DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::put('/teams/{id}', [TeamController::class, 'update'])->name('teams.update');

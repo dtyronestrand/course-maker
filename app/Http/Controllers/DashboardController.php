@@ -15,14 +15,17 @@ class DashboardController extends Controller
         $query = Course::query()->with('developmentCycle', 'users.roles');
         $currentUser = auth()->user();
 
-        if (!$currentUser->hasRole('admin')) {
-            $user_role = $currentUser->roles->pluck('name')->first();
-            $courses = $query->whereHas('users', function ($q) use ($currentUser) {
-                 $q->where('id', $currentUser->id);
-             })->get();
-         } else {
-             $courses = $query->get();
+       
+if (!$currentUser->hasRole('admin')) {
+    $user_role = $currentUser->roles->pluck('name')->first();
+    $courses = $query->whereHas('users', function ($q) use ($currentUser) {
+         $q->where('id', $currentUser->id);
+     })->get();
+ } else {
+     $courses = $query->get();
+     $user_role = 'admin';
 }
+
 return Inertia::render('Dashboard', [
     'courses' => $courses,
     'user_role' => $user_role ?? null,
