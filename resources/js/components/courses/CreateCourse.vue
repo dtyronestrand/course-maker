@@ -35,7 +35,10 @@
                     <label
                         for="prefix"
                         class="text-base-content block text-sm font-medium"
-                        >Course Prefix</label
+                        >Course Prefix
+                        <span class="text-error" aria-hidden="true"
+                            >*</span
+                        ></label
                     >
                     <input
                         v-model="courseData.prefix"
@@ -43,13 +46,17 @@
                         id="prefix"
                         class="mt-1 block w-full border border-primary p-2"
                         required
+                        aria-required="true"
                     />
                 </div>
                 <div class="mb-4">
                     <label
                         for="number"
                         class="text-base-content block text-sm font-medium"
-                        >Course Number</label
+                        >Course Number
+                        <span class="text-error" aria-hidden="true"
+                            >*</span
+                        ></label
                     >
                     <input
                         v-model="courseData.number"
@@ -57,13 +64,17 @@
                         id="number"
                         class="bg-base-200 mt-1 block w-full border border-primary p-2"
                         required
+                        aria-required="true"
                     />
                 </div>
                 <div class="mb-4">
                     <label
                         for="title"
                         class="text-base-content block text-sm font-medium"
-                        >Course Title</label
+                        >Course Title
+                        <span class="text-error" aria-hidden="true"
+                            >*</span
+                        ></label
                     >
                     <input
                         v-model="courseData.title"
@@ -71,6 +82,7 @@
                         id="title"
                         class="bg-base-200 mt-1 block w-full border border-primary p-2"
                         required
+                        aria-required="true"
                     />
                 </div>
                 <div class="mb-4">
