@@ -45,14 +45,14 @@
     </div>
     </div>
     <div class="flex gap-6">
-    <div class="glass flex-1 rounded-xl border shadow-lg">
-    <div clas="flex items-start justify-between">
+    <div class="glass flex-1 rounded-xl border shadow-lg p-8">
+    <div clas="flex items-start justify-between ">
     <h2 class="text-xl font-semibold uppercase">Project Pipeline</h2>
-    <div class="flex items-center gap-4">
-    <div class="relative"></div>
-    </div>
+   
     </div>
     <ProjectPipelineTable :courses="props.courses"/>
+    
+
     </div>
     </div>
     </div>
