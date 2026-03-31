@@ -11,12 +11,15 @@
                     v-for="header in headerGroup.headers"
                     :key="header.id"
                     :colSpan="header.colSpan"
-                    :class="
+                    :class="[
                         header.column.getCanSort()
-                            ? 'cursor-pointer select-none'
+                            ? 'cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2'
                             : ''
-                    "
+                    ]"
+                    :tabindex="header.column.getCanSort() ? 0 : -1"
                     @click="header.column.getToggleSortingHandler()?.($event)"
+                    @keydown.enter="header.column.getToggleSortingHandler()?.($event)"
+                    @keydown.space.prevent="header.column.getToggleSortingHandler()?.($event)"
                     scope="col"
                 >
                     <template v-if="!header.isPlaceholder">
@@ -38,8 +41,21 @@
             <tr
                 v-for="row in table.getRowModel().rows"
                 :key="row.id"
-                class="cursor-pointer hover:bg-primary/25"
+                class="cursor-pointer hover:bg-primary/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:-outline-offset-2"
+                tabindex="0"
                 @click="
+                    () => {
+                        selectedCourse = row.original;
+                        showCourseDetailsModal = true;
+                    }
+                "
+                @keydown.enter="
+                    () => {
+                        selectedCourse = row.original;
+                        showCourseDetailsModal = true;
+                    }
+                "
+                @keydown.space.prevent="
                     () => {
                         selectedCourse = row.original;
                         showCourseDetailsModal = true;

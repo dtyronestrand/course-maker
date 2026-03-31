@@ -6,11 +6,11 @@ use App\Models\Course;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class ActivateCoursesCommand extends Command
+class MarkMissedDeadlineCommand extends Command
 {
-    protected $signature = 'courses:activate';
+    protected $signature = 'courses:mark-missed-deadline';
 
-    protected $description ='Checks for pending courses whose start date has been reached and sets their status to active';
+    protected $description ='Checks for active courses that have missed their deadline and sets their status accordingly';
 
     public function handle()
     {
