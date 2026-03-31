@@ -21,6 +21,10 @@ export interface Deliverable {
     id?: number;
     name: string;
     offset_days: number;
+    pivot?: {
+        due_date: string;
+        missed_due_date_count: number;
+    }
 }
 
 export interface Course {
