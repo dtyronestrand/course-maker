@@ -21,34 +21,11 @@ defineProps<Props>();
         width="100%"
         viewBox="0 0 500 500"
         enable-background="new 0 0 500 500"
-        xml:space="preserve"
-        sodipodi:docname="icon.svg"
-        inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
-        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:svg="http://www.w3.org/2000/svg"
     >
         <defs id="defs633" />
-        <sodipodi:namedview
-            id="namedview633"
-            pagecolor="#ffffff"
-            bordercolor="#000000"
-            borderopacity="0.25"
-            inkscape:showpageshadow="2"
-            inkscape:pageopacity="0.0"
-            inkscape:pagecheckerboard="0"
-            inkscape:deskcolor="#d1d1d1"
-            inkscape:zoom="1.442"
-            inkscape:cx="250"
-            inkscape:cy="250"
-            inkscape:window-width="1920"
-            inkscape:window-height="939"
-            inkscape:window-x="0"
-            inkscape:window-y="0"
-            inkscape:window-maximized="1"
-            inkscape:current-layer="Layer_1"
-        />
+      
         <path
             fill="#000000"
             opacity="1.000000"
