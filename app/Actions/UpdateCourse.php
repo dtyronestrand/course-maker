@@ -5,6 +5,7 @@ namespace App\Actions;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Course;
+use App\Models\CourseObjective;
 use App\Models\Deliverable;
 use Carbon\Carbon;
 
@@ -30,12 +31,22 @@ class UpdateCourse {
             if(isset($data['objectives'])) {
                 Log::info('Updating course objectives:', ['count' => count($data['objectives'])]);
                 $course->course_objectives()->delete();
+
+                $objectivesToCreate = [];
                 foreach ($data['objectives'] as $objectiveData) {
-                    $course->course_objectives()->create([
+                    $objectivesToCreate[] = [
+                        'course_id' => $course->id,
                         'number' => $objectiveData['number'],
                         'objective' => $objectiveData['objective'],
-                    ]);
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
                 }
+
+                if (!empty($objectivesToCreate)) {
+                    CourseObjective::insert($objectivesToCreate);
+                }
+
                 Log::info('Course objectives updated successfully');
             }
             
