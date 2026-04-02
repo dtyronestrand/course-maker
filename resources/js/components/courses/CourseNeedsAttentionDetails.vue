@@ -27,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import { useDateUtils } from '@/composables/useDateUtils';
 import type { Course } from '@/types';
 
 interface Props {
@@ -36,12 +37,7 @@ interface Props {
 const props = defineProps<Props>();
 const emit = defineEmits(['modal-close']);
 
-const daysLate = (due_date: any) => {
-    const dueDate = new Date(due_date);
-    const today = new Date();
-    const timeDiff = today.getTime() - dueDate.getTime();
-    return Math.ceil(timeDiff / (1000 * 3600 * 24));
-}
+const { daysLate } = useDateUtils();
 </script>
 
 <style scoped></style>
