@@ -38,8 +38,21 @@
             <tr
                 v-for="row in table.getRowModel().rows"
                 :key="row.id"
-                class="cursor-pointer hover:bg-primary/25"
+                class="cursor-pointer hover:bg-primary/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                tabindex="0"
                 @click="
+                    () => {
+                        selectedCourse = row.original;
+                        showCourseDetailsModal = true;
+                    }
+                "
+                @keydown.enter.prevent="
+                    () => {
+                        selectedCourse = row.original;
+                        showCourseDetailsModal = true;
+                    }
+                "
+                @keydown.space.prevent="
                     () => {
                         selectedCourse = row.original;
                         showCourseDetailsModal = true;
