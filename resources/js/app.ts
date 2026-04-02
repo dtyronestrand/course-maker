@@ -10,9 +10,6 @@ configureEcho({
     broadcaster: 'reverb',
 });
 
-
-
-
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({

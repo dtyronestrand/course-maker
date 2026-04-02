@@ -16,7 +16,7 @@ export type Team = {
     id: number;
     name: string;
     users: User[];
-}
+};
 export interface Deliverable {
     id?: number;
     name: string;
@@ -24,7 +24,7 @@ export interface Deliverable {
     pivot?: {
         due_date: string;
         missed_due_date_count: number;
-    }
+    };
 }
 
 export interface Course {

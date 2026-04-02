@@ -18,9 +18,15 @@ interface DashboardPageProps extends PageProps {
 }
 
 const page = usePage<DashboardPageProps>();
-const AdminDashboard = defineAsyncComponent(() => import('@/components/AdminDashboard.vue'));
-const UserDashboard = defineAsyncComponent(() => import('@/components/UserDashboard.vue'));
-const isAdmin = computed(() => page.props.is_admin ?? page.props.user_role === 'admin');
+const AdminDashboard = defineAsyncComponent(
+    () => import('@/components/AdminDashboard.vue'),
+);
+const UserDashboard = defineAsyncComponent(
+    () => import('@/components/UserDashboard.vue'),
+);
+const isAdmin = computed(
+    () => page.props.is_admin ?? page.props.user_role === 'admin',
+);
 </script>
 
 <template>
