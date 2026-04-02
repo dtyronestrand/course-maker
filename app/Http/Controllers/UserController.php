@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        $query = User::query()->with('currentTeam', 'courses');
+        $query = User::query()->with('currentTeam', 'courses', 'roles');
         $teams = \App\Models\Team::all()->map(fn($team) => ['id' => $team->id, 'name' => $team->name])->values();
         /** @var User $currentUser */
         $currentUser = auth()->user();
@@ -58,7 +58,7 @@ class UserController extends Controller
 
         $query = User::query()->whereHas('roles', function($q){
             $q->whereIn('name', ['lead', 'id']);
-        })->with('currentTeam');
+        })->with('currentTeam', 'roles');
         $teams = null;
         
         /** @var User $currentUser */
