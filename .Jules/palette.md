@@ -1,0 +1,4 @@
+## 2025-02-27 - Course Table Row Accessibility
+**Learning:** In shadcn-vue/Tailwind implementations, adding `tabindex="0"` to a table row (`<tr>`) successfully enables keyboard focus, but it is crucial to explicitly define visual focus states using utility classes like `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`. Furthermore, to ensure the interaction matches a standard button click, both `@keydown.enter.prevent` and `@keydown.space.prevent` must be added to trigger the click action, otherwise keyboard-only users will be stranded on the focused element without the ability to activate it.
+
+**Action:** When making custom non-interactive elements (like `div` or `tr`) behave as interactive buttons for accessibility, always implement the trifecta: `tabindex="0"`, explicit `focus-visible` ring styling, and both `Enter` and `Space` keydown handlers mapped to the click action.
