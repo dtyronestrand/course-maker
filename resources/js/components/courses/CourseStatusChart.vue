@@ -40,7 +40,6 @@ const chartData = computed<ChartData<'bar'>>(() => {
                 label: 'Number of Courses',
                 backgroundColor: ['yellow', 'green', 'red'],
                 data: Object.values(props.courseStatusCounts),
-                
             },
         ],
     };
@@ -57,14 +56,14 @@ const chartOptions = {
         y: {
             ticks: {
                 color: '#ffc107',
-            }
+            },
         },
         x: {
             ticks: {
                 color: '#ffc107',
-            }
-        }
-    }
+            },
+        },
+    },
 };
 </script>
 
