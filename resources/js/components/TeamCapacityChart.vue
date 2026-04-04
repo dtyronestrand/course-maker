@@ -3,12 +3,12 @@
         <div
             v-for="user in usersWorkloads"
             :key="user.name"
-            class="flex items-center justify-between gap-4 rounded-lg shadow-sm shadow-base-200/20"
+            class="shadow-base-200/20 flex items-center justify-between gap-4 rounded-lg shadow-sm"
         >
             <div class="flex justify-evenly">
                 <div class="placeholder avatar">
                     <div
-                        class="frosted-backdrop bg-succes/10 flex h-8 w-8 items-center rounded-full border border-success text-success shadow-sm shadow-success/20"
+                        class="frosted-backdrop bg-succes/10 border-success text-success shadow-success/20 flex h-8 w-8 items-center rounded-full border shadow-sm"
                     >
                         <p class="mx-auto text-sm">
                             {{ getInitials(user.name) }}
@@ -16,11 +16,11 @@
                     </div>
                 </div>
                 <progress
-                    class="progress mx-4 w-50 place-self-center progress-success"
+                    class="progress progress-success mx-4 w-50 place-self-center"
                     :value="user.workload"
                     max="100"
                 ></progress>
-                <p class="place-self-center  text-xs">{{ user.workload }}%</p>
+                <p class="place-self-center text-xs">{{ user.workload }}%</p>
             </div>
         </div>
     </div>

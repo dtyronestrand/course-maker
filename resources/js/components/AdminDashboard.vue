@@ -3,62 +3,82 @@
         <p>Loading...</p>
     </div>
     <div v-else class="mt-4 flex grow flex-col">
-    <div class="wrapper glass h-full p-2">
-    <div class="mb-6 grid grid-cols-4 gap-6">
-    <div class="rounded-xl glass border !border-red-500/90  p-6 ">
-    <div class="flex items-start justify-between">
-    <h2 class="text-sm font-semi-bold uppercase">Needs Attention</h2>
-    <TriangleAlert class="h-10 w-10 text-red-500"/>
-    </div><ul class="mt-8 list-inside list-disc ">
-        <li v-for="course in dashboardData.coursesNeedingAttention" :key="course.id"><button @click="openModal(course)" class="mt-2 text-2xl  hover:underline">{{ course.prefix }} {{ course.number }}</button></li>
-    </ul>
-    </div>
-    <div class=" rounded-xl border glass !border-amber-500/70  p-6 ">
-        <div class="flex items-start justify-between">
-            <h2 class="text-sm font-semi-bold uppercase">Project Status Distribution</h2>
-            <ChartColumnBig class="h-10 w-10 "/>
+        <div class="wrapper glass h-full p-2">
+            <div class="mb-6 grid grid-cols-4 gap-6">
+                <div class="glass rounded-xl border !border-red-500/90 p-6">
+                    <div class="flex items-start justify-between">
+                        <h2 class="font-semi-bold text-sm uppercase">
+                            Needs Attention
+                        </h2>
+                        <TriangleAlert class="h-10 w-10 text-red-500" />
+                    </div>
+                    <ul class="mt-8 list-inside list-disc">
+                        <li
+                            v-for="course in dashboardData.coursesNeedingAttention"
+                            :key="course.id"
+                        >
+                            <button
+                                @click="openModal(course)"
+                                class="mt-2 text-2xl hover:underline"
+                            >
+                                {{ course.prefix }} {{ course.number }}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="glass rounded-xl border !border-amber-500/70 p-6">
+                    <div class="flex items-start justify-between">
+                        <h2 class="font-semi-bold text-sm uppercase">
+                            Project Status Distribution
+                        </h2>
+                        <ChartColumnBig class="h-10 w-10" />
+                    </div>
+                    <p class="text-md">
+                        Total Active Courses:
+                        {{ dashboardData.activeCourseCount }}
+                    </p>
+                    <CourseStatusChart
+                        class="mt-4"
+                        :courseStatusCounts="dashboardData.courseStatusCounts"
+                    />
+                </div>
+                <div
+                    class="glass rounded-xl border !border-blue-500/70 p-6 shadow-lg"
+                >
+                    <div class="flex items-start justify-between">
+                        <h2 class="text-sm font-semibold uppercase">
+                            Avg Course Completion Time (Days)
+                        </h2>
+                        <SquareChartGantt class="h-10 w-10 text-blue-500" />
+                    </div>
+                </div>
+                <div
+                    class="glass flex max-h-80 flex-col rounded-xl border !border-green-500/70 p-4 shadow-lg"
+                >
+                    <div class="flex items-start justify-between">
+                        <h2 class="text-sm font-semibold uppercase">
+                            Team Capacity
+                        </h2>
+                        <Users class="h-10 w-10 text-green-500" />
+                    </div>
+                    <div class="overflow-auto">
+                        <TeamCapacityChart class="mt-4" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-6">
+                <div class="glass flex-1 rounded-xl border p-8 shadow-lg">
+                    <div clas="flex items-start justify-between ">
+                        <h2 class="text-xl font-semibold uppercase">
+                            Project Pipeline
+                        </h2>
+                    </div>
+                    <ProjectPipelineTable :courses="props.courses" />
+                </div>
+            </div>
         </div>
-        <p class="text-md ">
-        Total Active Courses:
-        {{ dashboardData.activeCourseCount }}
-        </p>
-        <CourseStatusChart class="mt-4" :courseStatusCounts="dashboardData.courseStatusCounts" />
     </div>
-    <div class="rounded-xl border glass !border-blue-500/70  p-6 shadow-lg ">
-    <div class="flex items-start justify-between">
-    <h2 class="text-sm font-semibold uppercase">
-    Avg Course Completion Time (Days)
-    </h2> 
-    <SquareChartGantt class="h-10 w-10 text-blue-500"/>
-    </div>
-    </div>
-    <div class="flex max-h-80 flex-col rounded-xl border glass !border-green-500/70  p-4  shadow-lg ">
-   <div class="flex items-start justify-between">
-    <h2 class="text-sm font-semibold  uppercase">
-    Team Capacity
-    </h2>
-    <Users class="h-10 w-10 text-green-500"/>
-    </div> 
-    <div class="overflow-auto">
-    <TeamCapacityChart class="mt-4"/>
-    </div>
-    </div>
-    </div>
-    <div class="flex gap-6">
-    <div class="glass flex-1 rounded-xl border shadow-lg p-8">
-    <div clas="flex items-start justify-between ">
-    <h2 class="text-xl font-semibold uppercase">Project Pipeline</h2>
-   
-    </div>
-    <ProjectPipelineTable :courses="props.courses"/>
-    
-
-    </div>
-    </div>
-    </div>
-
-    </div>
-        <CourseNeedsAttentionDetails
+    <CourseNeedsAttentionDetails
         v-if="isModalOpened && selectedCourse"
         :isOpen="isModalOpened"
         :course="selectedCourse"
@@ -111,11 +131,6 @@ onMounted(() => {
     // Fetch data for the dashboard
     getAdminDashboardData();
 });
-          
-  
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
