@@ -3,7 +3,7 @@
         :modelValue="globalFilter ?? ''"
         @update:modelValue="(value: string) => (globalFilter = value)"
         placeholder="Search all columns..."
-        class="glass my-4 w-max rounded border !border-primary px-4 py-2 text-amber-500 font-bold "
+        class="glass my-4 w-max rounded border !border-primary px-4 py-2 font-bold text-amber-500"
     />
 
     <table class="w-full text-left text-sm">
@@ -11,7 +11,7 @@
             <tr
                 v-for="headerGroup in table.getHeaderGroups()"
                 :key="headerGroup.id"
-                class="text-sm font-bold text-base-content uppercase"
+                class="text-base-content text-sm font-bold uppercase"
             >
                 <th
                     v-for="header in headerGroup.headers"
@@ -137,7 +137,7 @@ const defaultColumns = [
                             : status === 'completed'
                               ? 'bg-success px-3 py-1 frosted-backdrop rounded-full text-center text-success-content inline-block'
                               : 'bg-warning/20 border frosted-backdrop border-warning shadow-md shadow-warning/20 px-3 py-1 rounded-full text-center text-warning font-bold inline-block';
-                              if(!status) return 'Loading...';
+                    if (!status) return 'Loading...';
                     return h(
                         'span',
                         { class: style },

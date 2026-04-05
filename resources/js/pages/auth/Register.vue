@@ -8,7 +8,6 @@ import { Spinner } from '@/components/ui/spinner';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
 
-
 const form = useForm({
     name: '',
     email: '',
@@ -18,18 +17,11 @@ const form = useForm({
 
 // Client-side validation errors
 
-
-
-
 const submit = () => {
-
-
     form.post('/register', {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
-
-
 </script>
 
 <template>
@@ -52,9 +44,7 @@ const submit = () => {
                         :tabindex="1"
                         autocomplete="name"
                         placeholder="Full name"
-                      
                     />
-                
                 </div>
 
                 <div class="grid gap-2">
@@ -67,9 +57,7 @@ const submit = () => {
                         :tabindex="2"
                         autocomplete="email"
                         placeholder="email@example.com"
-                       
                     />
-                 
                 </div>
 
                 <div class="grid gap-2">
@@ -82,9 +70,7 @@ const submit = () => {
                         :tabindex="3"
                         autocomplete="new-password"
                         placeholder="Password"
-                       
                     />
-                  
                 </div>
 
                 <div class="grid gap-2">
@@ -97,9 +83,7 @@ const submit = () => {
                         :tabindex="4"
                         autocomplete="new-password"
                         placeholder="Confirm password"
-                      
                     />
-               
                 </div>
 
                 <Button

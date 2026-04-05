@@ -74,7 +74,7 @@ const dialogRef = ref<HTMLDialogElement>();
     <div v-else>
         <button
             @click="dialogRef?.showModal()"
-            class="btn border-none bg-transparent shadow-none hover:bg-neutral"
+            class="btn hover:bg-neutral border-none bg-transparent shadow-none"
         >
             <ListFilter class="h-4 text-primary" />
         </button>

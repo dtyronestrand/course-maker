@@ -25,7 +25,7 @@ defineProps<Props>();
         xmlns:svg="http://www.w3.org/2000/svg"
     >
         <defs id="defs633" />
-      
+
         <path
             fill="#000000"
             opacity="1.000000"
