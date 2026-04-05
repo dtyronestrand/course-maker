@@ -1,11 +1,11 @@
 export type UseDateUtilsReturn = {
-    daysLate: (due_date: any) => number;
+    daysLate: (dueDate: string | number | Date) => number;
 };
 
-export function daysLate(due_date: any): number {
-    const dueDate = new Date(due_date);
+export function daysLate(dueDate: string | number | Date): number {
+    const parsedDueDate = new Date(dueDate);
     const today = new Date();
-    const timeDiff = today.getTime() - dueDate.getTime();
+    const timeDiff = today.getTime() - parsedDueDate.getTime();
     return Math.ceil(timeDiff / (1000 * 3600 * 24));
 }
 
