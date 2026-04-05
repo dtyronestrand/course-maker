@@ -6,7 +6,7 @@ use App\Models\Course;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class MarkMissedDeadlineCommand extends Command
+class ActivateCoursesCommand extends Command
 {
     protected $signature = 'courses:activate';
 
