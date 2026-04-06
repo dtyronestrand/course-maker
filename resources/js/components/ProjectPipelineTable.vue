@@ -3,7 +3,7 @@
         :modelValue="globalFilter ?? ''"
         @update:modelValue="(value: string) => (globalFilter = value)"
         placeholder="Search all columns..."
-        class="glass my-4 w-max rounded border !border-primary px-4 py-2 font-bold text-amber-500"
+        class="bg-transparent my-4 w-max rounded-md border !border-primary px-4 py-2 font-bold text-amber-500"
     />
 
     <table class="w-full text-left text-sm">
@@ -133,10 +133,10 @@ const defaultColumns = [
                     const status = info.getValue();
                     const style =
                         status === 'pending'
-                            ? 'bg-info/20 border border-info shadow-md frosted-backdrop shadow-info/20 px-3 py-1 rounded-full text-center text-info  font-bold inline-block'
+                            ? 'bg-stone-300 border-2 border-stone-900   px-3 py-1 rounded-full text-center text-stone-900  font-bold inline-block'
                             : status === 'completed'
-                              ? 'bg-success px-3 py-1 frosted-backdrop rounded-full text-center text-success-content inline-block'
-                              : 'bg-warning/20 border frosted-backdrop border-warning shadow-md shadow-warning/20 px-3 py-1 rounded-full text-center text-warning font-bold inline-block';
+                              ? 'bg-olive-300 border-2 border-olive-900  px-3 py-1 rounded-full text-center text-olive-900 font-bold inline-block'
+                              : 'bg-amber-300 border-2 border-amber-900  px-3 py-1 rounded-full text-center text-amber-900 font-bold inline-block';
                     if (!status) return 'Loading...';
                     return h(
                         'span',
