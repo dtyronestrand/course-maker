@@ -40,8 +40,16 @@ class UserControllerOptimizationTest extends TestCase
         $response->assertStatus(200);
 
         $queries = DB::getQueryLog();
-        $this->assertTrue(true); // just a placeholder
+        $roleQueries = array_filter($queries, function ($query) {
+            $sql = strtolower($query['query']);
 
-        echo "Number of queries executed: " . count($queries) . "\n";
+            return str_contains($sql, 'model_has_roles') || str_contains($sql, 'roles');
+        });
+
+        $this->assertLessThanOrEqual(
+            3,
+            count($roleQueries),
+            'Expected the users index to avoid N+1 role queries.'
+        );
     }
 }
