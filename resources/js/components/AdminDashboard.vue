@@ -76,6 +76,18 @@
                     <ProjectPipelineTable :courses="props.courses" />
                 </div>
             </div>
+              <aside class="w-80 shrink-0">
+                    <div
+                        class="flex h-full flex-col rounded-xl border border-info/70 bg-base-100 p-6 shadow-lg shadow-info/20"
+                    >
+                        <h2 class="mb-6 text-xl font-semibold text-secondary">
+                            Recent Activities
+                        </h2>
+                        <ActivityFeed
+                            :initialActivities="page.props.recentActivities"
+                        />
+                    </div>
+                </aside>
         </div>
     </div>
     <CourseNeedsAttentionDetails
@@ -92,7 +104,7 @@ import ProjectPipelineTable from './ProjectPipelineTable.vue';
 import CourseStatusChart from '@/components/courses/CourseStatusChart.vue';
 import TeamCapacityChart from '@/components/TeamCapacityChart.vue';
 import type { PageProps } from '@inertiajs/core';
-
+import ActivityFeed from '@/components/ActivityFeed.vue';
 import {
     ChartColumnBig,
     SquareChartGantt,
