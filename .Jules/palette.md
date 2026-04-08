@@ -1,0 +1,3 @@
+## 2024-05-15 - Missing accessibility on decorative icons used as actions
+**Learning:** Found an SVG icon (`<Pencil>`) used as an interactive action in `teams.vue` via `@click`, but it lacked keyboard focus (`tabindex`), semantic role (`<button>`), and screen reader accessible naming (`aria-label`). Users relying on keyboards or screen readers cannot access or understand this control. Also, relying on a `group-hover` utility class hides it entirely from non-mouse users.
+**Action:** Always wrap interactive SVG icons in an accessible `<button>` element (with `aria-label`) to provide built-in keyboard accessibility, focus management, and screen-reader support, and ensure focus visible states (`focus-within` or `focus:`) are used alongside hover states for discoverability.
