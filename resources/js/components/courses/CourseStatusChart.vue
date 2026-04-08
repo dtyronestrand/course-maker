@@ -38,7 +38,11 @@ const chartData = computed<ChartData<'bar'>>(() => {
         datasets: [
             {
                 label: 'Number of Courses',
-                backgroundColor: ['hsl(46.957, 100%, 59.412%)', 'hsl(24, 5.747%, 82.941%)', 'hsl(60, 9.302%, 83.137%)'],
+                backgroundColor: [
+                    'hsl(46.957, 100%, 59.412%)',
+                    'hsl(24, 5.747%, 82.941%)',
+                    'hsl(60, 9.302%, 83.137%)',
+                ],
                 data: Object.values(props.courseStatusCounts),
             },
         ],

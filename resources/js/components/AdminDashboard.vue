@@ -76,18 +76,18 @@
                     <ProjectPipelineTable :courses="props.courses" />
                 </div>
             </div>
-              <aside class="w-80 shrink-0">
-                    <div
-                        class="flex h-full flex-col rounded-xl border border-info/70 bg-base-100 p-6 shadow-lg shadow-info/20"
-                    >
-                        <h2 class="mb-6 text-xl font-semibold text-secondary">
-                            Recent Activities
-                        </h2>
-                        <ActivityFeed
-                            :initialActivities="page.props.recentActivities"
-                        />
-                    </div>
-                </aside>
+            <aside class="w-80 shrink-0">
+                <div
+                    class="border-info/70 bg-base-100 shadow-info/20 flex h-full flex-col rounded-xl border p-6 shadow-lg"
+                >
+                    <h2 class="mb-6 text-xl font-semibold text-secondary">
+                        Recent Activities
+                    </h2>
+                    <ActivityFeed
+                        :initialActivities="page.props.recentActivities"
+                    />
+                </div>
+            </aside>
         </div>
     </div>
     <CourseNeedsAttentionDetails
