@@ -27,7 +27,6 @@ class User extends Authenticatable
         'email',
         'password',
         'current_team_id',
-        'team_id',
     ];
 
     protected $appends = [
@@ -72,7 +71,7 @@ class User extends Authenticatable
 
     public function team(): BelongsTo
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Team::class, 'current_team_id');
     }
 
     public function courses()

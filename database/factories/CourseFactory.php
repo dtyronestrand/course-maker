@@ -17,7 +17,7 @@ class CourseFactory extends Factory
             'prefix' => fake()->randomElement(['CS', 'MATH', 'ENG', 'HIST', 'BIO',  'CHEM', 'PHYS', 'ECON', 'PSY', 'ART']),
             'number' => fake()->numberBetween(100, 499),
             'title' => fake()->sentence(3),
-            'development_cycle_id' => null,
+            'development_cycle_id' => \App\Models\DevelopmentCycle::factory(),
         ];
     }
 }
