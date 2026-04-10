@@ -1,6 +1,6 @@
 <template>
     <div v-if="!dashboardData">
-        <p>Loading...</p>
+        <p>No data to display...</p>
     </div>
     <div v-else class="mt-4 flex grow flex-col">
         <div class="wrapper glass h-full p-2">
