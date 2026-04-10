@@ -19,6 +19,13 @@ class Course extends Model
 
 
     ];
+    public function setStatus(): void
+    {
+        $this->load('developmentCycle');
+        $this->status = $this->developmentCycle->start_date->isFuture() ? 'pending' : 'design';
+        $this->save();
+    }
+
     public function attachAllDeliverables(Course $course) {
         $deliverables = Deliverable::all();
         $course->load('developmentCycle');

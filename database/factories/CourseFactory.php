@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
 class CourseFactory extends Factory
 {
     /**
@@ -14,7 +13,7 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'prefix' => fake()->randomElement(['CS', 'MATH', 'ENG', 'HIST', 'BIO',  'CHEM', 'PHYS', 'ECON', 'PSY', 'ART']),
+            'prefix' => fake()->randomElement(['CS', 'MATH', 'ENG', 'HIST', 'BIO', 'CHEM', 'PHYS', 'ECON', 'PSY', 'ART']),
             'number' => fake()->numberBetween(100, 499),
             'title' => fake()->sentence(3),
             'development_cycle_id' => \App\Models\DevelopmentCycle::factory(),

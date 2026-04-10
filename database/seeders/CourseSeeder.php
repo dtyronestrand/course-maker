@@ -42,6 +42,9 @@ class CourseSeeder extends Seeder
             if ($sme) {
                 $course->users()->attach($sme->id, ['role' => 'sme']);
             }
+
+            $course->attachAllDeliverables($course);
+            $course->setStatus();
         });
     }
 }
