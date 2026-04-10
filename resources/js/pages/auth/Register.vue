@@ -9,7 +9,8 @@ import AuthBase from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
 
 const form = useForm({
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -34,16 +35,29 @@ const submit = () => {
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="name">Name</Label>
+                    <Label for="first_name">First Name</Label>
                     <Input
-                        id="name"
+                        id="first_name"
                         type="text"
-                        v-model="form.name"
+                        v-model="form.first_name"
                         required
                         autofocus
                         :tabindex="1"
-                        autocomplete="name"
-                        placeholder="Full name"
+                        autocomplete="given-name"
+                        placeholder="First name"
+                    />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="last_name">Last Name</Label>
+                    <Input
+                        id="last_name"
+                        type="text"
+                        v-model="form.last_name"
+                        required
+                        :tabindex="2"
+                        autocomplete="family-name"
+                        placeholder="Last name"
                     />
                 </div>
 
@@ -54,7 +68,7 @@ const submit = () => {
                         type="email"
                         v-model="form.email"
                         required
-                        :tabindex="2"
+                        :tabindex="3"
                         autocomplete="email"
                         placeholder="email@example.com"
                     />
@@ -67,7 +81,7 @@ const submit = () => {
                         type="password"
                         v-model="form.password"
                         required
-                        :tabindex="3"
+                        :tabindex="4"
                         autocomplete="new-password"
                         placeholder="Password"
                     />
@@ -80,7 +94,7 @@ const submit = () => {
                         type="password"
                         v-model="form.password_confirmation"
                         required
-                        :tabindex="4"
+                        :tabindex="5"
                         autocomplete="new-password"
                         placeholder="Confirm password"
                     />
@@ -89,7 +103,7 @@ const submit = () => {
                 <Button
                     type="submit"
                     class="mt-2 w-full"
-                    tabindex="5"
+                    tabindex="6"
                     :disabled="form.processing"
                     data-test="register-user-button"
                 >
@@ -103,7 +117,7 @@ const submit = () => {
                 <TextLink
                     :href="login()"
                     class="underline underline-offset-4"
-                    :tabindex="6"
+                    :tabindex="7"
                     >Log in</TextLink
                 >
             </div>
