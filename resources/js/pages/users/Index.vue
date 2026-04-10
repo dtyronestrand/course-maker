@@ -24,7 +24,9 @@
             </template>
             <template #body>
                 <form @submit.prevent="addUser">
-                    <label for="first_name" class="mb-2 block">First Name</label>
+                    <label for="first_name" class="mb-2 block"
+                        >First Name</label
+                    >
                     <input
                         id="first_name"
                         type="text"
