@@ -1,0 +1,3 @@
+## 2024-06-25 - Focus-within for visually hidden interactive elements
+**Learning:** Interactive elements that are styled with `opacity-0 group-hover:opacity-100` (visually hidden until a parent container is hovered) are inaccessible to keyboard users because focusing on the element does not trigger the hover state of the parent, leaving the focused element invisible.
+**Action:** Use `focus-within:opacity-100` on the parent container alongside `group-hover:opacity-100` so that when an interactive element inside the container receives keyboard focus, the container and its contents become visible.
