@@ -24,10 +24,19 @@
             </template>
             <template #body>
                 <form @submit.prevent="addUser">
-                    <label for="name" class="mb-2 block">Name</label>
+                    <label for="first_name" class="mb-2 block">First Name</label>
                     <input
+                        id="first_name"
                         type="text"
-                        v-model="form.name"
+                        v-model="form.first_name"
+                        class="mb-4 w-full rounded border border-gray-300 p-2"
+                        required
+                    />
+                    <label for="last_name" class="mb-2 block">Last Name</label>
+                    <input
+                        id="last_name"
+                        type="text"
+                        v-model="form.last_name"
                         class="mb-4 w-full rounded border border-gray-300 p-2"
                         required
                     />
@@ -70,7 +79,8 @@ import Modal from '@/components/Modal.vue';
 const page = usePage();
 const showModal = ref(false);
 const form = useForm({
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     role: 'id',
