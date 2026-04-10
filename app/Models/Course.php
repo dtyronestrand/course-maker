@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Deliverable;
 use Carbon\Carbon;
 class Course extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
      'prefix',
      'number',
