@@ -73,7 +73,7 @@ class ApiController extends Controller
       ]);
   }
    public function usersWorkloads(){
-    $users = User::select('id', 'name')->with('courses')->withCount('courses')->get();
+    $users = User::select('id', 'first_name', 'last_name')->with('courses')->withCount('courses')->get();
     return response()->json(['users' => $users]);
   }
 
