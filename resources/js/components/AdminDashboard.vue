@@ -1,17 +1,16 @@
 <template>
-    <div v-if="!dashboardData">
-        <p>No data to display...</p>
-    </div>
-    <div v-else class="mt-4 flex grow flex-col">
-        <div class="wrapper glass h-full p-2">
+ 
+    <div class="mt-4 flex grow flex-col">
+        <div class="wrapper h-full p-2">
             <div class="mb-6 grid grid-cols-4 gap-6">
-                <div class="glass rounded-xl border !border-red-500/90 p-6">
-                    <div class="flex items-start justify-between">
+                <div class="glass rounded-xl flex flex-col border max-h-80 !border-red-500/90 p-6">
+                    <div class="flex items-start justify-between shrink-0">
                         <h2 class="font-semi-bold text-sm uppercase">
                             Needs Attention
                         </h2>
                         <TriangleAlert class="h-10 w-10 text-red-500" />
                     </div>
+                    <div class="overflow-y-auto flex-1 min-h-0">
                     <ul class="mt-8 list-inside list-disc">
                         <li
                             v-for="course in dashboardData.coursesNeedingAttention"
@@ -25,8 +24,9 @@
                             </button>
                         </li>
                     </ul>
+                    </div>
                 </div>
-                <div class="glass rounded-xl border !border-amber-500/70 p-6">
+                <div class="glass rounded-xl border max-h-80 !border-amber-500/70 p-6">
                     <div class="flex items-start justify-between">
                         <h2 class="font-semi-bold text-sm uppercase">
                             Project Status Distribution
@@ -43,7 +43,7 @@
                     />
                 </div>
                 <div
-                    class="glass rounded-xl border !border-blue-500/70 p-6 shadow-lg"
+                    class="glass rounded-xl border max-h-80 !border-blue-500/70 p-6 shadow-lg"
                 >
                     <div class="flex items-start justify-between">
                         <h2 class="text-sm font-semibold uppercase">
@@ -73,7 +73,7 @@
                             Project Pipeline
                         </h2>
                     </div>
-                    <ProjectPipelineTable :courses="props.courses" />
+                    <ProjectPipelineTable :courses="courses" />
                 </div>
             </div>
               <aside class="w-80 shrink-0">
@@ -83,9 +83,7 @@
                         <h2 class="mb-6 text-xl font-semibold text-secondary">
                             Recent Activities
                         </h2>
-                        <ActivityFeed
-                            :initialActivities="page.props.recentActivities"
-                        />
+                   
                     </div>
                 </aside>
         </div>
@@ -104,7 +102,7 @@ import ProjectPipelineTable from './ProjectPipelineTable.vue';
 import CourseStatusChart from '@/components/courses/CourseStatusChart.vue';
 import TeamCapacityChart from '@/components/TeamCapacityChart.vue';
 import type { PageProps } from '@inertiajs/core';
-import ActivityFeed from '@/components/ActivityFeed.vue';
+
 import {
     ChartColumnBig,
     SquareChartGantt,
@@ -120,7 +118,7 @@ interface AdminDashboardPageProps extends PageProps {
 const props = defineProps<AdminDashboardPageProps>();
 const isModalOpened = ref(false);
 const selectedCourse = ref<any>(null);
-const dashboardData = ref<any>(null);
+const dashboardData = ref<any>({ coursesNeedingAttention: [], activeCourseCount: 0, courseStatusCounts: [] });
 const openModal = (course: any) => {
     selectedCourse.value = course;
     isModalOpened.value = true;

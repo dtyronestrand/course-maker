@@ -139,7 +139,7 @@
     --sidebar-border: hsl(0 0% 91%);
     --sidebar-ring: hsl(217.2 91.2% 59.8%);
     --sidebar: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-bg: rgba(0, 0, 0, 0.05);
     --glass-border: rgba(255, 255, 255, 0.15);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }

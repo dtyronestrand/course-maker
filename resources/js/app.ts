@@ -5,6 +5,12 @@ import { createApp, h } from 'vue';
 import '../css/app.css';
 import { initializeTheme } from './composables/useAppearance';
 import { configureEcho } from '@laravel/echo-vue';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+const token = document.head.querySelector('meta[name="csrf-token"]') as HTMLMetaElement | null;
+if (token) axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 
 configureEcho({
     broadcaster: 'reverb',
