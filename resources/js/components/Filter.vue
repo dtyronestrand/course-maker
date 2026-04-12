@@ -75,6 +75,7 @@ const dialogRef = ref<HTMLDialogElement>();
         <button
             @click="dialogRef?.showModal()"
             class="btn hover:bg-neutral border-none bg-transparent shadow-none"
+            aria-label="Open filter menu"
         >
             <ListFilter class="h-4 text-primary" />
         </button>
