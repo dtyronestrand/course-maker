@@ -48,7 +48,7 @@ const submit = () => {
                 <div class="grid gap-2 text-amber-400">
                     <Label for="email">Email address</Label>
                     <Input
-                        class="text-slate-700"
+                        class="text-slate-100"
                         id="email"
                         type="email"
                         v-model="form.email"
@@ -75,7 +75,7 @@ const submit = () => {
                         </TextLink>
                     </div>
                     <Input
-                        class="text-slate-700"
+                        class="text-slate-100"
                         id="password"
                         type="password"
                         v-model="form.password"

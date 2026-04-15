@@ -15,6 +15,7 @@ interface DashboardPageProps extends PageProps {
     courses: Course[];
     user_role: string | null;
     is_admin?: boolean;
+    is_lead?: boolean;
 }
 
 const page = usePage<DashboardPageProps>();
@@ -24,9 +25,13 @@ const AdminDashboard = defineAsyncComponent(
 const UserDashboard = defineAsyncComponent(
     () => import('@/components/UserDashboard.vue'),
 );
+const LeadDashboard = defineAsyncComponent(
+    () => import('@/components/LeadDashboard.vue'),
+);
 const isAdmin = computed(
     () => page.props.is_admin ?? page.props.user_role === 'admin',
 );
+const isLead = computed(() => page.props.user_role === 'lead');
 </script>
 
 <template>
@@ -34,6 +39,7 @@ const isAdmin = computed(
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <AdminDashboard :courses="page.props.courses" v-if="isAdmin" />
+        <LeadDashboard v-else-if="isLead" :courses="page.props.courses"/>
         <UserDashboard v-else />
     </AppLayout>
 </template>
