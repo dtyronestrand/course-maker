@@ -1,32 +1,35 @@
 <template>
- 
     <div class="mt-4 flex grow flex-col">
         <div class="wrapper h-full p-2">
             <div class="mb-6 grid grid-cols-4 gap-6">
-                <div class="glass rounded-xl flex flex-col border max-h-80 !border-red-500/90 p-6">
-                    <div class="flex items-start justify-between shrink-0">
+                <div
+                    class="glass flex max-h-80 flex-col rounded-xl border !border-red-500/90 p-6"
+                >
+                    <div class="flex shrink-0 items-start justify-between">
                         <h2 class="font-semi-bold text-sm uppercase">
                             Needs Attention
                         </h2>
                         <TriangleAlert class="h-10 w-10 text-red-500" />
                     </div>
-                    <div class="overflow-y-auto flex-1 min-h-0">
-                    <ul class="mt-8 list-inside list-disc">
-                        <li
-                            v-for="course in dashboardData.coursesNeedingAttention"
-                            :key="course.id"
-                        >
-                            <button
-                                @click="openModal(course)"
-                                class="mt-2 text-2xl hover:underline"
+                    <div class="min-h-0 flex-1 overflow-y-auto">
+                        <ul class="mt-8 list-inside list-disc">
+                            <li
+                                v-for="course in dashboardData.coursesNeedingAttention"
+                                :key="course.id"
                             >
-                                {{ course.prefix }} {{ course.number }}
-                            </button>
-                        </li>
-                    </ul>
+                                <button
+                                    @click="openModal(course)"
+                                    class="mt-2 text-2xl hover:underline"
+                                >
+                                    {{ course.prefix }} {{ course.number }}
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="glass rounded-xl border max-h-80 !border-amber-500/70 p-6">
+                <div
+                    class="glass max-h-80 rounded-xl border !border-amber-500/70 p-6"
+                >
                     <div class="flex items-start justify-between">
                         <h2 class="font-semi-bold text-sm uppercase">
                             Project Status Distribution
@@ -43,7 +46,7 @@
                     />
                 </div>
                 <div
-                    class="glass rounded-xl border max-h-80 !border-blue-500/70 p-6 shadow-lg"
+                    class="glass max-h-80 rounded-xl border !border-blue-500/70 p-6 shadow-lg"
                 >
                     <div class="flex items-start justify-between">
                         <h2 class="text-sm font-semibold uppercase">
@@ -76,16 +79,15 @@
                     <ProjectPipelineTable :courses="courses" />
                 </div>
             </div>
-              <aside class="w-80 shrink-0">
-                    <div
-                        class="flex h-full flex-col rounded-xl border border-info/70 bg-base-100 p-6 shadow-lg shadow-info/20"
-                    >
-                        <h2 class="mb-6 text-xl font-semibold text-secondary">
-                            Recent Activities
-                        </h2>
-                   
-                    </div>
-                </aside>
+            <aside class="w-80 shrink-0">
+                <div
+                    class="border-info/70 bg-base-100 shadow-info/20 flex h-full flex-col rounded-xl border p-6 shadow-lg"
+                >
+                    <h2 class="mb-6 text-xl font-semibold text-secondary">
+                        Recent Activities
+                    </h2>
+                </div>
+            </aside>
         </div>
     </div>
     <CourseNeedsAttentionDetails
@@ -115,10 +117,14 @@ import CourseNeedsAttentionDetails from './courses/CourseNeedsAttentionDetails.v
 interface AdminDashboardPageProps extends PageProps {
     courses: Course[];
 }
-const props = defineProps<AdminDashboardPageProps>();
+defineProps<AdminDashboardPageProps>();
 const isModalOpened = ref(false);
 const selectedCourse = ref<any>(null);
-const dashboardData = ref<any>({ coursesNeedingAttention: [], activeCourseCount: 0, courseStatusCounts: [] });
+const dashboardData = ref<any>({
+    coursesNeedingAttention: [],
+    activeCourseCount: 0,
+    courseStatusCounts: [],
+});
 const openModal = (course: any) => {
     selectedCourse.value = course;
     isModalOpened.value = true;
