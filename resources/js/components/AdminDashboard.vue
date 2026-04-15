@@ -117,7 +117,7 @@ import CourseNeedsAttentionDetails from './courses/CourseNeedsAttentionDetails.v
 interface AdminDashboardPageProps extends PageProps {
     courses: Course[];
 }
-const props = defineProps<AdminDashboardPageProps>();
+defineProps<AdminDashboardPageProps>();
 const isModalOpened = ref(false);
 const selectedCourse = ref<any>(null);
 const dashboardData = ref<any>({
