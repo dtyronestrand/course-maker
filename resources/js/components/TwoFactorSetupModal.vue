@@ -222,6 +222,7 @@ watch(
                                     <button
                                         @click="copy(manualSetupKey || '')"
                                         class="relative block h-auto border-l border-border px-3 hover:bg-muted"
+                                        aria-label="Copy secret key"
                                     >
                                         <Check
                                             v-if="copied"

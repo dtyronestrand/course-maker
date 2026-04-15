@@ -26,7 +26,7 @@ const sortedUniqueValues = computed(() =>
 
 const isOpen = ref(false);
 
-function closeOnOutsideClick(e: MouseEvent) {
+function closeOnOutsideClick() {
     isOpen.value = false;
     document.removeEventListener('click', closeOnOutsideClick);
 }
@@ -34,7 +34,9 @@ function closeOnOutsideClick(e: MouseEvent) {
 function toggleOpen() {
     isOpen.value = !isOpen.value;
     if (isOpen.value) {
-        setTimeout(() => document.addEventListener('click', closeOnOutsideClick));
+        setTimeout(() =>
+            document.addEventListener('click', closeOnOutsideClick),
+        );
     }
 }
 </script>
@@ -94,7 +96,7 @@ function toggleOpen() {
             <div
                 v-if="isOpen"
                 @click.stop
-                class="absolute left-0 top-full z-50 mt-1 min-w-[160px] rounded border border-primary bg-slate-800 p-2 shadow-lg"
+                class="absolute top-full left-0 z-50 mt-1 min-w-[160px] rounded border border-primary bg-slate-800 p-2 shadow-lg"
             >
                 <select
                     class="w-full border !border-primary px-2 py-1 text-sm"
