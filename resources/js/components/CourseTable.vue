@@ -41,7 +41,7 @@
                 class="cursor-pointer hover:bg-primary/25"
                 @click="
                     () => {
-                        selectedCourse = row.original;
+                        selectedCourse = props.courses[row.index];
                         showCourseDetailsModal = true;
                     }
                 "
@@ -94,13 +94,14 @@ const selectedCourse = ref<Course | null>(null);
 
 const data = computed(() =>
     props.courses.map((course) => {
-        const transformed: Course & Record<string, any> = { ...course };
+        const { id: _id, ...rest } = course;
+        const transformed: any = { ...rest };
         course.users.forEach((user) => {
             if (user.pivot?.role) {
                 const role = user.pivot.role;
-                const name = `${user.name}`;
+                const name = user.name;
                 transformed[role] = transformed[role]
-                    ? `${transformed[role]} , ${name}`
+                    ? `${transformed[role]}, ${name}`
                     : name;
             }
         });

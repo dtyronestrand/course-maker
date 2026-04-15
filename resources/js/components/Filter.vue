@@ -24,7 +24,19 @@ const sortedUniqueValues = computed(() =>
         : Array.from(props.column.getFacetedUniqueValues().keys()).sort(),
 );
 
-const dialogRef = ref<HTMLDialogElement>();
+const isOpen = ref(false);
+
+function closeOnOutsideClick(e: MouseEvent) {
+    isOpen.value = false;
+    document.removeEventListener('click', closeOnOutsideClick);
+}
+
+function toggleOpen() {
+    isOpen.value = !isOpen.value;
+    if (isOpen.value) {
+        setTimeout(() => document.addEventListener('click', closeOnOutsideClick));
+    }
+}
 </script>
 
 <template>
@@ -72,16 +84,20 @@ const dialogRef = ref<HTMLDialogElement>();
         <div class="h-1" />
     </div>
     <div v-else>
-        <button
-            @click="dialogRef?.showModal()"
-            class="btn hover:bg-neutral border-none bg-transparent shadow-none"
-        >
-            <ListFilter class="h-4 text-primary" />
-        </button>
-        <dialog ref="dialogRef" :id="`filter-${column.id}`" class="modal">
-            <div class="modal-box">
+        <div class="relative">
+            <button
+                @click.stop="toggleOpen"
+                class="rounded p-1 hover:bg-white/10"
+            >
+                <ListFilter class="h-4 text-primary" />
+            </button>
+            <div
+                v-if="isOpen"
+                @click.stop
+                class="absolute left-0 top-full z-50 mt-1 min-w-[160px] rounded border border-primary bg-slate-800 p-2 shadow-lg"
+            >
                 <select
-                    class="w-full"
+                    class="w-full border !border-primary px-2 py-1 text-sm"
                     :value="(columnFilterValue ?? '') as string"
                     @change="
                         column.setFilterValue(
@@ -99,9 +115,6 @@ const dialogRef = ref<HTMLDialogElement>();
                     </option>
                 </select>
             </div>
-            <form method="dialog" class="modal-backdrop">
-                <button>close</button>
-            </form>
-        </dialog>
+        </div>
     </div>
 </template>

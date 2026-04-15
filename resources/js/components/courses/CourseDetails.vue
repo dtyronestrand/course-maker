@@ -304,25 +304,7 @@ const loadUsersByRole = async () => {
         smes.value = data.smes;
         leads.value = data.leads;
 
-        // Populate selected roles from existing course users
-        if (localCourse.value.users && localCourse.value.users.length > 0) {
-            localCourse.value.users.forEach((user) => {
-                switch (user.pivot?.role) {
-                    case 'Designer':
-                        selectedRoles.value.designer = user.id;
-                        break;
-                    case 'Lead':
-                        selectedRoles.value.lead = user.id;
-                        break;
-                    case 'SME':
-                        selectedRoles.value.sme = user.id;
-                        break;
-                    case 'Builder':
-                        selectedRoles.value.builder = user.id;
-                        break;
-                }
-            });
-        }
+        populateSelectedRoles(localCourse.value);
     } catch (error) {
         console.error('Failed to fetch users:', error);
     }
@@ -337,40 +319,31 @@ const loadDevelopmentCycles = async () => {
     }
 };
 
-// Watch for course prop changes to update local data
-watch(
-    () => props.course,
-    (newCourse) => {
-        localCourse.value = newCourse;
-        if (newCourse.users && newCourse.users.length > 0) {
-            // Reset and repopulate selected roles
-            selectedRoles.value = {
-                designer: null,
-                lead: null,
-                sme: null,
-                builder: null,
-            };
-
-            newCourse.users.forEach((user) => {
-                switch (user.pivot?.role) {
-                    case 'Designer':
-                        selectedRoles.value.designer = user.id;
-                        break;
-                    case 'Lead':
-                        selectedRoles.value.lead = user.id;
-                        break;
-                    case 'SME':
-                        selectedRoles.value.sme = user.id;
-                        break;
-                    case 'Builder':
-                        selectedRoles.value.builder = user.id;
-                        break;
-                }
-            });
+const populateSelectedRoles = (course: Course) => {
+    selectedRoles.value = { designer: null, lead: null, sme: null, builder: null };
+    course.users?.forEach((user) => {
+        switch (user.pivot?.role) {
+            case 'Designer': selectedRoles.value.designer = user.id; break;
+            case 'Lead': selectedRoles.value.lead = user.id; break;
+            case 'SME': selectedRoles.value.sme = user.id; break;
+            case 'Builder': selectedRoles.value.builder = user.id; break;
         }
-    },
-    { deep: true },
-);
+    });
+};
+
+// Watch for course prop changes to update local data
+watch(() => props.course, (newCourse) => {
+    localCourse.value = newCourse;
+    populateSelectedRoles(newCourse);
+}, { deep: true });
+
+// Re-initialize when modal opens
+watch(() => props.isOpen, (isOpen) => {
+    if (isOpen) {
+        localCourse.value = props.course;
+        populateSelectedRoles(props.course);
+    }
+});
 
 onMounted(() => {
     loadDevelopmentCycles();

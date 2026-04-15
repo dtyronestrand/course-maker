@@ -28,15 +28,19 @@ class CourseSeeder extends Seeder
             $team = $teams->random();
 
             $lead = User::role('lead')->where('current_team_id', $team->id)->first();
-            $ids = User::role('id')->where('current_team_id', $team->id)->inRandomOrder()->take(rand(1, 3))->get();
+            $teamIds = User::role('id')->where('current_team_id', $team->id)->inRandomOrder()->get();
             $sme = $smes->random();
 
             if ($lead) {
                 $course->users()->attach($lead->id, ['role' => 'lead']);
             }
 
-            foreach ($ids as $idUser) {
-                $course->users()->attach($idUser->id, ['role' => 'id']);
+            if ($teamIds->isNotEmpty()) {
+                $course->users()->attach($teamIds->shift()->id, ['role' => 'designer']);
+            }
+
+            if ($teamIds->isNotEmpty()) {
+                $course->users()->attach($teamIds->shift()->id, ['role' => 'builder']);
             }
 
             if ($sme) {

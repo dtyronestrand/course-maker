@@ -6,6 +6,16 @@ import '../css/app.css';
 import { initializeTheme } from './composables/useAppearance';
 import { configureEcho } from '@laravel/echo-vue';
 import axios from 'axios';
+import { configureEcho } from '@laravel/echo-vue';
+import { configureEcho } from '@laravel/echo-vue';
+
+configureEcho({
+    broadcaster: 'reverb',
+});
+
+configureEcho({
+    broadcaster: 'reverb',
+});
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

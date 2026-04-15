@@ -71,7 +71,6 @@ import {
     getFacetedRowModel,
     getFacetedUniqueValues,
     getFilteredRowModel,
-    getGroupedRowModel,
     useVueTable,
 } from '@tanstack/vue-table';
 import { computed, h, ref } from 'vue';
@@ -84,7 +83,8 @@ const props = defineProps<Props>();
 
 const data = computed(() =>
     props.courses.map((course) => {
-        const transformed: any = { ...course };
+        const { id: _id, ...rest } = course;
+        const transformed: any = { ...rest };
         course.users.forEach((user) => {
             if (user.pivot?.role) {
                 const role = user.pivot.role;
@@ -201,8 +201,8 @@ const table = useVueTable({
                 ? updateOrValue(globalFilter.value)
                 : updateOrValue;
     },
+    getRowId: (row) => String(row.id),
     getCoreRowModel: getCoreRowModel(),
-    getGroupedRowModel: getGroupedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
