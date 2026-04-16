@@ -24,7 +24,7 @@ class ApiController extends Controller
                     ->where('course_deliverable.is_done', 0);
             }])->with('users')->get();
 
-            $users = User::select('id', 'first_name', 'last_name')->where('current_team_id', auth()->user()->current_team_id)->withCount('courses')->get();
+            $users = User::select('id', 'first_name', 'last_name')->where('current_team_id', auth()->user()->current_team_id)->with('roles', 'courses:id,prefix,number')->get();
 
             return response()->json([
                 'coursesNeedingAttention' => $coursesNeedingAttention,
