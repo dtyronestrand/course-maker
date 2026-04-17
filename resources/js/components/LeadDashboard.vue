@@ -142,23 +142,5 @@ const styleByStatus = (status: string) => {
 </script>
 
 <style scoped>
- .glass-card-card {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 2px solid rgba(255, 255, 255, 0.08);
-      border-radius: 1.5rem;
-    }
-    
-    .glass-card-card-inner {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
 
-    .glow-border-orange { border-color: rgba(249, 115, 22, 0.4); box-shadow: 0 0 15px rgba(249, 115, 22, 0.1); }
-    .glow-border-yellow { border-color: rgba(234, 179, 8, 0.4); box-shadow: 0 0 15px rgba(234, 179, 8, 0.1); }
-    .glow-border-blue { border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 0 15px rgba(59, 130, 246, 0.1); }
-    .glow-border-green { border-color: rgba(34, 197, 94, 0.4); box-shadow: 0 0 15px rgba(34, 197, 94, 0.1); }
-    .glow-border-purple { border-color: rgba(168, 85, 247, 0.4); box-shadow: 0 0 15px rgba(168, 85, 247, 0.1); }
 </style>
