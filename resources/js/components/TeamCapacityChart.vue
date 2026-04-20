@@ -46,14 +46,12 @@ const usersWorkloads = computed(() => {
 
 onMounted(async () => {
     try {
-        await axios.get('/sanctum/csrf-cookie');
         const [usersResponse, capacityResponse] = await Promise.all([
             axios.get('/api/users-workloads'),
             axios.get('/api/capacity'),
         ]);
         users.value = usersResponse.data.users;
         capacity.value = capacityResponse.data.capacity;
-        console.log('Capacity:', capacity.value);
     } catch (error) {
         console.error('Error fetching user workloads:', error);
     }

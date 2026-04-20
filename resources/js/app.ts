@@ -6,25 +6,17 @@ import '../css/app.css';
 import { initializeTheme } from './composables/useAppearance';
 import { configureEcho } from '@laravel/echo-vue';
 import axios from 'axios';
-import { configureEcho } from '@laravel/echo-vue';
-import { configureEcho } from '@laravel/echo-vue';
-
-configureEcho({
-    broadcaster: 'reverb',
-});
 
 configureEcho({
     broadcaster: 'reverb',
 });
 
 axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 const token = document.head.querySelector('meta[name="csrf-token"]') as HTMLMetaElement | null;
 if (token) axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-
-configureEcho({
-    broadcaster: 'reverb',
-});
+axios.get('/sanctum/csrf-cookie');
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
