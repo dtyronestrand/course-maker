@@ -9,10 +9,11 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Models\DevelopmentCycle;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    if (auth()->check()) {
+    if (Auth::check()) {
         return redirect()->route('dashboard');
     }
 
