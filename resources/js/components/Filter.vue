@@ -26,7 +26,7 @@ const sortedUniqueValues = computed(() =>
 
 const isOpen = ref(false);
 
-function closeOnOutsideClick(e: MouseEvent) {
+function closeOnOutsideClick() {
     isOpen.value = false;
     document.removeEventListener('click', closeOnOutsideClick);
 }
