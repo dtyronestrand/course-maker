@@ -34,6 +34,17 @@ export interface Course {
     title: string;
     users: User[];
     development_cycle: DevelopmentCycle;
-    deliverables: Deliverable[];
+    deliverables: {
+        id: number;
+        name: string;
+        "pivot": {
+            course_id: number;
+            deliverable_id: number;
+            due_date: string;
+            "is_done": boolean;
+            "date_completed": string | null;
+            missed_due_date_count: number;
+        };
+    }[];
     notes?: string;
 }

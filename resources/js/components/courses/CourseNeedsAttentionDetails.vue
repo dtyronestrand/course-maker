@@ -1,11 +1,11 @@
 <template>
     <div
-        class="fixed inset-0 z-50 flex w-full items-center justify-center bg-slate-900/50 backdrop-blur-sm"
+        class="fixed inset-0 z-50 flex w-full items-center justify-center bg-surface backdrop-blur-sm"
         @click.self="emit('modal-close')"
     >
         <div
             v-if="props.isOpen"
-            class="mx-auto max-w-3xl rounded-lg border border-primary bg-slate-800 p-4 shadow-sm shadow-primary"
+            class="mx-auto max-w-3xl rounded-lg border border-primary bg-surface-container p-4 shadow-sm shadow-primary"
         >
             <h2 class="mb-4 text-2xl font-bold">
                 {{ props.course.prefix }} {{ props.course.number }}

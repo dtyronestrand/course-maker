@@ -1,7 +1,7 @@
 <template>
     <AppLayout>
         <div class="mt-4 flex flex-row justify-between">
-            <h2 class="text-2xl font-semibold text-amber-500">Courses</h2>
+            <h2 class="text-2xl font-semibold">Courses</h2>
             <Button @click="showCreateCourseModal = true">+ Course</Button>
         </div>
         <div class="rounded-xl p-4">

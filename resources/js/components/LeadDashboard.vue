@@ -28,7 +28,7 @@
                 <div class="glass-card-card rounded-xl flex flex-col max-h-80 min-h-80 glow-border-orange p-8">
                 <div class="flex items-start justify-between shrink-0">
                 <h2 class="font-semibold text-lg uppercase">Tasks</h2>
-                <LayoutList class="h-10 w-10 text-amber-500" />
+                <LayoutList class="h-10 w-10" />
                 </div>
                 </div>
                 <div class="glass-card-card rounded-xl flex flex-col col-span-2  max-h-89 min-h-80 glow-border-yellow p-8">
