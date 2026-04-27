@@ -30,10 +30,10 @@ defineProps<{
                         <span class="sr-only">{{ title }}</span>
                     </Link>
                     <div class="space-y-2 text-center">
-                        <h1 class="text-xl font-medium text-amber-400">
+                        <h1 class="text-xl font-medium ">
                             {{ title }}
                         </h1>
-                        <p class="text-center text-sm text-amber-400">
+                        <p class="text-center text-sm ">
                             {{ description }}
                         </p>
                     </div>

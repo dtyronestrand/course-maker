@@ -55,12 +55,12 @@ const chartOptions = {
     scales: {
         y: {
             ticks: {
-                color: '#ffc107',
+                color: '#191c1e',
             },
         },
         x: {
             ticks: {
-                color: '#ffc107',
+                color: '#191c1e',
             },
         },
     },

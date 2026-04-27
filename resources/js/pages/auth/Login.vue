@@ -45,7 +45,7 @@ const submit = () => {
 
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
-                <div class="grid gap-2 text-amber-400">
+                <div class="grid gap-2 ">
                     <Label for="email">Email address</Label>
                     <Input
                         class="text-slate-100"
@@ -62,7 +62,7 @@ const submit = () => {
 
                 <div class="grid gap-2">
                     <div
-                        class="flex items-center justify-between text-amber-400"
+                        class="flex items-center justify-between "
                     >
                         <Label for="password">Password</Label>
                         <TextLink
@@ -86,11 +86,12 @@ const submit = () => {
                     />
                 </div>
 
-                <div class="flex items-center justify-between text-amber-400">
+                <div class="flex items-center justify-between ">
                     <Label for="remember" class="flex items-center space-x-3">
                         <Checkbox
                             id="remember"
                             name="remember"
+                            class="border border-on-surface"
                             v-model:checked="form.remember"
                             :tabindex="3"
                         />
@@ -100,7 +101,7 @@ const submit = () => {
 
                 <Button
                     type="submit"
-                    class="mt-4 w-full bg-amber-500"
+                    class="mt-4 w-full bg-primary text-[var(--on-primary)] hover:bg-[var(--primary-container)] primary-container"
                     :tabindex="4"
                     :disabled="form.processing"
                     data-test="login-button"
@@ -110,7 +111,7 @@ const submit = () => {
                 </Button>
             </div>
 
-            <div class="text-center text-sm text-amber-400" v-if="canRegister">
+            <div class="text-center text-sm" v-if="canRegister">
                 Don't have an account?
                 <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
             </div>
