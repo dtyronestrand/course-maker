@@ -10,7 +10,14 @@ protected $fillable = [
     'course_id',
     'title',
     'number',
+    'items',
+    'module_objectives',
+    'order_index',
 
+];
+
+protected $casts = [
+    'module_objectives' => 'array',
 ];
 
   public function course()

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, User, Users, Cog, LayoutGrid } from 'lucide-vue-next';
+import { BookOpen, User, Users, Cog, LayoutGrid, Calendar } from 'lucide-vue-next';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import {
@@ -37,6 +37,12 @@ const mainNavItems = computed((): NavItem[] => {
             title: 'Courses',
             href: courses.index(),
             icon: BookOpen,
+        },
+
+        {
+            title: 'Calendar',
+            href: '#',
+            icon: Calendar,
         },
     ];
     switch (user_role.value) {
