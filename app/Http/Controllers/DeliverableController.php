@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Deliverable;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Concerns\FormatsInput;
 class DeliverableController extends Controller
 {
+    use FormatsInput;
+
    public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'offset_days' => 'required|integer',
         ]);
-
+        $validated['name'] = $this->toTitleCase($validated['name']);
         $deliverable = new \App\Models\Deliverable($validated);
         $deliverable->save();
 
