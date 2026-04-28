@@ -40,6 +40,6 @@ const isLead = computed(() => page.props.user_role === 'lead');
     <AppLayout :breadcrumbs="breadcrumbs">
         <AdminDashboard :courses="page.props.courses" v-if="isAdmin" />
         <LeadDashboard v-else-if="isLead" :courses="page.props.courses"/>
-        <UserDashboard :courses="page.props.courses" v-else />
+        <UserDashboard :courses="page.props.courses" :user="page.props.auth.user" v-else />
     </AppLayout>
 </template>
