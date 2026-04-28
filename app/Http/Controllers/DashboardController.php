@@ -23,7 +23,7 @@ class DashboardController extends Controller
         }
 
         return Inertia::render('Dashboard', [
-            'courses' => $courses,
+            'courses' => $courses->load('deliverables'),
             'is_admin' => $isAdmin,
         ]);
     }

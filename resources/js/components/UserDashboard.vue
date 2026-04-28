@@ -13,6 +13,11 @@
     <p v-if="builder(course) != user.name">Builder: {{ builder(course) }}</p>
     <p>SME: {{ sme(course) }}</p>
     </header>
+    <div class="mt-4">
+    <ul>
+    <li class="px-4" v-for="deliverable in course.deliverables" :key="deliverable.id"><div class="flex flex-row align-items justify-between">{{ deliverable.name}}<input type="checkbox" v-model="deliverable.pivot.id_done"/></div></li>
+    </ul>
+    </div>
     </div>
     </div>
     </div>
