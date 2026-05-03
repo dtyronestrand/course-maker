@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Item extends Model
 {
@@ -23,5 +24,10 @@ class Item extends Model
   public function module(): BelongsTo
   {
     return $this->belongsTo(Module::class);
+  }
+
+  public function moduleObjectives(): BelongsToMany
+  {
+    return $this->belongsToMany(ModuleObjective::class)->withTimestamps();
   }
 }

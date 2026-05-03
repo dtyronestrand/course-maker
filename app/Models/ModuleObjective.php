@@ -23,4 +23,9 @@ class ModuleObjective extends Model
     {
         return $this->belongsToMany(CourseObjective::class)->withTimestamps();
     }
+
+    public function items(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class)->withTimestamps();
+    }
 }
