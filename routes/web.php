@@ -7,6 +7,8 @@ use App\Http\Controllers\DeliverableController;
 use App\Http\Controllers\DevelopmentCycleController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ModuleObjectiveController;
+use App\Http\Controllers\ItemController;
 use App\Models\DevelopmentCycle;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -58,5 +60,8 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admin_settings', [AdminSettingController::class, 'index'])->name('adminsettings.index');
     Route::post('/admin_settings', [AdminSettingController::class, 'store'])->name('adminsettings.store');
 });
+
+Route::post('/modules/{module}/objectives', [ModuleObjectiveController::class, 'store'])->name('module_objectives.store');
+Route::post('/modules/{module}/items', [ItemController::class, 'store'])->name('module_items.store');
 
 require __DIR__.'/settings.php';
