@@ -63,5 +63,9 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 Route::post('/modules/{module}/objectives', [ModuleObjectiveController::class, 'store'])->name('module_objectives.store');
 Route::post('/modules/{module}/items', [ItemController::class, 'store'])->name('module_items.store');
+Route::put('/modules/{module}/objectives/{moduleObjective}', [ModuleObjectiveController::class, 'update'])->name('module_objectives.update');
+Route::delete('/modules/{module}/objectives/{moduleObjective}', [ModuleObjectiveController::class, 'destroy'])->name('module_objectives.destroy');
+Route::put('/modules/{module}/items/{item}', [ItemController::class, 'update'])->name('module_items.update');
+Route::delete('/modules/{module}/items/{item}', [ItemController::class, 'destroy'])->name('module_items.destroy');
 
 require __DIR__.'/settings.php';
