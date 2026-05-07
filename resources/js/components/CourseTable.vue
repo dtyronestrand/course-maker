@@ -95,7 +95,7 @@ const selectedCourse = ref<Course | null>(null);
 const data = computed(() =>
     props.courses.map((course) => {
         const { id: _id, ...rest } = course;
-        const transformed: any = { ...rest };
+        const transformed: any = { id: _id, ...rest };
         course.users.forEach((user) => {
             if (user.pivot?.role) {
                 const role = user.pivot.role;
