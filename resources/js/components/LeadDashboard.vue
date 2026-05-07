@@ -90,7 +90,7 @@ import {
     Mail,
     Users,
 } from 'lucide-vue-next';
-import axios from 'axios';
+import { useHttp } from '@inertiajs/vue3';
 import type { PageProps } from '@inertiajs/core';
 import CourseNeedsAttentionDetails from './courses/CourseNeedsAttentionDetails.vue';
 interface LeadDashboardPageProps extends PageProps {
@@ -110,11 +110,14 @@ const closeModal = () => {
     isModalOpened.value = false;
     selectedCourse.value = null;
 };
+
+const http = useHttp();
+
 const getLeadDashboardData = async () => {
     try {
-        const response = await axios.get('/api/lead-dashboard');
-        dashboardData.value = response.data;
-        console.log('Dashboard data:', response.data);
+        const response = await http.get('/api/lead-dashboard');
+        dashboardData.value = response;
+        console.log('Dashboard data:', response);
     } catch (error) {
         console.error('Error fetching dashboard data:', error);
     }

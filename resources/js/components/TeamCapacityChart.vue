@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { getInitials } from '@/composables/useInitials';
-import axios from 'axios';
+import { useHttp } from '@inertiajs/vue3';
 import { computed, onMounted, ref } from 'vue';
 
 defineOptions({ inheritAttrs: false });
@@ -45,14 +45,16 @@ const usersWorkloads = computed(() => {
     }));
 });
 
+const http = useHttp();
+
 onMounted(async () => {
     try {
-        const [usersResponse, capacityResponse] = await Promise.all([
-            axios.get('/api/users-workloads'),
-            axios.get('/api/capacity'),
+        const [usersData, capacityData] = await Promise.all([
+            http.get('/api/users-workloads'),
+            http.get('/api/capacity'),
         ]);
-        users.value = usersResponse.data.users;
-        capacity.value = capacityResponse.data.capacity;
+        users.value = usersData.users;
+        capacity.value = capacityData.capacity;
     } catch (error) {
         console.error('Error fetching user workloads:', error);
     }

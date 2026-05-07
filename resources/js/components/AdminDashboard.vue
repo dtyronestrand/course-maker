@@ -109,7 +109,7 @@ import {
     TriangleAlert,
     Users,
 } from 'lucide-vue-next';
-import axios from 'axios';
+import { useHttp } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
 import CourseNeedsAttentionDetails from './courses/CourseNeedsAttentionDetails.vue';
 interface AdminDashboardPageProps extends PageProps {
@@ -128,10 +128,13 @@ const closeModal = () => {
     isModalOpened.value = false;
     selectedCourse.value = null;
 };
+
+const http = useHttp();
+
 const getAdminDashboardData = async () => {
     try {
-        const response = await axios.get('/api/admin-dashboard');
-        dashboardData.value = response.data;
+        const response = await http.get('/api/admin-dashboard');
+        dashboardData.value = response;
     } catch (error) {
         console.error('Error fetching dashboard data:', error);
     }

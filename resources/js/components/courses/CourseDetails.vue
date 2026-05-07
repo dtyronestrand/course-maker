@@ -217,9 +217,8 @@
 </template>
 <script setup lang="ts">
 import type { Course, User } from '@/types';
-import { router } from '@inertiajs/vue3';
+import { router, useHttp } from '@inertiajs/vue3';
 import { onClickOutside } from '@vueuse/core';
-import axios from 'axios';
 import { onMounted, ref, watch } from 'vue';
 
 const props = defineProps<{
@@ -241,6 +240,8 @@ const selectedRoles = ref({
     sme: null as number | null,
     builder: null as number | null,
 });
+
+const http = useHttp();
 
 const updateCourseUsers = () => {
     const newUsers: User[] = [];
@@ -298,8 +299,8 @@ const deleteCourse = () => {
 };
 const loadUsersByRole = async () => {
     try {
-        const response = await axios.get('/api/users');
-        const data = response.data;
+        const response = await http.get('/api/users');
+        const data = response;
         ids.value = data.ids;
         smes.value = data.smes;
         leads.value = data.leads;
@@ -312,8 +313,8 @@ const loadUsersByRole = async () => {
 
 const loadDevelopmentCycles = async () => {
     try {
-        const response = await axios.get('/api/development-cycles');
-        developmentCycles.value = response.data;
+        const response = await http.get('/api/development-cycles');
+        developmentCycles.value = response;
     } catch (error) {
         console.error('Failed to fetch development cycles:', error);
     }

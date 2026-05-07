@@ -32,6 +32,7 @@ export interface Course {
     prefix: string;
     number: string;
     title: string;
+    status: string;
     users: User[];
     development_cycle: DevelopmentCycle;
     deliverables: {
