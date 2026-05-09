@@ -53,16 +53,30 @@
                     <div class="flex flex-row flex-nowrap justify-between">
                         <h3 class="text-md font-semibold">{{ cycle.name }}</h3>
                         <div class="flex space-x-2">
-                            <Pencil
+                            <button
+                                aria-label="Edit cycle"
                                 @click="editCycle(cycle)"
-                                class="text-amber-500"
-                                :size="20"
-                            />
-                            <Trash2
+                                class="rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                            >
+                                <Pencil
+                                    class="text-amber-500"
+                                    :size="20"
+                                    role="img"
+                                    aria-hidden="true"
+                                />
+                            </button>
+                            <button
+                                aria-label="Delete cycle"
                                 @click="deleteCycle(cycle)"
-                                class="text-red-500"
-                                :size="20"
-                            />
+                                class="rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                            >
+                                <Trash2
+                                    class="text-red-500"
+                                    :size="20"
+                                    role="img"
+                                    aria-hidden="true"
+                                />
+                            </button>
                         </div>
                     </div>
                     <p>Start Date: {{ cycle.start_date }}</p>
@@ -150,15 +164,22 @@
                                 {{ deliverable.offset_days }}
                             </td>
                             <td class="px-6 py-4 text-sm whitespace-nowrap">
-                                <Trash2
+                                <button
+                                    aria-label="Delete deliverable"
                                     @click="
                                         router.delete(
                                             `/deliverables/${deliverable.id}`,
                                         )
                                     "
-                                    class="text-red-500"
-                                    :size="20"
-                                />
+                                    class="rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                                >
+                                    <Trash2
+                                        class="text-red-500"
+                                        :size="20"
+                                        role="img"
+                                        aria-hidden="true"
+                                    />
+                                </button>
                             </td>
                         </tr>
                     </tbody>

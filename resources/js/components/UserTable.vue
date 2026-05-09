@@ -240,23 +240,45 @@ const columnsUsers = [
                         },
                         'Cancel',
                     ),
-                    h(Trash2, {
-                        class: 'w-4 h-4 text-red-500 cursor-pointer hover:text-red-700 ml-1',
-                        onClick: (e: Event) => {
-                            e.stopPropagation();
-                            deleteUser(user.id);
+                    h(
+                        'button',
+                        {
+                            'aria-label': 'Delete user',
+                            class: 'focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded ml-1',
+                            onClick: (e: Event) => {
+                                e.stopPropagation();
+                                deleteUser(user.id);
+                            },
                         },
-                    }),
+                        [
+                            h(Trash2, {
+                                class: 'w-4 h-4 text-red-500 cursor-pointer hover:text-red-700',
+                                role: 'img',
+                                'aria-hidden': 'true',
+                            }),
+                        ],
+                    ),
                 ]);
             } else {
                 return h('div', { class: 'flex gap-3 items-center' }, [
-                    h(Pencil, {
-                        class: 'w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
-                        onClick: (e: Event) => {
-                            e.stopPropagation();
-                            startEdit(user);
+                    h(
+                        'button',
+                        {
+                            'aria-label': 'Edit user',
+                            class: 'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity',
+                            onClick: (e: Event) => {
+                                e.stopPropagation();
+                                startEdit(user);
+                            },
                         },
-                    }),
+                        [
+                            h(Pencil, {
+                                class: 'w-6 h-6 cursor-pointer text-amber-500 hover:text-amber-700',
+                                role: 'img',
+                                'aria-hidden': 'true',
+                            }),
+                        ],
+                    ),
                 ]);
             }
         },
