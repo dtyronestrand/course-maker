@@ -2,10 +2,17 @@
     <AppLayout>
         <div class="mt-4 flex flex-row justify-between">
             <h2 class="text-2xl font-semibold">Courses</h2>
-            <Button v-if="page.props.user_role === 'admin' || page.props.user_role === 'lead'" @click="showCreateCourseModal = true">+ Course</Button>
+            <Button
+                v-if="
+                    page.props.user_role === 'admin' ||
+                    page.props.user_role === 'lead'
+                "
+                @click="showCreateCourseModal = true"
+                >+ Course</Button
+            >
         </div>
         <div class="rounded-xl p-4">
-         <component :is="courseComponent" :courses="page.props.courses"/>
+            <component :is="courseComponent" :courses="page.props.courses" />
         </div>
         <CreateCourse
             v-if="showCreateCourseModal"
@@ -45,10 +52,16 @@ const saveCourse = (courseData: {
     });
 };
 
-const courseTable = defineAsyncComponent(() => import('@/components/CourseTable.vue'));
-const courseList = defineAsyncComponent(() => import('@/components/courses/CourseList.vue'));
+const courseTable = defineAsyncComponent(
+    () => import('@/components/CourseTable.vue'),
+);
+const courseList = defineAsyncComponent(
+    () => import('@/components/courses/CourseList.vue'),
+);
 const courseComponent = computed(() =>
-    page.props.user_role === 'admin' || page.props.user_role === 'lead' ? courseTable : courseList
+    page.props.user_role === 'admin' || page.props.user_role === 'lead'
+        ? courseTable
+        : courseList,
 );
 </script>
 

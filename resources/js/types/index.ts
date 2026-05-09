@@ -38,12 +38,12 @@ export interface Course {
     deliverables: {
         id: number;
         name: string;
-        "pivot": {
+        pivot: {
             course_id: number;
             deliverable_id: number;
             due_date: string;
-            "is_done": boolean;
-            "date_completed": string | null;
+            is_done: boolean;
+            date_completed: string | null;
             missed_due_date_count: number;
         };
     }[];

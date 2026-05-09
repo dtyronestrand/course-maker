@@ -3,7 +3,7 @@
         :modelValue="globalFilter ?? ''"
         @update:modelValue="(value: string) => (globalFilter = value)"
         placeholder="Search all columns..."
-        class="bg-transparent my-4 w-max rounded-md border !border-primary px-4 py-2 font-bold"
+        class="my-4 w-max rounded-md border !border-primary bg-transparent px-4 py-2 font-bold"
     />
 
     <table class="w-full text-left text-sm">
@@ -83,6 +83,7 @@ const props = defineProps<Props>();
 
 const data = computed(() =>
     props.courses.map((course) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id: _id, ...rest } = course;
         const transformed: any = { ...rest };
         course.users.forEach((user) => {
