@@ -8,17 +8,17 @@
             <div class="flex justify-evenly">
                 <div class="placeholder avatar">
                     <div
-                        class=" border-foreground my-2 flex h-8 w-8 items-center rounded-full border shadow-sm"
+                        class="my-2 flex h-8 w-8 items-center rounded-full border border-foreground shadow-sm"
                     >
                         <p class="mx-auto text-sm">
                             {{ getInitials(user.name) }}
                         </p>
                     </div>
                 </div>
-           
+
                 <progress
-                id="capacity"
-                    class="overflow-hidden  bg-green-500 mx-4 w-50 place-self-center"
+                    id="capacity"
+                    class="mx-4 w-50 place-self-center overflow-hidden bg-green-500"
                     :value="user.workload"
                     min="0"
                     max="100"
@@ -63,17 +63,17 @@ onMounted(async () => {
 
 <style scoped>
 progress {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  width: 250px;
-  height: 20px;
-  background-color: #eeeeee; /* Unfilled: Firefox */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    width: 250px;
+    height: 20px;
+    background-color: #eeeeee; /* Unfilled: Firefox */
 }
 
 progress::-webkit-progress-bar {
-  background-color: #eeeeee;
-  border: solid 1px var(--on-surface);
+    background-color: #eeeeee;
+    border: solid 1px var(--on-surface);
 }
 </style>

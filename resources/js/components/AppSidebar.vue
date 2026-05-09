@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, User, Users, Cog, LayoutGrid, Calendar } from 'lucide-vue-next';
+import {
+    BookOpen,
+    User,
+    Users,
+    Cog,
+    LayoutGrid,
+    Calendar,
+} from 'lucide-vue-next';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import {
@@ -70,7 +77,6 @@ const mainNavItems = computed((): NavItem[] => {
                 ],
             });
             break;
-      
     }
     return items;
 });

@@ -17,9 +17,15 @@
             >
                 <div v-if="edit !== team.id">
                     <div
-                        class="flex flex-row justify-end opacity-0 group-hover:opacity-100"
+                        class="flex flex-row justify-end opacity-0 group-hover:opacity-100 focus-within:opacity-100"
                     >
-                        <Pencil role="button" @click="startEdit(team)" />
+                        <button
+                            aria-label="Edit team"
+                            @click="startEdit(team)"
+                            class="rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                        >
+                            <Pencil role="img" aria-hidden="true" />
+                        </button>
                     </div>
                     <h3 class="mb-2 text-xl font-semibold text-amber-500">
                         {{ team.name }}
