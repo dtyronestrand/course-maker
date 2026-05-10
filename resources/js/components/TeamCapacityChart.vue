@@ -34,12 +34,25 @@ import { getInitials } from '@/composables/useInitials';
 import { useHttp } from '@inertiajs/vue3';
 import { computed, onMounted, ref } from 'vue';
 
-defineOptions({ inheritAttrs: false });
 
-const users = ref([]);
+defineOptions({ inheritAttrs: false });
+interface User {
+    name: string;
+    courses_count: number;
+}
+
+interface UserResponse {
+    users: User[];
+}
+
+interface CapacityResponse {
+    capacity: number;
+}
+
+const users = ref<User[]>([]);
 const capacity = ref(0);
 const usersWorkloads = computed(() => {
-    return users.value.map((user: any) => ({
+    return users.value.map((user) => ({
         name: user.name,
         workload: Math.round((user.courses_count / capacity.value) * 100),
     }));
@@ -50,8 +63,8 @@ const http = useHttp();
 onMounted(async () => {
     try {
         const [usersData, capacityData] = await Promise.all([
-            http.get('/api/users-workloads'),
-            http.get('/api/capacity'),
+            http.get('/api/users-workloads') as Promise<UserResponse>,
+            http.get('/api/capacity') as Promise<CapacityResponse>,
         ]);
         users.value = usersData.users;
         capacity.value = capacityData.capacity;

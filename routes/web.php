@@ -60,7 +60,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admin_settings', [AdminSettingController::class, 'index'])->name('adminsettings.index');
     Route::post('/admin_settings', [AdminSettingController::class, 'store'])->name('adminsettings.store');
 });
-
+Route::get('/courses/{course}', [CourseController::class, 'details'])->name('courses.details');
 Route::post('/modules/{module}/objectives', [ModuleObjectiveController::class, 'store'])->name('module_objectives.store');
 Route::post('/modules/{module}/items', [ItemController::class, 'store'])->name('module_items.store');
 Route::put('/modules/{module}/objectives/{moduleObjective}', [ModuleObjectiveController::class, 'update'])->name('module_objectives.update');

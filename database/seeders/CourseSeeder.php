@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
+use App\Models\CourseObjective;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -45,6 +46,16 @@ class CourseSeeder extends Seeder
 
             if ($sme) {
                 $course->users()->attach($sme->id, ['role' => 'sme']);
+            }
+
+            $numerals = ['I', 'II', 'III', 'IV', 'V'];
+            $count = rand(3, 5);
+            for ($i = 0; $i < $count; $i++) {
+                CourseObjective::create([
+                    'course_id' => $course->id,
+                    'number' => $numerals[$i],
+                    'objective' => fake()->sentence(),
+                ]);
             }
 
             $course->attachAllDeliverables($course);

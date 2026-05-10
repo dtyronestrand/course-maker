@@ -35,6 +35,11 @@ export interface Course {
     status: string;
     users: User[];
     development_cycle: DevelopmentCycle;
+    course_objectives: {
+        id: number;
+        objective: string;
+        number: string;
+    };
     deliverables: {
         id: number;
         name: string;

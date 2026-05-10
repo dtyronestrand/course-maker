@@ -25,7 +25,7 @@ class ActivateCoursesCommand extends Command
             $count = $coursesToActivate->count();
             if ($count >0){
                 $this->info("Activating {$count} courses...");
-                Course::whereIn('id', $coursesToActivate->pluck('id'))->update(['status' => 'design']);
+                Course::whereIn('id', $coursesToActivate->pluck('id'))->update(['status' => 'Design']);
                 $this->info("Activated {$count} courses.");
             }else{
                 $this->info("No courses to activate.");
