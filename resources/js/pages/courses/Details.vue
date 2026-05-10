@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-    import AppLayout from '@/Layouts/AppLayout.vue';
+    import AppLayout from '@/layouts/AppLayout.vue';
     import type { Course } from '@/types';
 
     interface Props {

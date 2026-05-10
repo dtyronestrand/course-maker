@@ -39,7 +39,7 @@ export interface Course {
         id: number;
         objective: string;
         number: string;
-    };
+    }[];
     deliverables: {
         id: number;
         name: string;
