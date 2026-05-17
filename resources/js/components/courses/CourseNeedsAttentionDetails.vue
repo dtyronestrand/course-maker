@@ -1,15 +1,24 @@
 <template>
     <div
-        class="fixed inset-0 z-50 flex w-full items-center justify-center bg-surface backdrop-blur-sm"
+        class="bg-surface fixed inset-0 z-50 flex w-full items-center justify-center backdrop-blur-sm"
         @click.self="emit('modal-close')"
     >
         <div
             v-if="props.isOpen"
-            class="mx-auto max-w-3xl rounded-lg border border-primary bg-surface-container p-4 shadow-sm shadow-primary"
+            class="bg-surface-container mx-auto max-w-3xl rounded-lg border border-primary p-4 shadow-sm shadow-primary"
         >
-            <h2 class="mb-4 text-2xl font-bold">
-                {{ props.course.prefix }} {{ props.course.number }}
-            </h2>
+            <div class="mb-4 flex items-center justify-between">
+                <h2 class="text-2xl font-bold">
+                    {{ props.course.prefix }} {{ props.course.number }}
+                </h2>
+                <button
+                    @click="emit('modal-close')"
+                    class="text-primary-content hover:text-error"
+                    aria-label="Close modal"
+                >
+                    <X class="h-6 w-6" />
+                </button>
+            </div>
             <ul class="mb-4">
                 <li
                     v-for="user in props.course.users"
@@ -40,6 +49,7 @@
 <script setup lang="ts">
 import { useDateUtils } from '@/composables/useDateUtils';
 import type { Course } from '@/types';
+import { X } from 'lucide-vue-next';
 
 interface Props {
     isOpen: boolean;
