@@ -26,7 +26,8 @@ const sortedUniqueValues = computed(() =>
 
 const isOpen = ref(false);
 
-function closeOnOutsideClick(e: MouseEvent) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function closeOnOutsideClick(_e: MouseEvent) {
     isOpen.value = false;
     document.removeEventListener('click', closeOnOutsideClick);
 }
