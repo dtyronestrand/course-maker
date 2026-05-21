@@ -127,7 +127,7 @@ onMounted(() => {
     getLeadDashboardData();
 });
 
-const styleByStatus = (status: string) => {
+const _styleByStatus = (status: string) => {
     switch(status){
         case 'pending':
             return 'bg-yellow-500/20 text-yellow-400 border-yellow-400/50';
