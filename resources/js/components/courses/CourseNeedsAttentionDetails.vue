@@ -7,9 +7,30 @@
             v-if="props.isOpen"
             class="mx-auto max-w-3xl rounded-lg border border-primary bg-surface-container p-4 shadow-sm shadow-primary"
         >
-            <h2 class="mb-4 text-2xl font-bold">
-                {{ props.course.prefix }} {{ props.course.number }}
-            </h2>
+            <div class="mb-4 flex items-center justify-between">
+                <h2 class="text-2xl font-bold">
+                    {{ props.course.prefix }} {{ props.course.number }}
+                </h2>
+                <button
+                    @click="emit('modal-close')"
+                    class="text-primary-content hover:text-error"
+                    aria-label="Close modal"
+                >
+                    <svg
+                        class="h-6 w-6"
+                        fill="none"
+                        stroke="var(--color-error)"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                    </svg>
+                </button>
+            </div>
             <ul class="mb-4">
                 <li
                     v-for="user in props.course.users"
