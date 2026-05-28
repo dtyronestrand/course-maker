@@ -53,16 +53,26 @@
                     <div class="flex flex-row flex-nowrap justify-between">
                         <h3 class="text-md font-semibold">{{ cycle.name }}</h3>
                         <div class="flex space-x-2">
-                            <Pencil
+                            <button
+                                aria-label="Edit development cycle"
                                 @click="editCycle(cycle)"
-                                class="text-amber-500"
-                                :size="20"
-                            />
-                            <Trash2
+                                class="rounded focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                            >
+                                <Pencil
+                                    class="text-amber-500 hover:text-amber-600 transition-colors"
+                                    :size="20"
+                                />
+                            </button>
+                            <button
+                                aria-label="Delete development cycle"
                                 @click="deleteCycle(cycle)"
-                                class="text-red-500"
-                                :size="20"
-                            />
+                                class="rounded focus:ring-2 focus:ring-red-500 focus:outline-none"
+                            >
+                                <Trash2
+                                    class="text-red-500 hover:text-red-600 transition-colors"
+                                    :size="20"
+                                />
+                            </button>
                         </div>
                     </div>
                     <p>Start Date: {{ cycle.start_date }}</p>
@@ -150,15 +160,20 @@
                                 {{ deliverable.offset_days }}
                             </td>
                             <td class="px-6 py-4 text-sm whitespace-nowrap">
-                                <Trash2
+                                <button
+                                    aria-label="Delete deliverable"
                                     @click="
                                         router.delete(
                                             `/deliverables/${deliverable.id}`,
                                         )
                                     "
-                                    class="text-red-500"
-                                    :size="20"
-                                />
+                                    class="rounded focus:ring-2 focus:ring-red-500 focus:outline-none"
+                                >
+                                    <Trash2
+                                        class="text-red-500 hover:text-red-600 transition-colors"
+                                        :size="20"
+                                    />
+                                </button>
                             </td>
                         </tr>
                     </tbody>
