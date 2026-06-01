@@ -8,7 +8,28 @@
             class="glass pointer-events-auto max-h-screen w-full max-w-xl overflow-y-auto rounded-lg border border-primary p-6 shadow-lg shadow-primary"
             ref="target"
         >
-            <h1 class="text-center text-3xl font-bold">Edit</h1>
+            <div class="mb-4 flex items-center justify-between">
+                <h1 class="text-3xl font-bold">Edit</h1>
+                <button
+                    @click="emit('modal-close')"
+                    class="text-primary-content hover:text-error"
+                    aria-label="Close modal"
+                >
+                    <svg
+                        class="h-6 w-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                    </svg>
+                </button>
+            </div>
 
             <form
                 class="flex flex-col flex-wrap gap-4"
@@ -17,6 +38,7 @@
                 <div class="mt-4 flex flex-row justify-evenly">
                     <label for="prefix">Course Prefix:</label>
                     <input
+                        id="prefix"
                         class="bg-base-200 border border-primary px-4"
                         type="text"
                         name="prefix"
@@ -26,6 +48,7 @@
                 <div class="flex flex-row items-center justify-evenly">
                     <label for="number">Course Number:</label>
                     <input
+                        id="number"
                         class="bg-base-200 my-4 border border-primary px-4"
                         type="text"
                         name="number"
@@ -35,6 +58,7 @@
 
                 <label for="title">Course Title:</label>
                 <input
+                    id="title"
                     class="bg-base-200 my-4 border border-primary px-4"
                     type="text"
                     name="title"
@@ -321,30 +345,50 @@ const loadDevelopmentCycles = async () => {
 };
 
 const populateSelectedRoles = (course: Course) => {
-    selectedRoles.value = { designer: null, lead: null, sme: null, builder: null };
+    selectedRoles.value = {
+        designer: null,
+        lead: null,
+        sme: null,
+        builder: null,
+    };
     course.users?.forEach((user) => {
         switch (user.pivot?.role) {
-            case 'Designer': selectedRoles.value.designer = user.id; break;
-            case 'Lead': selectedRoles.value.lead = user.id; break;
-            case 'SME': selectedRoles.value.sme = user.id; break;
-            case 'Builder': selectedRoles.value.builder = user.id; break;
+            case 'Designer':
+                selectedRoles.value.designer = user.id;
+                break;
+            case 'Lead':
+                selectedRoles.value.lead = user.id;
+                break;
+            case 'SME':
+                selectedRoles.value.sme = user.id;
+                break;
+            case 'Builder':
+                selectedRoles.value.builder = user.id;
+                break;
         }
     });
 };
 
 // Watch for course prop changes to update local data
-watch(() => props.course, (newCourse) => {
-    localCourse.value = newCourse;
-    populateSelectedRoles(newCourse);
-}, { deep: true });
+watch(
+    () => props.course,
+    (newCourse) => {
+        localCourse.value = newCourse;
+        populateSelectedRoles(newCourse);
+    },
+    { deep: true },
+);
 
 // Re-initialize when modal opens
-watch(() => props.isOpen, (isOpen) => {
-    if (isOpen) {
-        localCourse.value = props.course;
-        populateSelectedRoles(props.course);
-    }
-});
+watch(
+    () => props.isOpen,
+    (isOpen) => {
+        if (isOpen) {
+            localCourse.value = props.course;
+            populateSelectedRoles(props.course);
+        }
+    },
+);
 
 onMounted(() => {
     loadDevelopmentCycles();
