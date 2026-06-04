@@ -288,7 +288,6 @@ const deleteCourse = () => {
     ) {
         router.delete(`/courses/${localCourse.value.id}`, {
             onSuccess: () => {
-                console.log('Course deletion successful');
                 emit('modal-close');
             },
             onError: (errors) => {
@@ -356,12 +355,6 @@ onClickOutside(target, () => {
 });
 
 const updateCourse = () => {
-    console.log('localCourse.value before processing:', localCourse.value);
-    console.log(
-        'localCourse.value.users before processing:',
-        localCourse.value.users,
-    );
-
     const courseData = {
         prefix: localCourse.value.prefix,
         number: localCourse.value.number,
@@ -374,16 +367,8 @@ const updateCourse = () => {
         })),
     };
 
-    console.log('Sending course data:', courseData);
-    console.log('Users data:', courseData.users);
-    console.log(
-        'Users data detailed:',
-        JSON.stringify(courseData.users, null, 2),
-    );
-
     router.put(`/courses/${localCourse.value.id}`, courseData, {
         onSuccess: () => {
-            console.log('Course update successful');
             emit('modal-close');
         },
         onError: (errors) => {
