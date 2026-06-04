@@ -1,0 +1,3 @@
+## 2024-05-18 - Modal and Form Label Accessibility
+**Learning:** Custom modals (like `CourseNeedsAttentionDetails.vue`) often rely entirely on backdrop clicks for closing, which is inaccessible to keyboard and screen reader users. Additionally, inputs within modals (like `CourseDetails.vue`) sometimes use `<label for="id">` without the matching `id="id"` on the `<input>`, breaking click-to-focus and screen reader association.
+**Action:** When building or reviewing custom modals, always ensure there is an explicit close button with `aria-label` in the header, even if backdrop clicking is enabled. Ensure all form inputs have an explicit `id` attribute that corresponds to their respective `<label for="...">` attribute.
