@@ -240,24 +240,48 @@ const columnsUsers = [
                         },
                         'Cancel',
                     ),
-                    h(Trash2, {
-                        class: 'w-4 h-4 text-red-500 cursor-pointer hover:text-red-700 ml-1',
-                        onClick: (e: Event) => {
-                            e.stopPropagation();
-                            deleteUser(user.id);
+                    h(
+                        'button',
+                        {
+                            class: 'cursor-pointer p-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 ml-1',
+                            'aria-label': 'Delete user',
+                            onClick: (e: Event) => {
+                                e.stopPropagation();
+                                deleteUser(user.id);
+                            },
                         },
-                    }),
+                        [
+                            h(Trash2, {
+                                class: 'w-4 h-4 text-red-500 hover:text-red-700',
+                            }),
+                        ],
+                    ),
                 ]);
             } else {
-                return h('div', { class: 'flex gap-3 items-center' }, [
-                    h(Pencil, {
-                        class: 'w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
-                        onClick: (e: Event) => {
-                            e.stopPropagation();
-                            startEdit(user);
-                        },
-                    }),
-                ]);
+                return h(
+                    'div',
+                    {
+                        class: 'flex gap-3 items-center focus-within:opacity-100',
+                    },
+                    [
+                        h(
+                            'button',
+                            {
+                                class: 'cursor-pointer p-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity',
+                                'aria-label': 'Edit user',
+                                onClick: (e: Event) => {
+                                    e.stopPropagation();
+                                    startEdit(user);
+                                },
+                            },
+                            [
+                                h(Pencil, {
+                                    class: 'w-6 h-6 text-amber-500 hover:text-amber-700',
+                                }),
+                            ],
+                        ),
+                    ],
+                );
             }
         },
     },
