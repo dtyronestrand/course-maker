@@ -1,0 +1,3 @@
+## 2024-05-19 - Accessible Native Buttons for Icon-only Actions
+**Learning:** Wrapping SVG icons like `<Pencil>` and `<Trash2>` in native `<button>` tags with `aria-label` is a much cleaner way to enforce accessibility and focusability (using Tailwind `focus-visible:ring-2`) than adding roles and tab-indexes directly to the SVGs. It ensures proper screen reader announcements and semantic HTML structure.
+**Action:** Always wrap icon-only actionable elements in `<button aria-label="...">` to provide semantic context and native focus/keyboard functionality. Use `focus-within:opacity-100` for groups hiding elements behind `opacity-0` but exposing them on `group-hover`.
