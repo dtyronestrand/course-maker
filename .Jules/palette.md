@@ -1,0 +1,3 @@
+## 2024-05-15 - UserTable Action Icon Accessibility
+**Learning:** In the `UserTable.vue` component, SVG action icons (Pencil, Trash2) rendered with Vue's `h()` function were inaccessible via keyboard navigation because their visibility was tied solely to a hover state (`opacity-0 group-hover:opacity-100`) on the table row, and they lacked semantic meaning and `aria-label` attributes.
+**Action:** Wrapped the SVG icons in native HTML `<button>` elements with descriptive `aria-label`s. Moved `onClick` and `cursor-pointer` to the buttons. Added `group-focus-within:opacity-100` alongside the existing hover class to ensure the buttons become visible when focused by a keyboard user, and applied `focus-visible:ring-2` to provide a clear visual indicator.
