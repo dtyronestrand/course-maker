@@ -1,0 +1,3 @@
+## 2024-06-13 - Missing Interactive Card Accessibility and Aria Labels
+**Learning:** Custom interactive elements like cards (`<li>` with `@click`) require manual keyboard accessibility bindings (`tabindex`, `role`, `@keydown.enter`, `@keydown.space`) and focus styling to be usable via keyboard. Also, icon-only `<Button>` elements need `aria-label`s for screen reader support.
+**Action:** Always ensure that any non-standard interactive element (like a clickable card) is fully accessible via keyboard by providing appropriate ARIA roles, tabindex, focus rings, and explicit keydown handlers. Add `aria-label` to all icon-only buttons.
