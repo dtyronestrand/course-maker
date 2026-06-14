@@ -1,0 +1,3 @@
+## 2024-06-14 - Ensuring Form Input IDs Match Label For Attributes
+**Learning:** Proper accessibility requires form `<input>` elements to have `id` attributes that strictly match the `for` attributes of their descriptive `<label>` elements. This allows screen readers to correctly announce the form control and enables click-to-focus functionality, providing a better user experience for everyone. In Vue templates, double-checking these pairings is crucial for baseline a11y compliance.
+**Action:** Always verify that every custom form input component or raw HTML input has an explicit `id` when a `<label>` uses a `for` attribute referencing it.
