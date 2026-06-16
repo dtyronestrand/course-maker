@@ -1,6 +1,6 @@
 <template>
     <div
-        class="fixed inset-0 z-50 flex w-full items-center justify-center bg-surface backdrop-blur-sm"
+        class="bg-surface fixed inset-0 z-50 flex w-full items-center justify-center backdrop-blur-sm"
         @click.self="emit('modal-close')"
     >
         <div
@@ -8,7 +8,7 @@
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
-            class="relative mx-auto w-full max-w-3xl rounded-lg border border-primary bg-surface-container p-4 shadow-sm shadow-primary"
+            class="bg-surface-container relative mx-auto w-full max-w-3xl rounded-lg border border-primary p-4 shadow-sm shadow-primary"
         >
             <div class="mb-4 flex items-center justify-between">
                 <h2 id="modal-title" class="text-2xl font-bold">
@@ -16,7 +16,7 @@
                 </h2>
                 <button
                     @click="emit('modal-close')"
-                    class="rounded-md text-primary-content hover:text-error focus:outline-none focus:ring-2 focus:ring-primary"
+                    class="text-primary-content hover:text-error rounded-md focus:ring-2 focus:ring-primary focus:outline-none"
                     aria-label="Close modal"
                 >
                     <svg
