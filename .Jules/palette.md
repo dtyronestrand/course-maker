@@ -1,0 +1,3 @@
+## 2024-06-17 - User Dashboard Checkbox Accessibility
+**Learning:** Wrapping task items and their checkboxes in `<label>` elements provides a massive UX/a11y win. It expands the click target to the entire row and implicitly associates the descriptive text with the input for screen readers, all without needing complex `id`/`for` mapping in dynamically rendered lists. Also, standard buttons in custom layouts often lack `focus-visible` rings, which are critical for keyboard navigation.
+**Action:** Default to wrapping custom list item inputs in `<label>` tags and always explicitly define `focus-visible` states for interactive elements that do not inherit them from a global design system component.

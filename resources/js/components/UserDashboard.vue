@@ -14,13 +14,18 @@
     <p>SME: {{ sme(course) }}</p>
     </header>
     <div class="mt-4">
-    <ul>
-    <li class="px-4" v-for="deliverable in course.deliverables" :key="deliverable.id"><div class="flex flex-row align-items justify-between">{{ deliverable.name}}<input type="checkbox" v-model="deliverable.pivot.is_done"/></div></li>
+    <ul class="flex flex-col gap-1">
+    <li v-for="deliverable in course.deliverables" :key="deliverable.id">
+        <label class="flex flex-row items-center justify-between px-4 py-2 rounded-md hover:bg-primary/10 cursor-pointer transition-colors">
+            <span class="text-sm select-none">{{ deliverable.name }}</span>
+            <input type="checkbox" v-model="deliverable.pivot.is_done" class="cursor-pointer size-4 rounded-[4px] border-input focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring outline-none" />
+        </label>
+    </li>
     </ul>
     </div>
     <div class="mt-4 flex justify-center flex-row gap-4">
-        <button class="bg-primary text-[var(--on-primary)] text-sm px-4 py-2 rounded-lg">Course Map</button>
-        <button class="bg-secondary text-[var(--on-secondary)] text-sm px-4 py-2 rounded-lg">Course Storyboard</button>
+        <button class="bg-primary text-[var(--on-primary)] text-sm px-4 py-2 rounded-lg hover:opacity-90 transition-opacity focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none">Course Map</button>
+        <button class="bg-secondary text-[var(--on-secondary)] text-sm px-4 py-2 rounded-lg hover:opacity-90 transition-opacity focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none">Course Storyboard</button>
     </div>
     </div>
     </div>
