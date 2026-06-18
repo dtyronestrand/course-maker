@@ -31,29 +31,8 @@ class CreateCourse {
                 ]);
                 Log::info('CreateCourse: Course created', ['course_id' => $course->id]);
                 
-                if(isset($data['objectives']) && is_array($data['objectives']) && count($data['objectives']) > 0) {
-                    $objectivesToCreate = array_map(function($objectiveData) use ($course) {
-                        return [
-                            'course_id' => $course->id,
-                            'number' => $objectiveData['number'],
-                            'objective' => $objectiveData['objective'],
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ];
-                    }, $data['objectives']);
-
-                    CourseObjective::insert($objectivesToCreate);
-                    Log::info('CreateCourse: Objectives attached');
-                }
-                if(isset($data['users'])) {
-                    Log::info('CreateCourse: Processing users', ['users_data' => $data['users']]);
-                    $usersToAttach = [];
-                    foreach ($data['users'] as $user) {
-                        $usersToAttach[$user['id']] = ['role' => $user['role']];
-                    }
-                    $course->users()->attach($usersToAttach);
-                    Log::info('CreateCourse: Users attached');
-                }
+                $this->attachObjectives($course, $data);
+                $this->attachUsers($course, $data);
 
                 $this->attachDeliverables($course);
                 $this->setStatus($course);
@@ -67,6 +46,35 @@ class CreateCourse {
                 'trace' => $e->getTraceAsString()
             ]);
             throw $e;
+        }
+    }
+
+    private function attachObjectives(Course $course, array $data) {
+        if(isset($data['objectives']) && is_array($data['objectives']) && count($data['objectives']) > 0) {
+            $objectivesToCreate = array_map(function($objectiveData) use ($course) {
+                return [
+                    'course_id' => $course->id,
+                    'number' => $objectiveData['number'],
+                    'objective' => $objectiveData['objective'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }, $data['objectives']);
+
+            CourseObjective::insert($objectivesToCreate);
+            Log::info('CreateCourse: Objectives attached');
+        }
+    }
+
+    private function attachUsers(Course $course, array $data) {
+        if(isset($data['users'])) {
+            Log::info('CreateCourse: Processing users', ['users_data' => $data['users']]);
+            $usersToAttach = [];
+            foreach ($data['users'] as $user) {
+                $usersToAttach[$user['id']] = ['role' => $user['role']];
+            }
+            $course->users()->attach($usersToAttach);
+            Log::info('CreateCourse: Users attached');
         }
     }
 
