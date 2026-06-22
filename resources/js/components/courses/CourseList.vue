@@ -1,6 +1,15 @@
 <template>
     <ul class="flex flex-row gap-4">
-        <li class="course-card glass p-4 flex flex-col flex-wrap border border-primary! w-[25%]"  v-for="course in props.courses" :key="course.id" @click="courseDetails(course)">
+        <li
+            class="course-card glass p-4 flex flex-col flex-wrap border border-primary! w-[25%] cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+            v-for="course in props.courses"
+            :key="course.id"
+            @click="courseDetails(course)"
+            @keydown.enter="courseDetails(course)"
+            @keydown.space.prevent="courseDetails(course)"
+            role="button"
+            tabindex="0"
+        >
         <header>
             <h2>{{ course.prefix }} {{ course.number }}</h2>
             <p>{{ course.title }}</p>
