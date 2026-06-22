@@ -1,0 +1,3 @@
+## 2024-06-22 - [Vue Keyboard Accessibility]
+**Learning:** Adding `@click` to non-interactive elements like `<li>` creates significant accessibility barriers. While native `<button>` elements handle keyboard events automatically, custom interactive elements require manual keyboard event handlers (`@keydown.enter`, `@keydown.space.prevent`), `tabindex="0"`, and `role="button"` to be fully accessible to screen readers and keyboard users.
+**Action:** When making structural HTML elements like lists or divs clickable in Vue, always implement the full suite of keyboard accessibility attributes (`tabindex`, `role`, and specific keydown handlers) and ensure proper visual focus rings (`focus-visible:ring-2`) are applied using Tailwind.
