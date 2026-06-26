@@ -51,7 +51,7 @@
                 <Users class="h-10 w-10 text-blue-500" />
                 </div>
                 <div class="grid grid-cols-2 mt-4 xl:grid-cols-4 overflow-y-auto gap-4">
-              
+
 <div v-for="user in dashboardData.users" :key="user.id" class="glass-card-card-inner rounded-3xl p-4 flex flex-col items-center text-center hover:scale-[1.02] transition-transform">
 <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-amber-400 to-slate-500 mb-4 shadow-xl">
 <img v-if="user.avatar" :alt="user.name" class="w-full h-full rounded-full object-cover border-4 border-slate-900 " :src="user.avatar"/>
@@ -77,7 +77,7 @@
         :course="selectedCourse"
         @modal-close="closeModal"
     />
-              
+
 </template>
 
 <script setup lang="ts">
@@ -131,13 +131,13 @@ const styleByStatus = (status: string) => {
     switch(status){
         case 'pending':
             return 'bg-yellow-500/20 text-yellow-400 border-yellow-400/50';
-  
+
         case 'design':
             return 'bg-blue-500/20 text-blue-400 border-blue-400/50';
-  
+
         case 'completed':
             return 'bg-green-500/20 text-green-400 border-green-400/50';
-      
+
         default:
             return 'bg-gray-500/20 text-gray-400 border-gray-400/50';
     }

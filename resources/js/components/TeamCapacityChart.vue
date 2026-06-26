@@ -15,7 +15,7 @@
                         </p>
                     </div>
                 </div>
-           
+
                 <progress
                 id="capacity"
                     class="overflow-hidden  bg-green-500 mx-4 w-50 place-self-center"

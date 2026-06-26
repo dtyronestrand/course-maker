@@ -102,7 +102,7 @@
 }
 
 :root {
-   
+
     --foreground: var(--on-surface);
     --card: hsl(0 0% 100%);
     --card-foreground: hsl(0 0% 3.9%);
@@ -297,7 +297,7 @@
       border: 2px solid rgba(255, 255, 255, 0.08);
       border-radius: 1.5rem;
     }
-    
+
     .glass-card-card-inner {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(8px);

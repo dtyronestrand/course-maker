@@ -32,7 +32,7 @@
     <h2 class="text-lg font-bold p-4">Today</h2>
     </div>
     </div>
- 
+
     </div>
 </template>
 
@@ -45,7 +45,7 @@ import type { Course, User } from '@/types';
     }
     const props = defineProps<Props>();
     const sme = (course: Course) => {
-        
+
         const sme = course.users.find((u) => u.pivot?.role === 'sme');
         return sme ? sme.name : 'N/A';
     };
@@ -62,5 +62,5 @@ import type { Course, User } from '@/types';
         return user?.pivot?.role ?? 'N/A';
     }
 </script>
-   
+
 <style scoped></style>

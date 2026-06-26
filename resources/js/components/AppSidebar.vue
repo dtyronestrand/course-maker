@@ -70,7 +70,7 @@ const mainNavItems = computed((): NavItem[] => {
                 ],
             });
             break;
-      
+
     }
     return items;
 });

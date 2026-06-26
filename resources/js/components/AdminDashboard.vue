@@ -1,5 +1,5 @@
 <template>
- 
+
     <div class="mt-4 flex grow flex-col">
         <div class="wrapper h-full p-2">
             <div class="mb-6 grid grid-cols-4 gap-6">
@@ -83,7 +83,7 @@
                         <h2 class="mb-6 text-xl font-semibold text-secondary">
                             Recent Activities
                         </h2>
-                   
+
                     </div>
                 </aside>
         </div>
