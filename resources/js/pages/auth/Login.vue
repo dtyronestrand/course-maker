@@ -45,7 +45,7 @@ const submit = () => {
 
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div class="grid gap-6">
-                <div class="grid gap-2">
+                <div class="grid gap-2 ">
                     <Label for="email">Email address</Label>
                     <Input
                         class="text-slate-100"
@@ -61,7 +61,9 @@ const submit = () => {
                 </div>
 
                 <div class="grid gap-2">
-                    <div class="flex items-center justify-between">
+                    <div
+                        class="flex items-center justify-between "
+                    >
                         <Label for="password">Password</Label>
                         <TextLink
                             v-if="canResetPassword"
@@ -84,12 +86,12 @@ const submit = () => {
                     />
                 </div>
 
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between ">
                     <Label for="remember" class="flex items-center space-x-3">
                         <Checkbox
                             id="remember"
                             name="remember"
-                            class="border-on-surface border"
+                            class="border border-on-surface"
                             v-model:checked="form.remember"
                             :tabindex="3"
                         />
@@ -99,7 +101,7 @@ const submit = () => {
 
                 <Button
                     type="submit"
-                    class="primary-container mt-4 w-full bg-primary text-[var(--on-primary)] hover:bg-[var(--primary-container)]"
+                    class="mt-4 w-full bg-primary text-[var(--on-primary)] hover:bg-[var(--primary-container)] primary-container"
                     :tabindex="4"
                     :disabled="form.processing"
                     data-test="login-button"

@@ -32,15 +32,8 @@ defineProps<Props>();
     </DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuGroup>
-        <DropdownMenuItem
-            :as-child="true"
-            class="hover:text-[var(--on-surface)]"
-        >
-            <Link
-                class="block w-full cursor-pointer hover:text-accent-foreground"
-                :href="edit()"
-                prefetch
-            >
+        <DropdownMenuItem :as-child="true" class="hover:text-[var(--on-surface)]">
+            <Link class="block w-full cursor-pointer hover:text-accent-foreground" :href="edit()" prefetch>
                 <Settings class="mr-2 h-4 w-4" />
                 Settings
             </Link>

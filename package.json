@@ -39,7 +39,6 @@
     "dependencies": {
         "@inertiajs/vue3": "^3.0.3",
         "@tanstack/vue-table": "^8.21.3",
-        "@vue/compiler-sfc": "^3.5.39",
         "@vueuse/core": "^12.8.2",
         "chart.js": "^4.5.1",
         "class-variance-authority": "^0.7.1",

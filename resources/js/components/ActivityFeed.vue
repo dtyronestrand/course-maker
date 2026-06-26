@@ -3,7 +3,7 @@
         <div
             v-for="activity in activities"
             :key="activity.id"
-            class="hover:bg-base-200 flex gap-4 rounded-lg transition-colors"
+            class="flex gap-4 rounded-lg transition-colors hover:bg-base-200"
         >
             <div class="placeholder avatar">
                 <div
@@ -14,14 +14,14 @@
             </div>
             <div class="flex-1">
                 <p class="text-sm">{{ activity.description }}</p>
-                <span class="text-base-content/60 text-xs">{{
+                <span class="text-xs text-base-content/60">{{
                     activity.timestamp
                 }}</span>
             </div>
         </div>
         <div
             v-if="activities.length === 0"
-            class="text-base-content/60 text-center"
+            class="text-center text-base-content/60"
         >
             No recent activity
         </div>
