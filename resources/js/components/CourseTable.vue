@@ -38,8 +38,22 @@
             <tr
                 v-for="row in table.getRowModel().rows"
                 :key="row.id"
-                class="cursor-pointer hover:bg-primary/25"
+                class="cursor-pointer focus-within:bg-primary/25 hover:bg-primary/25 focus:ring-2 focus:ring-primary focus:outline-none focus:ring-inset"
+                tabindex="0"
+                role="button"
                 @click="
+                    () => {
+                        selectedCourse = props.courses[row.index];
+                        showCourseDetailsModal = true;
+                    }
+                "
+                @keydown.enter="
+                    () => {
+                        selectedCourse = props.courses[row.index];
+                        showCourseDetailsModal = true;
+                    }
+                "
+                @keydown.space.prevent="
                     () => {
                         selectedCourse = props.courses[row.index];
                         showCourseDetailsModal = true;
@@ -94,8 +108,8 @@ const selectedCourse = ref<Course | null>(null);
 
 const data = computed(() =>
     props.courses.map((course) => {
-        const { id: _id, ...rest } = course;
-        const transformed: any = { ...rest };
+        const transformed: any = { ...course };
+        delete transformed.id;
         course.users.forEach((user) => {
             if (user.pivot?.role) {
                 const role = user.pivot.role;

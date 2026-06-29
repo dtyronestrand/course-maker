@@ -1,0 +1,3 @@
+## 2024-03-20 - Icon-only buttons in render functions need explicit accessibility
+**Learning:** When using Vue's `h()` render function to define custom interactive elements (e.g., inside TanStack table column definitions), clicking an SVG icon directly is not keyboard accessible. Attaching click handlers directly to `<svg>` (or components like `Trash2`/`Pencil`) creates accessibility gaps.
+**Action:** Always wrap clickable icons in native `h('button')` elements containing an `aria-label` and appropriate Tailwind focus ring utilities (`focus-visible:ring-2 ...`) instead of attaching click handlers and roles directly to the SVG component.
