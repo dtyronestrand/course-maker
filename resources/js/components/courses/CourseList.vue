@@ -1,48 +1,47 @@
 <template>
   <ul class="flex flex-row gap-4">
     <li
-      class="course-card glass p-4 flex flex-col flex-wrap border border-primary! w-[25%] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      class="course-card glass flex flex-col flex-wrap border border-primary! w-[25%] focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"
       v-for="course in props.courses"
       :key="course.id"
-      tabindex="0"
-      role="button"
-      :aria-label="`View details for ${course.title}`"
-      @click="courseDetails(course)"
-      @keydown.enter="courseDetails(course)"
-      @keydown.space.prevent="courseDetails(course)"
     >
-      <header>
-        <h2>{{ course.prefix }} {{ course.number }}</h2>
-        <p>{{ course.title }}</p>
-      </header>
-      <section class="grid grid-cols-2 mt-8">
-        <h3 class="">Status:</h3>
-        <p
-          class="bg-primary rounded-full text-center text-[var(--on-primary)] w-[6rem]"
-        >
-          {{ course.status }}
-        </p>
-      </section>
-      <section class="mt-4">
-        <h3>Deliverables:</h3>
-        <ol class="list-decimal pl-6">
-          <li
-            v-for="deliverable in course.deliverables"
-            :key="deliverable.id"
-            class="list-item flex flex-row gap-4"
+      <button
+        class="w-full h-full p-4 text-left cursor-pointer focus-visible:outline-none"
+        @click="courseDetails(course)"
+      >
+        <header>
+          <h2>{{ course.prefix }} {{ course.number }}</h2>
+          <p>{{ course.title }}</p>
+        </header>
+        <section class="grid grid-cols-2 mt-8">
+          <h3 class="">Status:</h3>
+          <p
+            class="bg-primary rounded-full text-center text-[var(--on-primary)] w-[6rem]"
           >
-            <p
-              :style="{
-                textDecoration: deliverable.pivot.is_done
-                  ? 'line-through'
-                  : 'none',
-              }"
+            {{ course.status }}
+          </p>
+        </section>
+        <section class="mt-4">
+          <h3>Deliverables:</h3>
+          <ol class="list-decimal pl-6">
+            <li
+              v-for="deliverable in course.deliverables"
+              :key="deliverable.id"
+              class="list-item flex flex-row gap-4"
             >
-              {{ deliverable.name }}
-            </p>
-          </li>
-        </ol>
-      </section>
+              <p
+                :style="{
+                  textDecoration: deliverable.pivot.is_done
+                    ? 'line-through'
+                    : 'none',
+                }"
+              >
+                {{ deliverable.name }}
+              </p>
+            </li>
+          </ol>
+        </section>
+      </button>
     </li>
   </ul>
 </template>
