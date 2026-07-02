@@ -1,0 +1,3 @@
+## 2024-05-18 - Clickable Checkbox Labels and Form Associations
+**Learning:** In dynamically generated lists with trailing checkboxes (like task lists), users struggle to click tiny checkbox inputs. Additionally, when using `<label for="...">`, omitting the corresponding `id` on the input completely breaks screen reader associations and click-to-focus functionality.
+**Action:** Always wrap checkboxes and their descriptive text within a `<label>` element containing `cursor-pointer` to maximize the interactive area without needing `for`/`id` mapping. For detached labels, rigorously verify that the `for` attribute precisely matches the input's `id`.
