@@ -94,7 +94,7 @@ const selectedCourse = ref<Course | null>(null);
 
 const data = computed(() =>
     props.courses.map((course) => {
-        const { id: _id, ...rest } = course;
+        const { id: _id, ...rest } = course; // eslint-disable-line @typescript-eslint/no-unused-vars
         const transformed: any = { ...rest };
         course.users.forEach((user) => {
             if (user.pivot?.role) {
