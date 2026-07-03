@@ -15,7 +15,7 @@
     </header>
     <div class="mt-4">
     <ul>
-    <li class="px-4" v-for="deliverable in course.deliverables" :key="deliverable.id"><div class="flex flex-row align-items justify-between">{{ deliverable.name}}<input type="checkbox" v-model="deliverable.pivot.is_done"/></div></li>
+    <li class="px-4" v-for="deliverable in course.deliverables" :key="deliverable.id"><label class="flex flex-row align-items justify-between cursor-pointer w-full">{{ deliverable.name}}<input type="checkbox" v-model="deliverable.pivot.is_done"/></label></li>
     </ul>
     </div>
     <div class="mt-4 flex justify-center flex-row gap-4">
