@@ -221,7 +221,8 @@ watch(
                                     />
                                     <button
                                         @click="copy(manualSetupKey || '')"
-                                        class="relative block h-auto border-l border-border px-3 hover:bg-muted"
+                                        class="relative block h-auto border-l border-border px-3 hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none"
+                                        aria-label="Copy setup key"
                                     >
                                         <Check
                                             v-if="copied"
