@@ -127,6 +127,7 @@ onMounted(() => {
     getLeadDashboardData();
 });
 
+// eslint-disable-next-line
 const styleByStatus = (status: string) => {
     switch(status){
         case 'pending':
