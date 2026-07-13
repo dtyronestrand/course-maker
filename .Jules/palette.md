@@ -1,0 +1,3 @@
+## 2024-05-18 - Wrapping Icon-Only Interactions
+**Learning:** Attaching `@click` handlers directly to Vue components rendering SVG icons (like Lucide's `Trash2` or `Pencil`) creates inaccessible interactions, as these elements lack semantic meaning, keyboard navigability, and screen reader context.
+**Action:** Always wrap icon-only actions in native `<button>` elements, provide an explicit `aria-label` describing the action, and add focus styles (e.g., `focus-visible:ring-2`) to ensure full accessibility. When icons are visually hidden via hover states (`opacity-0`), ensure they are made visible on focus (`focus:opacity-100`).
