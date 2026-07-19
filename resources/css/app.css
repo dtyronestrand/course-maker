@@ -10,9 +10,8 @@
 
 @theme inline {
     --font-sans:
-        Space Grotesk, ui-sans-serif, system-ui, sans-serif,
-        Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
-        Noto Color Emoji;
+        Space Grotesk, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji,
+        Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -85,8 +84,7 @@
     html {
         --font-sans:
             Space Grotesk, ui-sans-serif, system-ui, sans-serif,
-            Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
-            Noto Color Emoji;
+            Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
     }
     .glass {
         background: var(--glass-bg);
@@ -102,7 +100,6 @@
 }
 
 :root {
-   
     --foreground: var(--on-surface);
     --card: hsl(0 0% 100%);
     --card-foreground: hsl(0 0% 3.9%);
@@ -137,53 +134,53 @@
     --glass-bg: rgba(0, 0, 0, 0.05);
     --glass-border: rgba(255, 255, 255, 0.15);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  --surface: #f7f9fb;
-  --surface-dim: #d8dadc;
-  --surface-bright: #f7f9fb;
-  --surface-container-lowest: #ffffff;
-  --surface-container-low: #f2f4f6;
-  --surface-container: #eceef0;
-  --surface-container-high: #e6e8ea;
-  --surface-container-highest: #e0e3e5;
-  --on-surface: #191c1e;
-  --on-surface-variant: #464555;
-  --inverse-surface: #2d3133;
-  --inverse-on-surface: #eff1f3;
-  --outline: #777587;
-  --outline-variant: #c7c4d8;
-  --surface-tint: #4d44e3;
-  --primary: #3525cd;
-  --on-primary: #ffffff;
-  --primary-container: #4f46e5;
-  --on-primary-container: #dad7ff;
-  --inverse-primary: #c3c0ff;
-  --secondary: #565e74;
-  --on-secondary: #ffffff;
-  --secondary-container: #dae2fd;
-  --on-secondary-container: #5c647a;
-  --tertiary: #3a495f;
-  --on-tertiary: #ffffff;
-  --tertiary-container: #516177;
-  --on-tertiary-container: #ccdcf7;
-  --error: #ba1a1a;
-  --on-error: #ffffff;
-  --error-container: #ffdad6;
-  --on-error-container: #93000a;
-  --primary-fixed: #e2dfff;
-  --primary-fixed-dim: #c3c0ff;
-  --on-primary-fixed: #0f0069;
-  --on-primary-fixed-variant: #3323cc;
-  --secondary-fixed: #dae2fd;
-  --secondary-fixed-dim: #bec6e0;
-  --on-secondary-fixed: #131b2e;
-  --on-secondary-fixed-variant: #3f465c;
-  --tertiary-fixed: #d3e4fe;
-  --tertiary-fixed-dim: #b7c8e1;
-  --on-tertiary-fixed: #0b1c30;
-  --on-tertiary-fixed-variant: #38485d;
-  --background: #f7f9fb;
-  --on-background: #191c1e;
-  --surface-variant: #e0e3e5;
+    --surface: #f7f9fb;
+    --surface-dim: #d8dadc;
+    --surface-bright: #f7f9fb;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low: #f2f4f6;
+    --surface-container: #eceef0;
+    --surface-container-high: #e6e8ea;
+    --surface-container-highest: #e0e3e5;
+    --on-surface: #191c1e;
+    --on-surface-variant: #464555;
+    --inverse-surface: #2d3133;
+    --inverse-on-surface: #eff1f3;
+    --outline: #777587;
+    --outline-variant: #c7c4d8;
+    --surface-tint: #4d44e3;
+    --primary: #3525cd;
+    --on-primary: #ffffff;
+    --primary-container: #4f46e5;
+    --on-primary-container: #dad7ff;
+    --inverse-primary: #c3c0ff;
+    --secondary: #565e74;
+    --on-secondary: #ffffff;
+    --secondary-container: #dae2fd;
+    --on-secondary-container: #5c647a;
+    --tertiary: #3a495f;
+    --on-tertiary: #ffffff;
+    --tertiary-container: #516177;
+    --on-tertiary-container: #ccdcf7;
+    --error: #ba1a1a;
+    --on-error: #ffffff;
+    --error-container: #ffdad6;
+    --on-error-container: #93000a;
+    --primary-fixed: #e2dfff;
+    --primary-fixed-dim: #c3c0ff;
+    --on-primary-fixed: #0f0069;
+    --on-primary-fixed-variant: #3323cc;
+    --secondary-fixed: #dae2fd;
+    --secondary-fixed-dim: #bec6e0;
+    --on-secondary-fixed: #131b2e;
+    --on-secondary-fixed-variant: #3f465c;
+    --tertiary-fixed: #d3e4fe;
+    --tertiary-fixed-dim: #b7c8e1;
+    --on-tertiary-fixed: #0b1c30;
+    --on-tertiary-fixed-variant: #38485d;
+    --background: #f7f9fb;
+    --on-background: #191c1e;
+    --surface-variant: #e0e3e5;
 }
 
 .dark {
@@ -289,24 +286,38 @@
         overscroll-behavior: none;
     }
 
-
-     .glass-card-card {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 2px solid rgba(255, 255, 255, 0.08);
-      border-radius: 1.5rem;
+    .glass-card-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 2px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1.5rem;
     }
-    
+
     .glass-card-card-inner {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .glow-border-orange { border-color: rgba(249, 115, 22, 0.4); box-shadow: 0 0 15px rgba(249, 115, 22, 0.1); }
-    .glow-border-yellow { border-color: rgba(234, 179, 8, 0.4); box-shadow: 0 0 15px rgba(234, 179, 8, 0.1); }
-    .glow-border-blue { border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 0 15px rgba(59, 130, 246, 0.1); }
-    .glow-border-green { border-color: rgba(34, 197, 94, 0.4); box-shadow: 0 0 15px rgba(34, 197, 94, 0.1); }
-    .glow-border-purple { border-color: rgba(168, 85, 247, 0.4); box-shadow: 0 0 15px rgba(168, 85, 247, 0.1); }
+    .glow-border-orange {
+        border-color: rgba(249, 115, 22, 0.4);
+        box-shadow: 0 0 15px rgba(249, 115, 22, 0.1);
+    }
+    .glow-border-yellow {
+        border-color: rgba(234, 179, 8, 0.4);
+        box-shadow: 0 0 15px rgba(234, 179, 8, 0.1);
+    }
+    .glow-border-blue {
+        border-color: rgba(59, 130, 246, 0.4);
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+    }
+    .glow-border-green {
+        border-color: rgba(34, 197, 94, 0.4);
+        box-shadow: 0 0 15px rgba(34, 197, 94, 0.1);
+    }
+    .glow-border-purple {
+        border-color: rgba(168, 85, 247, 0.4);
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+    }
 }
