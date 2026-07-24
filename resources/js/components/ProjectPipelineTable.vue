@@ -83,6 +83,7 @@ const props = defineProps<Props>();
 
 const data = computed(() =>
     props.courses.map((course) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id: _id, ...rest } = course;
         const transformed: any = { ...rest };
         course.users.forEach((user) => {
