@@ -221,7 +221,7 @@ const columnsUsers = [
                     h(
                         'button',
                         {
-                            class: 'rounded bg-green-500 px-3 py-1 text-xs text-white hover:bg-green-600',
+                            class: 'rounded bg-green-500 px-3 py-1 text-xs text-white hover:bg-green-600 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none',
                             onClick: (e: Event) => {
                                 e.stopPropagation();
                                 saveEdit(user.id);
@@ -232,7 +232,7 @@ const columnsUsers = [
                     h(
                         'button',
                         {
-                            class: 'rounded bg-red-500 px-3 py-1 text-xs text-white hover:bg-red-600',
+                            class: 'rounded bg-red-500 px-3 py-1 text-xs text-white hover:bg-red-600 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none',
                             onClick: (e: Event) => {
                                 e.stopPropagation();
                                 cancelEdit();
@@ -240,23 +240,41 @@ const columnsUsers = [
                         },
                         'Cancel',
                     ),
-                    h(Trash2, {
-                        class: 'w-4 h-4 text-red-500 cursor-pointer hover:text-red-700 ml-1',
-                        onClick: (e: Event) => {
-                            e.stopPropagation();
-                            deleteUser(user.id);
+                    h(
+                        'button',
+                        {
+                            'aria-label': 'Delete user',
+                            class: 'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none ml-1 rounded',
+                            onClick: (e: Event) => {
+                                e.stopPropagation();
+                                deleteUser(user.id);
+                            },
                         },
-                    }),
+                        [
+                            h(Trash2, {
+                                class: 'w-4 h-4 text-red-500 cursor-pointer hover:text-red-700',
+                            }),
+                        ],
+                    ),
                 ]);
             } else {
                 return h('div', { class: 'flex gap-3 items-center' }, [
-                    h(Pencil, {
-                        class: 'w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
-                        onClick: (e: Event) => {
-                            e.stopPropagation();
-                            startEdit(user);
+                    h(
+                        'button',
+                        {
+                            'aria-label': 'Edit user',
+                            class: 'opacity-0 focus:opacity-100 group-hover:opacity-100 transition-opacity focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none rounded',
+                            onClick: (e: Event) => {
+                                e.stopPropagation();
+                                startEdit(user);
+                            },
                         },
-                    }),
+                        [
+                            h(Pencil, {
+                                class: 'w-6 h-6 cursor-pointer text-amber-500 hover:text-amber-700',
+                            }),
+                        ],
+                    ),
                 ]);
             }
         },
