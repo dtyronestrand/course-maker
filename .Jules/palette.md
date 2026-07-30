@@ -1,4 +1,0 @@
-## 2025-01-20 - Ensure Modal Accessibility
-
-**Learning:** When building custom modals in Vue using raw HTML elements rather than specialized UI libraries, it is common to forget explicit, accessible close buttons within the modal header, relying instead on "click backdrop to close" or bottom-placed cancel buttons. Furthermore, custom form inputs often lack explicit `id` attributes that pair with their corresponding `<label for="...">` tags.
-**Action:** Always verify that custom modal implementations feature an explicit `<button>` in the header equipped with an `aria-label`, correct `type="button"`, and robust keyboard focus indicators (e.g., `focus-visible:ring-2`). Additionally, ensure all custom form inputs have an explicit `id` to associate cleanly with `<label for="...">` for optimal screen reader accessibility and click-to-focus behavior.
