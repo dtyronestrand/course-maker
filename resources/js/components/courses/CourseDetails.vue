@@ -8,7 +8,28 @@
             class="glass pointer-events-auto max-h-screen w-full max-w-xl overflow-y-auto rounded-lg border border-primary p-6 shadow-lg shadow-primary"
             ref="target"
         >
-            <h1 class="text-center text-3xl font-bold">Edit</h1>
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="text-3xl font-bold text-center flex-1">Edit</h1>
+                <button
+                    @click="$emit('modal-close')"
+                    class="text-primary-content hover:text-error focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none p-1 rounded-sm"
+                    aria-label="Close modal"
+                >
+                    <svg
+                        class="h-6 w-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                    </svg>
+                </button>
+            </div>
 
             <form
                 class="flex flex-col flex-wrap gap-4"
@@ -17,6 +38,7 @@
                 <div class="mt-4 flex flex-row justify-evenly">
                     <label for="prefix">Course Prefix:</label>
                     <input
+                        id="prefix"
                         class="bg-base-200 border border-primary px-4"
                         type="text"
                         name="prefix"
@@ -26,6 +48,7 @@
                 <div class="flex flex-row items-center justify-evenly">
                     <label for="number">Course Number:</label>
                     <input
+                        id="number"
                         class="bg-base-200 my-4 border border-primary px-4"
                         type="text"
                         name="number"
@@ -35,6 +58,7 @@
 
                 <label for="title">Course Title:</label>
                 <input
+                    id="title"
                     class="bg-base-200 my-4 border border-primary px-4"
                     type="text"
                     name="title"
