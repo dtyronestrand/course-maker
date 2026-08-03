@@ -127,21 +127,22 @@ onMounted(() => {
     getLeadDashboardData();
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const styleByStatus = (status: string) => {
-    switch(status){
+    switch (status) {
         case 'pending':
             return 'bg-yellow-500/20 text-yellow-400 border-yellow-400/50';
-  
+
         case 'design':
             return 'bg-blue-500/20 text-blue-400 border-blue-400/50';
-  
+
         case 'completed':
             return 'bg-green-500/20 text-green-400 border-green-400/50';
-      
+
         default:
             return 'bg-gray-500/20 text-gray-400 border-gray-400/50';
     }
-}
+};
 </script>
 
 <style scoped>
