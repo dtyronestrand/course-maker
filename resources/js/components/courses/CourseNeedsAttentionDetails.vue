@@ -5,11 +5,35 @@
     >
         <div
             v-if="props.isOpen"
-            class="mx-auto max-w-3xl rounded-lg border border-primary bg-surface-container p-4 shadow-sm shadow-primary"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="attention-modal-title"
+            class="mx-auto w-full max-w-3xl rounded-lg border border-primary bg-surface-container p-6 shadow-sm shadow-primary"
         >
-            <h2 class="mb-4 text-2xl font-bold">
-                {{ props.course.prefix }} {{ props.course.number }}
-            </h2>
+            <div class="mb-4 flex items-start justify-between">
+                <h2 id="attention-modal-title" class="text-2xl font-bold">
+                    {{ props.course.prefix }} {{ props.course.number }}
+                </h2>
+                <button
+                    @click="emit('modal-close')"
+                    class="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
+                    aria-label="Close modal"
+                >
+                    <svg
+                        class="h-6 w-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                    </svg>
+                </button>
+            </div>
             <ul class="mb-4">
                 <li
                     v-for="user in props.course.users"
