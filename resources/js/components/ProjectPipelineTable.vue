@@ -83,8 +83,9 @@ const props = defineProps<Props>();
 
 const data = computed(() =>
     props.courses.map((course) => {
-        const { id: _id, ...rest } = course;
-        const transformed: any = { ...rest };
+        const clone = { ...course };
+        delete (clone as any).id;
+        const transformed: any = { ...clone };
         course.users.forEach((user) => {
             if (user.pivot?.role) {
                 const role = user.pivot.role;
