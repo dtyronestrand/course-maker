@@ -26,7 +26,7 @@ const sortedUniqueValues = computed(() =>
 
 const isOpen = ref(false);
 
-function closeOnOutsideClick(e: MouseEvent) {
+function closeOnOutsideClick() {
     isOpen.value = false;
     document.removeEventListener('click', closeOnOutsideClick);
 }
@@ -59,6 +59,7 @@ function toggleOpen() {
                         ? `(${column.getFacetedMinMaxValues()?.[0]})`
                         : ''
                 }`"
+                aria-label="Minimum filter value"
                 class="w-24 rounded border shadow"
             />
             <DebouncedInput
@@ -78,6 +79,7 @@ function toggleOpen() {
                         ? `(${column.getFacetedMinMaxValues()?.[1]})`
                         : ''
                 }`"
+                aria-label="Maximum filter value"
                 class="w-24 rounded border shadow"
             />
         </div>
@@ -87,7 +89,10 @@ function toggleOpen() {
         <div class="relative">
             <button
                 @click.stop="toggleOpen"
-                class="rounded p-1 hover:bg-white/10"
+                aria-label="Toggle filter menu"
+                :aria-expanded="isOpen"
+                aria-haspopup="listbox"
+                class="rounded p-1 hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none"
             >
                 <ListFilter class="h-4 text-primary" />
             </button>
@@ -97,7 +102,8 @@ function toggleOpen() {
                 class="absolute left-0 top-full z-50 mt-1 min-w-[160px] rounded border border-primary bg-slate-800 p-2 shadow-lg"
             >
                 <select
-                    class="w-full border !border-primary px-2 py-1 text-sm"
+                    class="w-full border !border-primary px-2 py-1 text-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none"
+                    aria-label="Select filter value"
                     :value="(columnFilterValue ?? '') as string"
                     @change="
                         column.setFilterValue(
