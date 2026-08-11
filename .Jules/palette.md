@@ -1,0 +1,3 @@
+## 2024-05-15 - Missing Dialog Accessibility Pattern
+**Learning:** Custom modals lacking native `<dialog>` structure were missing standard `role="dialog"`, `aria-modal="true"`, and explicitly focusable close buttons. Clicking the backdrop works for sighted users, but a clearly labeled, keyboard-accessible explicit close button inside the modal header is required for WCAG compliance.
+**Action:** When building or fixing custom Vue modals, ensure the modal container has `role="dialog"`, `aria-modal="true"`, and an `aria-labelledby` linking to the title ID. Always provide an explicitly focusable close button (with `aria-label`) inside the modal, even if clicking the backdrop closes it.
