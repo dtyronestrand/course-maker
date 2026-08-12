@@ -84,6 +84,7 @@ const rightNavItems: NavItem[] = [
                     <Sheet>
                         <SheetTrigger :as-child="true">
                             <Button
+                                aria-label="Toggle mobile menu"
                                 variant="ghost"
                                 size="icon"
                                 class="mr-2 h-9 w-9"
@@ -191,6 +192,7 @@ const rightNavItems: NavItem[] = [
                 <div class="ml-auto flex items-center space-x-2">
                     <div class="relative flex items-center space-x-1">
                         <Button
+                            aria-label="Search"
                             variant="ghost"
                             size="icon"
                             class="group h-9 w-9 cursor-pointer"
@@ -241,6 +243,7 @@ const rightNavItems: NavItem[] = [
                     <DropdownMenu>
                         <DropdownMenuTrigger :as-child="true">
                             <Button
+                                aria-label="Open user menu"
                                 variant="ghost"
                                 size="icon"
                                 class="relative size-10 w-auto rounded-full p-1 focus-within:ring-2 focus-within:ring-primary"
