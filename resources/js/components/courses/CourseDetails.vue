@@ -7,8 +7,11 @@
         <div
             class="glass pointer-events-auto max-h-screen w-full max-w-xl overflow-y-auto rounded-lg border border-primary p-6 shadow-lg shadow-primary"
             ref="target"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="edit-course-title"
         >
-            <h1 class="text-center text-3xl font-bold">Edit</h1>
+            <h1 id="edit-course-title" class="text-center text-3xl font-bold">Edit</h1>
 
             <form
                 class="flex flex-col flex-wrap gap-4"
@@ -17,6 +20,7 @@
                 <div class="mt-4 flex flex-row justify-evenly">
                     <label for="prefix">Course Prefix:</label>
                     <input
+                        id="prefix"
                         class="bg-base-200 border border-primary px-4"
                         type="text"
                         name="prefix"
@@ -26,6 +30,7 @@
                 <div class="flex flex-row items-center justify-evenly">
                     <label for="number">Course Number:</label>
                     <input
+                        id="number"
                         class="bg-base-200 my-4 border border-primary px-4"
                         type="text"
                         name="number"
@@ -35,6 +40,7 @@
 
                 <label for="title">Course Title:</label>
                 <input
+                    id="title"
                     class="bg-base-200 my-4 border border-primary px-4"
                     type="text"
                     name="title"
