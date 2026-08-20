@@ -1,0 +1,3 @@
+## 2023-10-27 - Custom Modal Accessibility
+**Learning:** Custom backdrop Vue modals often miss screen-reader structure (role='dialog', aria-modal, aria-labelledby) and require an explicitly accessible close button, even if they can be closed by clicking the backdrop. Form inputs mapped to labels require explicit matching IDs.
+**Action:** When building or fixing custom modals, ensure the modal container explicitly uses `role="dialog"`, `aria-modal="true"`, and an `aria-labelledby` attribute. Provide an explicit close button with an `aria-label`. Form inputs should include explicit `id` fields to map to `for` labels.
