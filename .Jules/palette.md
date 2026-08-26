@@ -1,0 +1,4 @@
+
+## 2024-05-18 - A11y in Vue Render Functions
+**Learning:** When using TanStack Vue Table and custom rendering interactive icons using Vue's `h()` function (e.g., `h(Pencil)` or `h(Trash2)`), the raw SVG elements rendered by Lucide icons are fundamentally inaccessible. They cannot receive focus and screen readers have no contextual label for the action they perform.
+**Action:** Always wrap interactive SVG icons constructed via `h()` inside an `h('button', { ...attributes }, [...children])` wrapper. The wrapper must include an explicit `aria-label` attribute (e.g., `'aria-label': 'Edit User'`) and explicit focus styling classes (`focus-visible:ring-2 focus-visible:outline-none`) to ensure keyboard navigability and screen-reader accessibility within dynamic table cells. For items hidden until hovered, also add `focus:opacity-100 focus-within:opacity-100` so keyboard-only users can see what they're focused on.
