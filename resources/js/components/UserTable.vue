@@ -11,12 +11,14 @@
                         v-for="header in headerGroup.headers"
                         :key="header.id"
                         scope="col"
-                        class="cursor-pointer p-3 px-5 text-left text-sm font-semibold uppercase select-none"
-                        @click="
-                            header.column.getToggleSortingHandler()?.($event)
-                        "
+                        class="p-3 px-5 text-left text-sm font-semibold uppercase select-none"
                     >
-                        <div class="flex items-center gap-2">
+                        <component
+                            :is="header.column.getCanSort() ? 'button' : 'div'"
+                            :class="header.column.getCanSort() ? 'cursor-pointer flex items-center gap-2 focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-primary rounded' : 'flex items-center gap-2'"
+                            :aria-label="header.column.getCanSort() ? 'Toggle sort' : undefined"
+                            @click="header.column.getCanSort() ? header.column.getToggleSortingHandler()?.($event) : undefined"
+                        >
                             <FlexRender
                                 :render="header.column.columnDef.header"
                                 :props="header.getContext()"
@@ -30,7 +32,7 @@
                                 "
                                 >🔽</span
                             >
-                        </div>
+                        </component>
                     </th>
                 </tr>
             </thead>
@@ -221,7 +223,7 @@ const columnsUsers = [
                     h(
                         'button',
                         {
-                            class: 'rounded bg-green-500 px-3 py-1 text-xs text-white hover:bg-green-600',
+                            class: 'rounded bg-green-500 px-3 py-1 text-xs text-white hover:bg-green-600 focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-primary',
                             onClick: (e: Event) => {
                                 e.stopPropagation();
                                 saveEdit(user.id);
@@ -232,7 +234,7 @@ const columnsUsers = [
                     h(
                         'button',
                         {
-                            class: 'rounded bg-red-500 px-3 py-1 text-xs text-white hover:bg-red-600',
+                            class: 'rounded bg-red-500 px-3 py-1 text-xs text-white hover:bg-red-600 focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-primary',
                             onClick: (e: Event) => {
                                 e.stopPropagation();
                                 cancelEdit();
@@ -240,23 +242,33 @@ const columnsUsers = [
                         },
                         'Cancel',
                     ),
-                    h(Trash2, {
-                        class: 'w-4 h-4 text-red-500 cursor-pointer hover:text-red-700 ml-1',
+                    h('button', {
+                        class: 'focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-primary rounded',
+                        'aria-label': 'Delete user',
                         onClick: (e: Event) => {
                             e.stopPropagation();
                             deleteUser(user.id);
                         },
-                    }),
+                    }, [
+                        h(Trash2, {
+                            class: 'w-4 h-4 text-red-500 cursor-pointer hover:text-red-700 ml-1',
+                        })
+                    ]),
                 ]);
             } else {
                 return h('div', { class: 'flex gap-3 items-center' }, [
-                    h(Pencil, {
-                        class: 'w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
+                    h('button', {
+                        class: 'opacity-0 group-hover:opacity-100 focus:opacity-100 focus-within:opacity-100 focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-primary rounded transition-opacity cursor-pointer text-amber-500 hover:text-amber-700',
+                        'aria-label': 'Edit user',
                         onClick: (e: Event) => {
                             e.stopPropagation();
                             startEdit(user);
                         },
-                    }),
+                    }, [
+                        h(Pencil, {
+                            class: 'w-6 h-6',
+                        })
+                    ]),
                 ]);
             }
         },
