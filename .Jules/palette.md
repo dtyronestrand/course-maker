@@ -1,0 +1,3 @@
+## 2024-05-18 - Accessible Icon Buttons in TanStack Tables
+**Learning:** TanStack table custom cell renderers using `h()` often lack implicit accessibility for icon-only action targets like "Edit" or "Delete" icons, preventing screen reader announcements and keyboard navigation. Using `opacity-0` for visually hiding actions until hovered exacerbates this issue.
+**Action:** When implementing icon-only click targets in Vue render functions `h()`, explicitly wrap them in a semantically correct `button` element, append an `aria-label`, apply standard focus rings (`focus-visible:ring-2 ... outline-none`), and ensure visually hidden elements become visible on focus (`focus:opacity-100`).
