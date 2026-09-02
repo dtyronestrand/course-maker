@@ -87,7 +87,9 @@ function toggleOpen() {
         <div class="relative">
             <button
                 @click.stop="toggleOpen"
-                class="rounded p-1 hover:bg-white/10"
+                class="rounded p-1 hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-primary outline-none"
+                aria-label="Filter column"
+                :aria-expanded="isOpen"
             >
                 <ListFilter class="h-4 text-primary" />
             </button>
@@ -98,6 +100,7 @@ function toggleOpen() {
             >
                 <select
                     class="w-full border !border-primary px-2 py-1 text-sm"
+                    aria-label="Select filter value"
                     :value="(columnFilterValue ?? '') as string"
                     @change="
                         column.setFilterValue(
