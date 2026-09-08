@@ -70,7 +70,6 @@ interface Props {
     course: Course;
 }
 const props = defineProps<Props>();
-const emit = defineEmits(['modal-close']);
 
 const { daysLate } = useDateUtils();
 </script>
