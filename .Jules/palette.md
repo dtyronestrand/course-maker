@@ -1,0 +1,4 @@
+
+## $(date +%Y-%m-%d) - ARIA labels on Icon-only UI components
+**Learning:** Using generic Shadcn/Vue `<Button>` components as icon-only triggers (like search or mobile menu toggles) without accessible names creates silent accessibility gaps, even when they visually look correct. Applying an `aria-label` attribute directly to the `<Button>` component resolves this, making the functionality explicitly clear to screen reader users without altering the visual design. However, buttons acting as wrappers (`as-child`) around links that already contain `.sr-only` text do not require an `aria-label`.
+**Action:** When auditing or implementing icon-only buttons, specifically check Shadcn/Vue trigger elements and apply descriptive `aria-label` attributes unless the inner element already contains screen-reader only text.
