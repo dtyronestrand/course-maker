@@ -26,6 +26,7 @@ const sortedUniqueValues = computed(() =>
 
 const isOpen = ref(false);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function closeOnOutsideClick(e: MouseEvent) {
     isOpen.value = false;
     document.removeEventListener('click', closeOnOutsideClick);
@@ -44,6 +45,7 @@ function toggleOpen() {
         <div class="flex space-x-2">
             <DebouncedInput
                 type="number"
+                aria-label="Filter minimum value"
                 :min="Number(column.getFacetedMinMaxValues()?.[0] ?? '')"
                 :max="Number(column.getFacetedMinMaxValues()?.[1] ?? '')"
                 :modelValue="(columnFilterValue as [number, number])?.[0] ?? ''"
@@ -63,6 +65,7 @@ function toggleOpen() {
             />
             <DebouncedInput
                 type="number"
+                aria-label="Filter maximum value"
                 :min="Number(column.getFacetedMinMaxValues()?.[0] ?? '')"
                 :max="Number(column.getFacetedMinMaxValues()?.[1] ?? '')"
                 :modelValue="(columnFilterValue as [number, number])?.[1] ?? ''"
@@ -87,7 +90,9 @@ function toggleOpen() {
         <div class="relative">
             <button
                 @click.stop="toggleOpen"
-                class="rounded p-1 hover:bg-white/10"
+                aria-label="Toggle filter menu"
+                :aria-expanded="isOpen"
+                class="rounded p-1 hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
             >
                 <ListFilter class="h-4 text-primary" />
             </button>
