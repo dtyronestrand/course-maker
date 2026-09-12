@@ -26,6 +26,7 @@ const sortedUniqueValues = computed(() =>
 
 const isOpen = ref(false);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function closeOnOutsideClick(e: MouseEvent) {
     isOpen.value = false;
     document.removeEventListener('click', closeOnOutsideClick);
@@ -87,7 +88,9 @@ function toggleOpen() {
         <div class="relative">
             <button
                 @click.stop="toggleOpen"
-                class="rounded p-1 hover:bg-white/10"
+                class="rounded p-1 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-slate-800"
+                aria-label="Toggle filter menu"
+                :aria-expanded="isOpen"
             >
                 <ListFilter class="h-4 text-primary" />
             </button>
