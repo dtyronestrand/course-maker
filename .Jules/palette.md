@@ -1,0 +1,3 @@
+## 2024-05-18 - Filter Accessibility
+**Learning:** Icon-only filter toggles in TanStack table integrations often lack built-in accessibility. Screen readers rely entirely on explicit aria-labels and aria-expanded state attributes to communicate function and state. Additionally, missing focus indicators make keyboard navigation nearly impossible for these elements.
+**Action:** When working with custom table filter components, always ensure toggle buttons receive `aria-label`, `:aria-expanded`, and visible focus rings (`focus-visible:ring-2 outline-none`), and ensure input fields without visible labels receive an explicit `aria-label`.
