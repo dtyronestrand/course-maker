@@ -87,8 +87,9 @@ const rightNavItems: NavItem[] = [
                                 variant="ghost"
                                 size="icon"
                                 class="mr-2 h-9 w-9"
+                                aria-label="Toggle navigation menu"
                             >
-                                <Menu class="h-5 w-5" />
+                                <Menu class="h-5 w-5" aria-hidden="true" />
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="left" class="w-[300px] p-6">
@@ -194,9 +195,11 @@ const rightNavItems: NavItem[] = [
                             variant="ghost"
                             size="icon"
                             class="group h-9 w-9 cursor-pointer"
+                            aria-label="Search"
                         >
                             <Search
                                 class="size-5 opacity-80 group-hover:opacity-100"
+                                aria-hidden="true"
                             />
                         </Button>
 
@@ -225,6 +228,7 @@ const rightNavItems: NavItem[] = [
                                                     <component
                                                         :is="item.icon"
                                                         class="size-5 opacity-80 group-hover:opacity-100"
+                                                        aria-hidden="true"
                                                     />
                                                 </a>
                                             </Button>
@@ -244,9 +248,11 @@ const rightNavItems: NavItem[] = [
                                 variant="ghost"
                                 size="icon"
                                 class="relative size-10 w-auto rounded-full p-1 focus-within:ring-2 focus-within:ring-primary"
+                                aria-label="User menu"
                             >
                                 <Avatar
                                     class="size-8 overflow-hidden rounded-full"
+                                    aria-hidden="true"
                                 >
                                     <AvatarImage
                                         v-if="auth.user.avatar"
