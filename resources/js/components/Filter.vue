@@ -26,7 +26,7 @@ const sortedUniqueValues = computed(() =>
 
 const isOpen = ref(false);
 
-function closeOnOutsideClick(e: MouseEvent) {
+function closeOnOutsideClick() {
     isOpen.value = false;
     document.removeEventListener('click', closeOnOutsideClick);
 }
@@ -87,9 +87,11 @@ function toggleOpen() {
         <div class="relative">
             <button
                 @click.stop="toggleOpen"
-                class="rounded p-1 hover:bg-white/10"
+                class="rounded p-1 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-label="Toggle filter menu"
+                :aria-expanded="isOpen"
             >
-                <ListFilter class="h-4 text-primary" />
+                <ListFilter class="h-4 text-primary" aria-hidden="true" />
             </button>
             <div
                 v-if="isOpen"
