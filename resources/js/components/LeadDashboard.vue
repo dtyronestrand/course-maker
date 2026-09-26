@@ -127,6 +127,7 @@ onMounted(() => {
     getLeadDashboardData();
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const styleByStatus = (status: string) => {
     switch(status){
         case 'pending':
