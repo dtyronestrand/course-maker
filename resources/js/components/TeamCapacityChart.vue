@@ -17,11 +17,12 @@
                 </div>
            
                 <progress
-                id="capacity"
-                    class="overflow-hidden  bg-green-500 mx-4 w-50 place-self-center"
+                    :id="`capacity-${user.name}`"
+                    class="overflow-hidden bg-green-500 mx-4 w-50 place-self-center"
                     :value="user.workload"
                     min="0"
                     max="100"
+                    :aria-label="`${user.name} capacity`"
                 ></progress>
                 <p class="place-self-center text-xs">{{ user.workload }}%</p>
             </div>
