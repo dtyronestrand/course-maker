@@ -26,7 +26,7 @@ const sortedUniqueValues = computed(() =>
 
 const isOpen = ref(false);
 
-function closeOnOutsideClick(e: MouseEvent) {
+function closeOnOutsideClick() {
     isOpen.value = false;
     document.removeEventListener('click', closeOnOutsideClick);
 }
@@ -59,6 +59,7 @@ function toggleOpen() {
                         ? `(${column.getFacetedMinMaxValues()?.[0]})`
                         : ''
                 }`"
+                aria-label="Minimum value filter"
                 class="w-24 rounded border shadow"
             />
             <DebouncedInput
@@ -78,6 +79,7 @@ function toggleOpen() {
                         ? `(${column.getFacetedMinMaxValues()?.[1]})`
                         : ''
                 }`"
+                aria-label="Maximum value filter"
                 class="w-24 rounded border shadow"
             />
         </div>
@@ -87,9 +89,11 @@ function toggleOpen() {
         <div class="relative">
             <button
                 @click.stop="toggleOpen"
-                class="rounded p-1 hover:bg-white/10"
+                class="rounded p-1 hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 outline-none"
+                aria-label="Filter column"
+                :aria-expanded="isOpen"
             >
-                <ListFilter class="h-4 text-primary" />
+                <ListFilter class="h-4 text-primary" aria-hidden="true" />
             </button>
             <div
                 v-if="isOpen"
@@ -99,6 +103,7 @@ function toggleOpen() {
                 <select
                     class="w-full border !border-primary px-2 py-1 text-sm"
                     :value="(columnFilterValue ?? '') as string"
+                    aria-label="Select filter value"
                     @change="
                         column.setFilterValue(
                             ($event.target as HTMLSelectElement).value,
