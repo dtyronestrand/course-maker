@@ -26,6 +26,7 @@ const sortedUniqueValues = computed(() =>
 
 const isOpen = ref(false);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function closeOnOutsideClick(e: MouseEvent) {
     isOpen.value = false;
     document.removeEventListener('click', closeOnOutsideClick);
@@ -44,6 +45,7 @@ function toggleOpen() {
         <div class="flex space-x-2">
             <DebouncedInput
                 type="number"
+                aria-label="Minimum filter value"
                 :min="Number(column.getFacetedMinMaxValues()?.[0] ?? '')"
                 :max="Number(column.getFacetedMinMaxValues()?.[1] ?? '')"
                 :modelValue="(columnFilterValue as [number, number])?.[0] ?? ''"
@@ -63,6 +65,7 @@ function toggleOpen() {
             />
             <DebouncedInput
                 type="number"
+                aria-label="Maximum filter value"
                 :min="Number(column.getFacetedMinMaxValues()?.[0] ?? '')"
                 :max="Number(column.getFacetedMinMaxValues()?.[1] ?? '')"
                 :modelValue="(columnFilterValue as [number, number])?.[1] ?? ''"
@@ -87,9 +90,11 @@ function toggleOpen() {
         <div class="relative">
             <button
                 @click.stop="toggleOpen"
-                class="rounded p-1 hover:bg-white/10"
+                aria-label="Filter column"
+                :aria-expanded="isOpen"
+                class="rounded p-1 hover:bg-white/10 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
-                <ListFilter class="h-4 text-primary" />
+                <ListFilter class="h-4 text-primary" aria-hidden="true" />
             </button>
             <div
                 v-if="isOpen"
@@ -97,7 +102,8 @@ function toggleOpen() {
                 class="absolute left-0 top-full z-50 mt-1 min-w-[160px] rounded border border-primary bg-slate-800 p-2 shadow-lg"
             >
                 <select
-                    class="w-full border !border-primary px-2 py-1 text-sm"
+                    class="w-full border !border-primary px-2 py-1 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    aria-label="Select filter value"
                     :value="(columnFilterValue ?? '') as string"
                     @change="
                         column.setFilterValue(
