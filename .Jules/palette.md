@@ -1,0 +1,3 @@
+## 2026-10-06 - TanStack Vue Table Keyboard Accessibility
+**Learning:** Interactive icons rendered directly within TanStack Vue table `cell` definitions using `h()` are inaccessible to keyboard users because they lack native button semantics and focus rings. Furthermore, `group-hover` visibility patterns leave these actions hidden during keyboard navigation.
+**Action:** When defining table actions via `h()`, always wrap icons in `h('button')` with explicit `aria-label`s and focus indicators (e.g., `focus-visible:ring-2`). For hover-revealed elements, explicitly add `focus:opacity-100` to ensure they appear when focused via Tab key.
