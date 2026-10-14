@@ -221,13 +221,15 @@ watch(
                                     />
                                     <button
                                         @click="copy(manualSetupKey || '')"
-                                        class="relative block h-auto border-l border-border px-3 hover:bg-muted"
+                                        class="relative block h-auto border-l border-border px-3 hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                                        aria-label="Copy setup key"
                                     >
                                         <Check
                                             v-if="copied"
                                             class="w-4 text-green-500"
+                                            aria-hidden="true"
                                         />
-                                        <Copy v-else class="w-4" />
+                                        <Copy v-else class="w-4" aria-hidden="true" />
                                     </button>
                                 </template>
                             </div>
