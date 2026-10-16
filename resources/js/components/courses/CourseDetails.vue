@@ -17,6 +17,7 @@
                 <div class="mt-4 flex flex-row justify-evenly">
                     <label for="prefix">Course Prefix:</label>
                     <input
+                        id="prefix"
                         class="bg-base-200 border border-primary px-4"
                         type="text"
                         name="prefix"
@@ -26,6 +27,7 @@
                 <div class="flex flex-row items-center justify-evenly">
                     <label for="number">Course Number:</label>
                     <input
+                        id="number"
                         class="bg-base-200 my-4 border border-primary px-4"
                         type="text"
                         name="number"
@@ -35,6 +37,7 @@
 
                 <label for="title">Course Title:</label>
                 <input
+                    id="title"
                     class="bg-base-200 my-4 border border-primary px-4"
                     type="text"
                     name="title"
