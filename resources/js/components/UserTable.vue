@@ -243,8 +243,8 @@ const columnsUsers = [
                     h(
                         'button',
                         {
-                            class: 'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none rounded cursor-pointer text-red-500 hover:text-red-700 ml-1',
                             'aria-label': 'Delete user',
+                            class: 'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none rounded p-1 text-red-500 hover:text-red-700 ml-1',
                             onClick: (e: Event) => {
                                 e.stopPropagation();
                                 deleteUser(user.id);
@@ -255,7 +255,7 @@ const columnsUsers = [
                                 'aria-hidden': 'true',
                                 class: 'w-4 h-4',
                             }),
-                        ]
+                        ],
                     ),
                 ]);
             } else {
@@ -263,8 +263,8 @@ const columnsUsers = [
                     h(
                         'button',
                         {
-                            class: 'opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none rounded cursor-pointer text-amber-500 hover:text-amber-700',
                             'aria-label': 'Edit user',
+                            class: 'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none rounded p-1 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity text-amber-500 hover:text-amber-700',
                             onClick: (e: Event) => {
                                 e.stopPropagation();
                                 startEdit(user);
@@ -273,9 +273,9 @@ const columnsUsers = [
                         [
                             h(Pencil, {
                                 'aria-hidden': 'true',
-                                class: 'w-6 h-6',
+                                class: 'w-5 h-5',
                             }),
-                        ]
+                        ],
                     ),
                 ]);
             }
