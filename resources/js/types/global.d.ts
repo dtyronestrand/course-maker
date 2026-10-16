@@ -31,5 +31,3 @@ declare module 'vue' {
         $headManager: ReturnType<typeof createHeadManager>;
     }
 }
-
-

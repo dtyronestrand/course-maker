@@ -4,6 +4,7 @@ import DeleteUser from '@/components/DeleteUser.vue';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -51,17 +52,31 @@ const user = page.props.auth.user;
                     v-slot="{ errors, processing, recentlySuccessful }"
                 >
                     <div class="grid gap-2">
-                        <Label for="name">Name</Label>
+                        <Label for="first_name">First Name</Label>
                         <Input
-                            id="name"
+                            id="first_name"
                             class="mt-1 block w-full"
-                            name="name"
-                            :default-value="user.name"
+                            name="first_name"
+                            :default-value="user.first_name"
                             required
-                            autocomplete="name"
-                            placeholder="Full name"
+                            autocomplete="given-name"
+                            placeholder="First name"
                         />
-                        <InputError class="mt-2" :message="errors.name" />
+                        <InputError class="mt-2" :message="errors.first_name" />
+                    </div>
+
+                    <div class="grid gap-2">
+                        <Label for="last_name">Last Name</Label>
+                        <Input
+                            id="last_name"
+                            class="mt-1 block w-full"
+                            name="last_name"
+                            :default-value="user.last_name"
+                            required
+                            autocomplete="family-name"
+                            placeholder="Last name"
+                        />
+                        <InputError class="mt-2" :message="errors.last_name" />
                     </div>
 
                     <div class="grid gap-2">
@@ -104,8 +119,10 @@ const user = page.props.auth.user;
                         <Button
                             :disabled="processing"
                             data-test="update-profile-button"
-                            >Save</Button
                         >
+                            <Spinner v-if="processing" />
+                            Save
+                        </Button>
 
                         <Transition
                             enter-active-class="transition ease-in-out"

@@ -22,12 +22,21 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'current_team_id',
-        'team_id',
     ];
+
+    protected $appends = [
+        'name',
+    ];
+
+    public function getNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -62,7 +71,7 @@ class User extends Authenticatable
 
     public function team(): BelongsTo
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Team::class, 'current_team_id');
     }
 
     public function courses()

@@ -28,6 +28,12 @@ class CourseController extends Controller
      return inertia('courses/Index', ['courses' => $courses]);
     }
 
+    public function details(Course $course)
+    {
+        $course->load(['users', 'developmentCycle', 'deliverables', 'modules', 'course_objectives']);
+        return inertia('courses/Details', ['course' => $course]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

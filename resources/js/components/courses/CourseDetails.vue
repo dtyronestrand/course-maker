@@ -220,9 +220,8 @@
 </template>
 <script setup lang="ts">
 import type { Course, User } from '@/types';
-import { router } from '@inertiajs/vue3';
+import { router, useHttp } from '@inertiajs/vue3';
 import { onClickOutside } from '@vueuse/core';
-import axios from 'axios';
 import { onMounted, ref, watch } from 'vue';
 
 const props = defineProps<{
@@ -244,6 +243,8 @@ const selectedRoles = ref({
     sme: null as number | null,
     builder: null as number | null,
 });
+
+const http = useHttp();
 
 const updateCourseUsers = () => {
     const newUsers: User[] = [];
@@ -301,31 +302,13 @@ const deleteCourse = () => {
 };
 const loadUsersByRole = async () => {
     try {
-        const response = await axios.get('/api/users');
-        const data = response.data;
+        const response = await http.get('/api/users');
+        const data = response;
         ids.value = data.ids;
         smes.value = data.smes;
         leads.value = data.leads;
 
-        // Populate selected roles from existing course users
-        if (localCourse.value.users && localCourse.value.users.length > 0) {
-            localCourse.value.users.forEach((user) => {
-                switch (user.pivot?.role) {
-                    case 'Designer':
-                        selectedRoles.value.designer = user.id;
-                        break;
-                    case 'Lead':
-                        selectedRoles.value.lead = user.id;
-                        break;
-                    case 'SME':
-                        selectedRoles.value.sme = user.id;
-                        break;
-                    case 'Builder':
-                        selectedRoles.value.builder = user.id;
-                        break;
-                }
-            });
-        }
+        populateSelectedRoles(localCourse.value);
     } catch (error) {
         console.error('Failed to fetch users:', error);
     }
@@ -333,47 +316,38 @@ const loadUsersByRole = async () => {
 
 const loadDevelopmentCycles = async () => {
     try {
-        const response = await axios.get('/api/development-cycles');
-        developmentCycles.value = response.data;
+        const response = await http.get('/api/development-cycles');
+        developmentCycles.value = response;
     } catch (error) {
         console.error('Failed to fetch development cycles:', error);
     }
 };
 
-// Watch for course prop changes to update local data
-watch(
-    () => props.course,
-    (newCourse) => {
-        localCourse.value = newCourse;
-        if (newCourse.users && newCourse.users.length > 0) {
-            // Reset and repopulate selected roles
-            selectedRoles.value = {
-                designer: null,
-                lead: null,
-                sme: null,
-                builder: null,
-            };
-
-            newCourse.users.forEach((user) => {
-                switch (user.pivot?.role) {
-                    case 'Designer':
-                        selectedRoles.value.designer = user.id;
-                        break;
-                    case 'Lead':
-                        selectedRoles.value.lead = user.id;
-                        break;
-                    case 'SME':
-                        selectedRoles.value.sme = user.id;
-                        break;
-                    case 'Builder':
-                        selectedRoles.value.builder = user.id;
-                        break;
-                }
-            });
+const populateSelectedRoles = (course: Course) => {
+    selectedRoles.value = { designer: null, lead: null, sme: null, builder: null };
+    course.users?.forEach((user) => {
+        switch (user.pivot?.role) {
+            case 'Designer': selectedRoles.value.designer = user.id; break;
+            case 'Lead': selectedRoles.value.lead = user.id; break;
+            case 'SME': selectedRoles.value.sme = user.id; break;
+            case 'Builder': selectedRoles.value.builder = user.id; break;
         }
-    },
-    { deep: true },
-);
+    });
+};
+
+// Watch for course prop changes to update local data
+watch(() => props.course, (newCourse) => {
+    localCourse.value = newCourse;
+    populateSelectedRoles(newCourse);
+}, { deep: true });
+
+// Re-initialize when modal opens
+watch(() => props.isOpen, (isOpen) => {
+    if (isOpen) {
+        localCourse.value = props.course;
+        populateSelectedRoles(props.course);
+    }
+});
 
 onMounted(() => {
     loadDevelopmentCycles();

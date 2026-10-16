@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        $query = User::query()->with('currentTeam', 'courses');
+        $query = User::query()->with('currentTeam', 'courses', 'roles');
         $teams = \App\Models\Team::all()->map(fn($team) => ['id' => $team->id, 'name' => $team->name])->values();
         /** @var User $currentUser */
         $currentUser = auth()->user();
@@ -58,7 +58,7 @@ class UserController extends Controller
 
         $query = User::query()->whereHas('roles', function($q){
             $q->whereIn('name', ['lead', 'id']);
-        })->with('currentTeam');
+        })->with('currentTeam', 'roles');
         $teams = null;
         
         /** @var User $currentUser */
@@ -89,7 +89,8 @@ class UserController extends Controller
         $this->authorize('update', $user);
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
         ]);
 
@@ -103,7 +104,8 @@ class UserController extends Controller
         $this->authorize('create', User::class);
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'role' => 'required|string|in:id,lead,admin',
         ]);
@@ -111,9 +113,10 @@ class UserController extends Controller
         $password = str()->random(12);
 
         $user = User::create([
-            'name' => $validated['name'],
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
             'email' => $validated['email'],
-            'password' => bcrypt($validated[$password]),
+            'password' => bcrypt($password),
         ]);
 
         $user->assignRole($validated['role']);

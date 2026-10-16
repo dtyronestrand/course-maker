@@ -2,6 +2,8 @@ import type { Course, Team } from './index';
 
 export type User = {
     id: number;
+    first_name: string;
+    last_name: string;
     name: string;
     email: string;
     avatar?: string;

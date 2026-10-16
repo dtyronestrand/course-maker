@@ -2,34 +2,29 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Course;
+use App\Models\CourseDeliverable;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class ActivateCoursesCommand extends Command
+class MarkMissedDeadlineCommand extends Command
 {
-    protected $signature = 'courses:activate';
+    protected $signature = 'courses:mark-missed-deadlines';
 
-    protected $description ='Checks for pending courses whose start date has been reached and sets their status to active';
+    protected $description = 'Checks for active courses whose deadline has passed and marks them as missed.';
 
     public function handle()
     {
-        $now = Carbon::now();
-      
-        $coursesToActivate = Course::where('status', 'pending')
-            ->whereHas('developmentCycle', function($query){
-                $query->where('start_date', '<=', now());
-            })
-            ->get();
+        $count = CourseDeliverable::where('is_done', false)
+            ->where('due_date', '<', now())
+            ->where('missed_due_date_count', 0)
+            ->update(['missed_due_date_count' => 1]);
 
-            $count = $coursesToActivate->count();
-            if ($count >0){
-                $this->info("Activating {$count} courses...");
-                Course::whereIn('id', $coursesToActivate->pluck('id'))->update(['status' => 'design']);
-                $this->info("Activated {$count} courses.");
-            }else{
-                $this->info("No courses to activate.");
-            }
-            return Command::SUCCESS;
+        if ($count > 0) {
+            $this->info("Marked {$count} deliverables as missed.");
+        } else {
+            $this->info('No deliverables to mark.');
+        }
+
+        return Command::SUCCESS;
     }
 }

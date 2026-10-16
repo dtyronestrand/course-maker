@@ -16,11 +16,15 @@ export type Team = {
     id: number;
     name: string;
     users: User[];
-}
+};
 export interface Deliverable {
     id?: number;
     name: string;
     offset_days: number;
+    pivot?: {
+        due_date: string;
+        missed_due_date_count: number;
+    };
 }
 
 export interface Course {
@@ -28,8 +32,25 @@ export interface Course {
     prefix: string;
     number: string;
     title: string;
+    status: string;
     users: User[];
     development_cycle: DevelopmentCycle;
-    deliverables: Deliverable[];
+    course_objectives: {
+        id: number;
+        objective: string;
+        number: string;
+    }[];
+    deliverables: {
+        id: number;
+        name: string;
+        "pivot": {
+            course_id: number;
+            deliverable_id: number;
+            due_date: string;
+            "is_done": boolean;
+            "date_completed": string | null;
+            missed_due_date_count: number;
+        };
+    }[];
     notes?: string;
 }

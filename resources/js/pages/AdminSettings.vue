@@ -4,36 +4,46 @@
             <h1 class="mb-4 text-2xl font-bold">Admin Settings</h1>
         </div>
         <div
-            class="glass mx-8 p-8 flex flex-col md:flex-row md:flex-wrap md:justify-evenly lg:flex-row"
+            class="glass mx-8 flex flex-col p-8 md:flex-row md:flex-wrap md:justify-evenly lg:flex-row"
         >
-            <div >
+            <div>
                 <h2 class="mb-4 text-lg">Designer Capacity</h2>
-                <form @submit.prevent="handleSettings" class="flex flex-col gap-4 ">
+                <form
+                    @submit.prevent="handleSettings"
+                    class="flex flex-col gap-4"
+                >
                     <input
                         type="number"
                         v-model="capacity"
                         class="max-w-xs px-4 text-black"
-                        @change="isDirty=true"
-                       
+                        @change="isDirty = true"
                     />
                     <div v-if="isDirty">
-                    <Button
-                        
-                        @click="handleSettings"
-                        variant="success"
-                        class="btn btn-primary "
-                        >Save</Button
-                    >
-                    <Button
-                        @click="capacity = (page.props.settings as Record<string, any>)['Designer Capacity'] || 0; isDirty=false"
-                        variant="error"
-                        class="ml-2"
-                        >Cancel</Button
-                    >
+                        <Button
+                            @click="handleSettings"
+                            variant="success"
+                            class="btn btn-primary"
+                            >Save</Button
+                        >
+                        <Button
+                            @click="
+                                capacity =
+                                    (
+                                        page.props.settings as Record<
+                                            string,
+                                            any
+                                        >
+                                    )['Designer Capacity'] || 0;
+                                isDirty = false;
+                            "
+                            variant="error"
+                            class="ml-2"
+                            >Cancel</Button
+                        >
                     </div>
                 </form>
             </div>
-            <div >
+            <div>
                 <h2 class="mb-4 text-lg">Development Cycles</h2>
                 <div
                     v-for="cycle in page.props.developmentCycles"
@@ -95,7 +105,7 @@
                     <Button
                         @click="addCycle = false"
                         variant="destructive"
-                        class=" mr-2"
+                        class="mr-2"
                         >Cancel</Button
                     >
                     <Button @click="saveCycle" class="btn btn-primary"
@@ -103,7 +113,7 @@
                     >
                 </form>
             </div>
-            <div >
+            <div>
                 <h2 class="mb-4 text-lg">Deliverables</h2>
                 <table class="min-w-full divide-y divide-amber-500">
                     <thead>
@@ -134,12 +144,18 @@
                             <td class="px-6 py-4 text-sm whitespace-nowrap">
                                 {{ deliverable.name }}
                             </td>
-                            <td class="whitespace-nowrap text-center px-6 py-4 text-sm">
+                            <td
+                                class="px-6 py-4 text-center text-sm whitespace-nowrap"
+                            >
                                 {{ deliverable.offset_days }}
                             </td>
-                            <td class="whitespace-nowrap px-6 py-4 text-sm">
+                            <td class="px-6 py-4 text-sm whitespace-nowrap">
                                 <Trash2
-                                    @click="router.delete(`/deliverables/${deliverable.id}`)"
+                                    @click="
+                                        router.delete(
+                                            `/deliverables/${deliverable.id}`,
+                                        )
+                                    "
                                     class="text-red-500"
                                     :size="20"
                                 />
@@ -173,13 +189,16 @@
                             class="mb-2 w-full max-w-xs px-4 text-black"
                         />
                     </div>
-                    <Button variant="success" @click="saveDeliverable" class="btn btn-primary"
+                    <Button
+                        variant="success"
+                        @click="saveDeliverable"
+                        class="btn btn-primary"
                         >Save Deliverable</Button
                     >
                     <Button
                         @click="addDeliverable = false"
                         variant="error"
-                        class=" mr-2"
+                        class="mr-2"
                         >Cancel</Button
                     >
                 </form>
