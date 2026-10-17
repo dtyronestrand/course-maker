@@ -12,3 +12,7 @@
 ## 2024-10-15 - Improve TanStack Table Filter Accessibility
 **Learning:** TanStack Vue table custom filter components often lack built-in accessibility (like `aria-label`s on filter inputs and toggle buttons).
 **Action:** When implementing table filters, ensure focus rings (`focus-visible`) and ARIA attributes (`aria-label`, `aria-expanded`, `aria-haspopup`) are explicitly added to interactive elements to support screen readers and keyboard navigation.
+
+## 2025-10-24 - [Add ARIA Roles to Custom Modals]
+**Learning:** Custom Vue modals implemented as floating `div`s with `@click.self` on the backdrop in this app lack structural meaning for screen readers.
+**Action:** Always add `role="dialog"`, `aria-modal="true"`, and an `aria-labelledby` attribute pointing to the title's `id` to the inner container of custom Vue modals to ensure screen reader focus is properly labeled and announced.
