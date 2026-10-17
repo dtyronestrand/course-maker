@@ -6,8 +6,11 @@
         <div
             v-if="props.isOpen"
             class="mx-auto max-w-3xl rounded-lg border border-primary bg-surface-container p-4 shadow-sm shadow-primary"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="course-needs-attention-title"
         >
-            <h2 class="mb-4 text-2xl font-bold">
+            <h2 id="course-needs-attention-title" class="mb-4 text-2xl font-bold">
                 {{ props.course.prefix }} {{ props.course.number }}
             </h2>
             <ul class="mb-4">

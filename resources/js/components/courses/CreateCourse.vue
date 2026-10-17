@@ -5,9 +5,12 @@
     >
         <div
             class="glass pointer-events-auto mx-4 w-full max-w-xl overflow-y-auto rounded-lg border-2 border-amber-500 p-6 shadow-lg shadow-primary"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="create-course-title"
         >
             <div class="mb-4 flex items-center justify-between">
-                <h2 class="text-base-content text-xl font-semibold">
+                <h2 id="create-course-title" class="text-base-content text-xl font-semibold">
                     Create Course
                 </h2>
                 <button

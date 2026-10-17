@@ -7,8 +7,11 @@
         <div
             class="glass pointer-events-auto max-h-screen w-full max-w-xl overflow-y-auto rounded-lg border border-primary p-6 shadow-lg shadow-primary"
             ref="target"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="course-details-title"
         >
-            <h1 class="text-center text-3xl font-bold">Edit</h1>
+            <h1 id="course-details-title" class="text-center text-3xl font-bold">Edit</h1>
 
             <form
                 class="flex flex-col flex-wrap gap-4"
