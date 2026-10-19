@@ -3,12 +3,15 @@
         v-if="props.isOpen"
         class="fixed inset-0 z-50 flex h-screen justify-center bg-slate-500/50 backdrop-blur-sm"
         @click.self="emit('modal-close')"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="course-details-title"
     >
         <div
             class="glass pointer-events-auto max-h-screen w-full max-w-xl overflow-y-auto rounded-lg border border-primary p-6 shadow-lg shadow-primary"
             ref="target"
         >
-            <h1 class="text-center text-3xl font-bold">Edit</h1>
+            <h1 id="course-details-title" class="text-center text-3xl font-bold">Edit</h1>
 
             <form
                 class="flex flex-col flex-wrap gap-4"
