@@ -2,21 +2,25 @@
     <div
         class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-slate-600/70"
         @click.self="$emit('close')"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="create-course-title"
     >
         <div
             class="glass pointer-events-auto mx-4 w-full max-w-xl overflow-y-auto rounded-lg border-2 border-amber-500 p-6 shadow-lg shadow-primary"
         >
             <div class="mb-4 flex items-center justify-between">
-                <h2 class="text-base-content text-xl font-semibold">
+                <h2 id="create-course-title" class="text-base-content text-xl font-semibold">
                     Create Course
                 </h2>
                 <button
                     @click="$emit('close')"
-                    class="text-primary-content hover:text-error"
+                    class="text-primary-content hover:text-error focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none"
                     aria-label="Close modal"
                 >
                     <svg
                         class="h-6 w-6"
+                        aria-hidden="true"
                         fill="none"
                         stroke="var(--color-error)"
                         viewBox="0 0 24 24"
@@ -116,11 +120,12 @@
                             <button
                                 type="button"
                                 @click="courseData.objectives.splice(index, 1)"
-                                class="frosted-backdrop min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] border-error bg-error/10 text-error hover:text-secondary-content m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border px-[1.5em] py-[0.25em] text-center font-bold duration-300 will-change-transform outline-none hover:bg-secondary active:translate-y-0 active:shadow-none disabled:pointer-events-none"
+                                class="frosted-backdrop min-height-[3.75em] min-width-0 decoration-none transition-[all cubic-bezier(.23,1, 0.32,1)] user-select-none hover:shadow-[rgba(0,0,0,0.25) 0 8px 15px] border-error bg-error/10 text-error hover:text-secondary-content m-0 box-border inline-block -translate-y-0.5 cursor-pointer touch-manipulation appearance-none rounded-[0.9375em] border px-[1.5em] py-[0.25em] text-center font-bold duration-300 will-change-transform hover:bg-secondary active:translate-y-0 active:shadow-none disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-none"
                                 aria-label="Remove objective"
                             >
                                 <svg
                                     class="h-6 w-6"
+                                    aria-hidden="true"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
