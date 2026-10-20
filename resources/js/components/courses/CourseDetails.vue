@@ -7,8 +7,16 @@
         <div
             class="glass pointer-events-auto max-h-screen w-full max-w-xl overflow-y-auto rounded-lg border border-primary p-6 shadow-lg shadow-primary"
             ref="target"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="course-details-title"
         >
-            <h1 class="text-center text-3xl font-bold">Edit</h1>
+            <h1
+                id="course-details-title"
+                class="text-center text-3xl font-bold"
+            >
+                Edit
+            </h1>
 
             <form
                 class="flex flex-col flex-wrap gap-4"
@@ -324,30 +332,50 @@ const loadDevelopmentCycles = async () => {
 };
 
 const populateSelectedRoles = (course: Course) => {
-    selectedRoles.value = { designer: null, lead: null, sme: null, builder: null };
+    selectedRoles.value = {
+        designer: null,
+        lead: null,
+        sme: null,
+        builder: null,
+    };
     course.users?.forEach((user) => {
         switch (user.pivot?.role) {
-            case 'Designer': selectedRoles.value.designer = user.id; break;
-            case 'Lead': selectedRoles.value.lead = user.id; break;
-            case 'SME': selectedRoles.value.sme = user.id; break;
-            case 'Builder': selectedRoles.value.builder = user.id; break;
+            case 'Designer':
+                selectedRoles.value.designer = user.id;
+                break;
+            case 'Lead':
+                selectedRoles.value.lead = user.id;
+                break;
+            case 'SME':
+                selectedRoles.value.sme = user.id;
+                break;
+            case 'Builder':
+                selectedRoles.value.builder = user.id;
+                break;
         }
     });
 };
 
 // Watch for course prop changes to update local data
-watch(() => props.course, (newCourse) => {
-    localCourse.value = newCourse;
-    populateSelectedRoles(newCourse);
-}, { deep: true });
+watch(
+    () => props.course,
+    (newCourse) => {
+        localCourse.value = newCourse;
+        populateSelectedRoles(newCourse);
+    },
+    { deep: true },
+);
 
 // Re-initialize when modal opens
-watch(() => props.isOpen, (isOpen) => {
-    if (isOpen) {
-        localCourse.value = props.course;
-        populateSelectedRoles(props.course);
-    }
-});
+watch(
+    () => props.isOpen,
+    (isOpen) => {
+        if (isOpen) {
+            localCourse.value = props.course;
+            populateSelectedRoles(props.course);
+        }
+    },
+);
 
 onMounted(() => {
     loadDevelopmentCycles();
