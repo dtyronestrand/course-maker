@@ -1,13 +1,16 @@
 <template>
     <div
-        class="fixed inset-0 z-50 flex w-full items-center justify-center bg-surface backdrop-blur-sm"
+        class="bg-surface fixed inset-0 z-50 flex w-full items-center justify-center backdrop-blur-sm"
         @click.self="emit('modal-close')"
     >
         <div
             v-if="props.isOpen"
-            class="mx-auto max-w-3xl rounded-lg border border-primary bg-surface-container p-4 shadow-sm shadow-primary"
+            class="bg-surface-container mx-auto max-w-3xl rounded-lg border border-primary p-4 shadow-sm shadow-primary"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="course-attention-title"
         >
-            <h2 class="mb-4 text-2xl font-bold">
+            <h2 id="course-attention-title" class="mb-4 text-2xl font-bold">
                 {{ props.course.prefix }} {{ props.course.number }}
             </h2>
             <ul class="mb-4">
